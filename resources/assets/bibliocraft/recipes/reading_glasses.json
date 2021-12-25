@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "GIG",
+        "D D"
+    ],
+    "key": {
+        "G": {
+            "item": "minecraft:glass_pane"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "D": {
+            "item": "minecraft:dye",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "bibliocraft:biblioglasses",
+        "data": 0
+    }
+}

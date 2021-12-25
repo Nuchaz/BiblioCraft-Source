@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "biblioglasses",
+            "data": 0
+        },
+        {
+            "item": "minecraft:dye",
+            "data": 8
+        }
+    ],
+    "result": {
+        "item": "bibliocraft:biblioglasses",
+        "data": 1
+    }
+}

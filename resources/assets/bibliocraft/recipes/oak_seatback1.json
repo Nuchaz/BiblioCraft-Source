@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        " W ",
+        " S ",
+        "I I"
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:wooden_slab",
+            "data": 0
+        },
+        "W": {
+            "item": "minecraft:wool",
+            "data": 0
+        },
+        "I": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:seatback1",
+        "data": 0
+    }
+}

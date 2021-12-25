@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "I B",
+        " K "
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "B": {
+            "item": "minecraft:wooden_button"
+        },
+        "K": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:handdrill"
+    }
+}

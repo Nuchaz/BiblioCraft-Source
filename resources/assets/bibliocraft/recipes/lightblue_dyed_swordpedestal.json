@@ -1,0 +1,76 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "minecraft:dye",
+            "data": 0
+        },
+      [
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 0
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 1
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 2
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 3
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 4
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 6
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 7
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 8
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 9
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 10
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 11
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 12
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 14
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
+        "data": 15
+        }
+      ]
+    ],
+    "result": {
+        "item": "bibliocraft:swordpedestal",
+        "data": 3
+    }
+}

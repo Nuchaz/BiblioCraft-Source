@@ -1,0 +1,7 @@
+newmtl lantern
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/lantern
+
+newmtl candle
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/lanternCandle0

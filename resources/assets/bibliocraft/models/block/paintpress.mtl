@@ -1,0 +1,11 @@
+newmtl canvas
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:paintings/canvas
+
+newmtl canvaswood
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/planks_oak
+
+newmtl paintpress
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/painting_press

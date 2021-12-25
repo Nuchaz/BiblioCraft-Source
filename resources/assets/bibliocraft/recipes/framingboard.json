@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "bibliocraft:framingsheet"
+        },
+        {
+            "item": "bibliocraft:framingsaw"
+        }
+    ],
+    "result": {
+        "item": "bibliocraft:framingboard",
+        "count": 2
+    }
+}

@@ -1,0 +1,67 @@
+newmtl Default
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter0
+
+newmtl paper0
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_blank
+
+newmtl paper1
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_1
+
+newmtl paper2
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_2
+
+newmtl paper3
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_3
+
+newmtl paper4
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_4
+
+newmtl paper5
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_5
+
+newmtl paper6
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_6
+
+newmtl paper7
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_7
+
+newmtl paper8
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_8
+
+newmtl paper9
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_9
+
+newmtl paper10
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_10
+
+newmtl paper11
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_11
+
+newmtl paper12
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_12
+
+newmtl paper13
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_13
+
+newmtl paper14
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_14
+
+newmtl paper15
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/typewriter_paper_15

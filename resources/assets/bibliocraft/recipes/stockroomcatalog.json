@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "RDR",
+        "RBR",
+        "RRR"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:paper"
+        },
+        "D": {
+            "item": "minecraft:dye",
+            "data": 2
+        },
+        "B": {
+            "item": "minecraft:writable_book"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:stockroomcatalog"
+    }
+}

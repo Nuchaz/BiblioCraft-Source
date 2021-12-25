@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "ICC",
+        " BC",
+        "  R"
+    ],
+    "key": {
+        "C": {
+            "item": "minecraft:stained_hardened_clay",
+            "data": 1
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "R": {
+            "item": "minecraft:redstone_block"
+        },
+        "B": {
+            "item": "minecraft:stone_button"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:bibliodrill"
+    }
+}

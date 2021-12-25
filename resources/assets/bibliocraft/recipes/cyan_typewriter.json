@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "IRI",
+        "BDB",
+        "WWW"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "R": {
+            "item": "minecraft:paper"
+        },
+        "B": {
+            "item": "minecraft:iron_block"
+        },
+        "D": {
+            "item": "minecraft:dye",
+            "data": 0
+        },
+        "W": {
+            "item": "minecraft:stained_hardened_clay",
+            "data": 9
+        }
+    },
+    "result": {
+        "item": "bibliocraft:typewriter",
+        "data": 9
+    }
+}

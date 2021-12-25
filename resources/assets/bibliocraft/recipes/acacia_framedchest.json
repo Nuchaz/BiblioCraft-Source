@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "PPP",
+        "PLP",
+        "PPP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:planks",
+            "data": 4
+        },
+        "L": {
+            "item": "bibliocraft:label",
+            "data": 4
+        }
+    },
+    "result": {
+        "item": "bibliocraft:framedchest",
+        "data": 4
+    }
+}

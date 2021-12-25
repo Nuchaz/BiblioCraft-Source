@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "SCS",
+        "SIS",
+        "SXS"
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:wooden_slab",
+            "data": 2
+        },
+        "C": {
+            "item": "minecraft:clock"
+        },
+        "I": {
+            "item": "minecraft:stick"
+        },
+        "X": {
+            "item": "minecraft:gold_ingot"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:clock",
+        "data": 2
+    }
+}

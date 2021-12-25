@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "QQQ"
+    ],
+    "key": {
+        "Q": {
+            "item": "minecraft:stone_slab",
+            "data": 7
+        }
+    },
+    "result": {
+        "item": "bibliocraft:dinnerplate"
+    }
+}

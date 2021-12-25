@@ -1,0 +1,76 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "minecraft:dye",
+            "data": 7
+        },
+      [
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 0
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 1
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 2
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 3
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 4
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 6
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 7
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 8
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 9
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 10
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 11
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 12
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 14
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 15
+        }
+      ]
+    ],
+    "result": {
+        "item": "bibliocraft:lanterniron",
+        "data": 1
+    }
+}

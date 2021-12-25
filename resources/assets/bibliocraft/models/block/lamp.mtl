@@ -1,0 +1,7 @@
+newmtl lamp
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/lamp
+
+newmtl lamplight
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/lampLight0

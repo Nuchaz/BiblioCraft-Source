@@ -1,0 +1,12 @@
+newmtl wood
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/planks_oak
+newmtl backwood
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/planks_spruce
+newmtl seatcolor
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/wool_colored_white
+newmtl carpet
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/wool_colored_red

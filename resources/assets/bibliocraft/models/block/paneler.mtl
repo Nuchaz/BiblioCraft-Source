@@ -1,0 +1,15 @@
+newmtl Base
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/planks_oak
+
+newmtl panels
+Kd 1.00 1.00 1.00
+map_Kd minecraft:models/typewriter_paper_blank
+
+newmtl tools
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/paneler
+
+newmtl top
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/paneler

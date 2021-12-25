@@ -1,0 +1,7 @@
+newmtl wood
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/planks_oak
+
+newmtl books
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/bookcase_books

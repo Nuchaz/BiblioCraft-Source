@@ -1,0 +1,44 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "minecraft:wooden_slab",
+            "data": 5
+        },
+      [
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 0
+        },
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 1
+        },
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 2
+        },
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 3
+        },
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 4
+        },
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:seatback2",
+        "data": 6
+        }
+      ]
+    ],
+    "result": {
+        "item": "bibliocraft:seatback3",
+        "data": 5
+    }
+}

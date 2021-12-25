@@ -1,0 +1,76 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "minecraft:dye",
+            "data": 4
+        },
+      [
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 0
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 1
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 2
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 3
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 4
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 6
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 7
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 8
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 9
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 10
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 11
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 12
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 14
+        },
+        {
+        "item": "bibliocraft:lampgold",
+        "data": 15
+        }
+      ]
+    ],
+    "result": {
+        "item": "bibliocraft:lampgold",
+        "data": 11
+    }
+}

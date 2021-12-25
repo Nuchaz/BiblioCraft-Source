@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "SSS",
+        " P ",
+        "SSS"
+    ],
+    "key": {
+        "P": {
+            "item": "bibliocraft:framingsheet",
+            "data": 0
+        },
+        "S": {
+            "item": "bibliocraft:framingboard",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "bibliocraft:shelf",
+        "data": 6
+    }
+}

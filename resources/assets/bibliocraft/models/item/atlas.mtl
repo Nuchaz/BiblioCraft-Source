@@ -1,0 +1,7 @@
+newmtl book
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:items/atlas
+
+newmtl compass
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/waypointcompass

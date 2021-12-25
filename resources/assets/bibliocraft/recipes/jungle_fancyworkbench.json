@@ -1,0 +1,33 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "FWD",
+        "SBS",
+        "SSS"
+    ],
+    "key": {
+        "B": {
+            "item": "bibliocraft:bookcase",
+            "data": 3
+        },
+        "S": {
+            "item": "minecraft:wooden_slab",
+            "data": 3
+        },
+        "F": {
+            "item": "minecraft:feather"
+        },
+        "W": {
+            "item": "minecraft:crafting_table"
+        },
+        "D": {
+            "item": "minecraft:dye",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "bibliocraft:fancyworkbench",
+        "data": 3
+    }
+}

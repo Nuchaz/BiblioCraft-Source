@@ -1,0 +1,83 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "ICI",
+        "SSS",
+        "PRP"
+    ],
+    "key": {
+        "P": [
+        {
+        "item": "minecraft:planks",
+        "data": 0
+        },
+        {
+        "item": "minecraft:planks",
+        "data": 1
+        },
+        {
+        "item": "minecraft:planks",
+        "data": 2
+        },
+        {
+        "item": "minecraft:planks",
+        "data": 3
+        },
+        {
+        "item": "minecraft:planks",
+        "data": 4
+        },
+        {
+        "item": "minecraft:planks",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:framingsheet",
+        "data": 0
+        }
+      ],
+        "S": [
+        {
+        "item": "minecraft:wooden_slab",
+        "data": 0
+        },
+        {
+        "item": "minecraft:wooden_slab",
+        "data": 1
+        },
+        {
+        "item": "minecraft:wooden_slab",
+        "data": 2
+        },
+        {
+        "item": "minecraft:wooden_slab",
+        "data": 3
+        },
+        {
+        "item": "minecraft:wooden_slab",
+        "data": 4
+        },
+        {
+        "item": "minecraft:wooden_slab",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:framingboard",
+        "data": 0
+        }
+      ],
+        "R": {
+            "item": "minecraft:redstone"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "C": {
+            "item": "bibliocraft:bibliochase"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:typesettingtable"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "ISI",
+        "SFS",
+        "ISI"
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:wooden_slab",
+            "data": 1
+        },
+        "I": {
+            "item": "minecraft:stick"
+        },
+        "F": {
+            "item": "bibliocraft:paintingframeborderless",
+            "data": 1
+        }
+    },
+    "result": {
+        "item": "bibliocraft:paintingframesimple",
+        "data": 1
+    }
+}

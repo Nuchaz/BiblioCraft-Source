@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "BGB",
+        " I ",
+        "NIN"
+    ],
+    "key": {
+        "G": {
+            "item": "minecraft:glowstone"
+        },
+        "B": {
+            "item": "minecraft:glass"
+        },
+        "N": {
+            "item": "minecraft:iron_nugget"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:lampiron",
+        "data": 0
+    }
+}

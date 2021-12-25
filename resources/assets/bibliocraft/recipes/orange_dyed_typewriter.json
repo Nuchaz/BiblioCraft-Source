@@ -1,0 +1,76 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "minecraft:dye",
+            "data": 7
+        },
+      [
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 0
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 1
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 2
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 3
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 4
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 6
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 7
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 8
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 9
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 10
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 11
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 12
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 14
+        },
+        {
+        "item": "bibliocraft:typewriter",
+        "data": 15
+        }
+      ]
+    ],
+    "result": {
+        "item": "bibliocraft:typewriter",
+        "data": 1
+    }
+}

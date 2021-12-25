@@ -1,0 +1,76 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "bibliocraft",
+    "ingredients": [
+        {
+            "item": "minecraft:dye",
+            "data": 1
+        },
+      [
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 0
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 1
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 2
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 3
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 4
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 5
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 6
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 7
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 8
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 9
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 10
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 11
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 12
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 14
+        },
+        {
+        "item": "bibliocraft:lampiron",
+        "data": 15
+        }
+      ]
+    ],
+    "result": {
+        "item": "bibliocraft:lampiron",
+        "data": 4
+    }
+}

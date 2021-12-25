@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "XXX",
+        "X X",
+        "I X"
+    ],
+    "key": {
+        "X": {
+            "item": "minecraft:string"
+        },
+        "I": {
+            "item": "minecraft:gold_ingot"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:plumbline"
+    }
+}

@@ -1,0 +1,7 @@
+newmtl inkplate
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/inkplate0
+
+newmtl press
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/printpress

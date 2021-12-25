@@ -1,0 +1,28 @@
+0. USED TERMS
+
+MOD – modification, plugin, a piece of software that interfaces with the Minecraft client to extend, add, change or remove original capabilities.
+
+MOJANG – Mojang AB
+
+OWNER – Joseph “Nuchaz” Sinclair, Original author(s) of the MOD. Under the copyright terms accepted when purchasing Minecraft (http://www.minecraft.net/copyright.jsp) the OWNER has full rights over their MOD despite use of MOJANG code.
+
+USER – End user of the mod, person installing the mod.
+
+1. LIABILITY
+THIS MOD IS PROVIDED ‘AS IS’ WITH NO WARRANTIES, IMPLIED OR OTHERWISE. THE OWNER OF THIS MOD TAKES NO RESPONSIBILITY FOR ANY DAMAGES INCURRED FROM THE USE OF THIS MOD. THIS MOD ALTERS FUNDAMENTAL PARTS OF THE MINECRAFT GAME, PARTS OF MINECRAFT MAY NOT WORK WITH THIS MOD INSTALLED. ALL DAMAGES CAUSED FROM THE USE OR MISUSE OF THIS MOD FALL ON THE USER.
+
+2. USE
+Use of this MOD to be installed, manually or automatically, is given to the USER without restriction.
+
+3. REDISTRIBUTION
+This MOD may only be distributed where uploaded, mirrored, or otherwise linked to by the OWNER unless included in a mod pack consisting of two or more mods. In the case of mod packs, all I ask is that proper credit is given to myself, the OWNER, for any of my works used and a link is provided so all recipients of said mod pack can easily access my website. (http://www.bibliocraftmod.com) ANY attempts to make money off of this MOD (selling, selling modified versions, adfly, sharecash, etc.) are STRICTLY FORBIDDEN, and the OWNER may claim damages or take other action to rectify the situation.
+
+4. DERIVATIVE WORKS/MODIFICATION
+This mod is provided freely and may be decompiled and modified for private use, either with a decompiler or a bytecode editor. Public distribution of modified versions of this MOD requires advance written permission of the OWNER and may be subject to certain terms. Textures may be modified and released without advance permission under the requirement said textures will be posted to the relevant forum started by the OWNER.
+
+
+
+Special mentions of intellectual property from other sources. The OWNER does not claim ownership, only that they were used with respect to their original license: 
+1. 6 of the paintings used were hand painted by Garrett “ShabbyQuotient” Beach(https://www.youtube.com/user/ShabbyQuotient). These include the first 5 paintings seen in the painting press block interface. Full credit goes to him for his work. 
+2. The typewriter sound effects are modified from free to use sounds found on the website video copilot:: http://www.videocopilot.net/blog/2013/08/free-typewriter-model-sound-fx/
+3. 2 of the paintings, the Jimi Hendrix painting and the boathouse painting were painted by local talent. Names of local talent is unknown. 

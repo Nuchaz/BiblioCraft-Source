@@ -1,0 +1,7 @@
+newmtl Default
+Kd 1.00 1.00 1.00
+map_Kd bibliocraft:models/sword_pedestal
+
+newmtl color
+Kd 1.00 1.00 1.00
+map_Kd minecraft:blocks/wool_colored_white

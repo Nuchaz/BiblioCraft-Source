@@ -1,0 +1,159 @@
+{
+    "cclose":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:cclose"
+        ]
+    },
+    "copen":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:copen"
+        ]
+    },
+    "tapeopen":
+    {
+    "category": "player",
+    "sounds":
+        [
+            "bibliocraft:tapeopen"
+        ]
+    },
+    "tapeclose":
+    {
+    "category": "player",
+    "sounds":
+        [
+            "bibliocraft:tapeclose"
+        ]
+    },
+    "screw":
+    {
+    "category": "player",
+    "sounds":
+        [
+            "bibliocraft:screwone",
+            "bibliocraft:screwtwo",
+            "bibliocraft:screwthre",
+            "bibliocraft:screwfour"
+        ]
+    },
+    "ding":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:bell1",
+            "bibliocraft:bell2",
+            "bibliocraft:bell3",
+            "bibliocraft:bell4"
+        ]
+    },
+    "drill":
+    {
+    "category": "player",
+    "sounds":
+        [
+            "bibliocraft:oldrill1",
+            "bibliocraft:oldrill2",
+            "bibliocraft:oldrill3",
+            "bibliocraft:oldrill4"
+        ]
+    },
+    "tick":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:tick1",
+            "bibliocraft:tick2",
+            "bibliocraft:tick3",
+            "bibliocraft:tick4",
+            "bibliocraft:tick5"
+        ]
+    },
+    "tock":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:tock1",
+            "bibliocraft:tock2",
+            "bibliocraft:tock3",
+            "bibliocraft:tock4",
+            "bibliocraft:tock5"
+        ]
+    },
+    "wind":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:wind"
+        ]
+    }, 
+    "chime":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:chime"
+        ]
+    },
+    "woundchime":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:woundchime"
+        ]
+    },
+    "addpaper":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:addpaper"
+        ]
+    },
+    "endbell":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:endbell"
+        ]
+    },
+    "removebook":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:removebook"
+        ]
+    },
+    "typing":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:typing1",
+            "bibliocraft:typing2",
+            "bibliocraft:typing3",
+            "bibliocraft:typing4",
+            "bibliocraft:typing5"
+        ]
+    },
+    "typingsingle":
+    {
+    "category": "block",
+    "sounds":
+        [
+            "bibliocraft:typingsingle"
+        ]
+    }
+}

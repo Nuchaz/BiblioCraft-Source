@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "RRR",
+        "RBR",
+        "RRR"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:paper"
+        },
+        "B": {
+            "item": "minecraft:writable_book"
+        }
+    },
+    "result": {
+        "item": "bibliocraft:bigbook"
+    }
+}

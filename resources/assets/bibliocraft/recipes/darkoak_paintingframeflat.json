@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "bibliocraft",
+    "pattern": [
+        "SSS",
+        "SFS",
+        "SSS"
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:wooden_slab",
+            "data": 5
+        },
+        "F": {
+            "item": "bibliocraft:paintingframeborderless",
+            "data": 5
+        }
+    },
+    "result": {
+        "item": "bibliocraft:paintingframeflat",
+        "data": 5
+    }
+}
