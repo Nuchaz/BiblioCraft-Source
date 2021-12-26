@@ -4,47 +4,54 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BiblioBlock;
+import jds.bibliocraft.blocks.BiblioWoodBlock;
 import jds.bibliocraft.helpers.BiblioRenderHelper;
 import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.helpers.EnumWoodsType;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.command.arguments.NBTCompoundTagArgument;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.Direction;
 //import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.model.ModelDataManager;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 
 public abstract class BiblioTileEntity extends TileEntity implements IInventory, IItemHandler
 {
-	private EnumFacing angle = EnumFacing.NORTH;
+
+	private Direction angle = Direction.NORTH;
 	private EnumShiftPosition shift = EnumShiftPosition.NO_SHIFT; 
 	private EnumVertPosition vertPosition = EnumVertPosition.WALL;
 	public NonNullList<ItemStack> inventory;
@@ -54,14 +61,38 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	private String lockee = "";
 	private int renderBoxAdditionalSize = 1;
 	
-	public BiblioTileEntity(int inventorySize, boolean canRetexture)
+	//private VoxelShape collisionBox;
+	
+	// TODO I think I need to track colors / wood type here somewhere.
+	
+	public BiblioTileEntity(TileEntityType<?> tile, int inventorySize, boolean canRetexture)
 	{
+		super(tile);
 		this.inventory = NonNullList.<ItemStack>withSize(inventorySize, ItemStack.EMPTY); //new ItemStack[inventorySize];
 		this.isRetexturable = canRetexture;
 	}
 	
+	public static ModelProperty<String> TEXTURE = new ModelProperty<String>();
+	public static ModelProperty<Direction> DIRECTION = new ModelProperty<Direction>();
+	public static ModelProperty<EnumShiftPosition> SHIFTPOS = new ModelProperty<EnumShiftPosition>();
+	public static ModelProperty<EnumVertPosition> VERTPOS = new ModelProperty<EnumVertPosition>();
+	//public static ModelProperty<EnumWoodsType> WOOD = new ModelProperty<EnumWoodsType>();
+	
+	@Override
+	public IModelData getModelData() 
+	{
+		System.out.println("biblio tile getModelData");
+		ModelDataMap.Builder map = new ModelDataMap.Builder().withInitial(TEXTURE, customTexture).withInitial(DIRECTION, angle).withInitial(SHIFTPOS, shift).withInitial(VERTPOS, vertPosition);
+		map = getAdditionalModelData(map);
+		return map.build();
+	}
+	
+	public ModelDataMap.Builder getAdditionalModelData(ModelDataMap.Builder map)
+	{
+		return map;
+	}
 
-	public boolean addStackToInventoryFromWorld(ItemStack stack, int slot, EntityPlayer player)
+	public boolean addStackToInventoryFromWorld(ItemStack stack, int slot, PlayerEntity player)
 	{
 		if (slot == -1)
 			return false;
@@ -112,10 +143,10 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 		boolean output = false;
 	    if (stack1 != ItemStack.EMPTY && stack2 != ItemStack.EMPTY)
 	    {
-	    	if (stack1.getItem() == stack2.getItem() && stack1.getItemDamage() == stack2.getItemDamage())
+	    	if (stack1.getItem() == stack2.getItem() && stack1.getDamage() == stack2.getDamage())
 	    	{
-	    		NBTTagCompound tag1 = stack1.getTagCompound();
-	    		NBTTagCompound tag2 = stack2.getTagCompound();
+	    		CompoundNBT tag1 = stack1.getTag();
+	    		CompoundNBT tag2 = stack2.getTag();
 	    		if (tag1 == null && tag2 == null)
 	    		{
 	    			output = true;
@@ -129,7 +160,7 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 		return output;
 	}
 	
-	public boolean addStackToInventoryFromWorldSingleStackSize(ItemStack stack, int slot, EntityPlayer player)
+	public boolean addStackToInventoryFromWorldSingleStackSize(ItemStack stack, int slot, PlayerEntity player)
 	{
 		boolean returnValue = false;
 		ItemStack currentStack = getStackInSlot(slot);
@@ -158,7 +189,8 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 		return returnValue;
 	}
 	
-	public boolean removeStackFromInventoryFromWorld(int slot, EntityPlayer player, BiblioBlock block)
+	@SuppressWarnings("static-access")
+	public boolean removeStackFromInventoryFromWorld(int slot, PlayerEntity player, BiblioBlock block)
 	{
 		boolean returnValue = false;
 		ItemStack stack = getStackInSlot(slot);
@@ -169,7 +201,9 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 			{
 				newPos = block.getDropPositionOffset(this.getPos(), player);
 			}
-			block.dropStackInSlot(this.world, this.getPos(), slot, newPos);
+			//block.dropStackInSlot(this.world, this.getPos(), slot, newPos);
+			//block.spawnDrops(state, worldIn, newPos, tileEntityIn, entityIn, stack);
+			block.spawnAsEntity(world, newPos, this.getStackInSlot(slot));
 			setInventorySlotContents(slot, ItemStack.EMPTY);
 			getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 			returnValue = true;
@@ -182,30 +216,74 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	public abstract void setInventorySlotContentsAdditionalCommands(int slot, ItemStack stack);
 	
     /** Use this to load custom tags from the NBT data  */
-    public abstract void loadCustomNBTData(NBTTagCompound nbt);
+    public abstract void loadCustomNBTData(CompoundNBT nbt);
     
     /** Use this to save custom NBT data tags */
-    public abstract NBTTagCompound writeCustomNBTData(NBTTagCompound nbt);
+    public abstract CompoundNBT writeCustomNBTData(CompoundNBT nbt);
 	
-	public void setAngle(EnumFacing facing)
+	public void setAngle(Direction facing)
 	{
 		this.angle = facing;
+		//System.out.println("Biblio Set Angle"); // TODO maybe this is where I should trigger a collision box change, then just cache it
+		//System.out.println(world.isRemote); // so this runs both server and client. mmm hmm.
+		// I might only need the voxel thing client side?
+		//getBiblioShape();
+		
 		getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 	}
 	
 	public void setShiftPosition(EnumShiftPosition position)
 	{
 		this.shift = position;
+		//getBiblioShape();
 		getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 	}
 	
 	public void setVertPosition(EnumVertPosition position)
 	{
 		this.vertPosition = position;
+		//getBiblioShape();
 		getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 	}
+	/*
+	private void getBiblioShape()
+	{
+		AxisAlignedBB output = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		
+		if (this.getBlockState().getBlock() instanceof BiblioWoodBlock && ((BiblioWoodBlock)this.getBlockState().getBlock()).isHalfBlock)
+		{
+			float shift = 0.0f;
+			switch (this.shift)
+			{
+				case NO_SHIFT: { shift = 0.0f; break; }
+				case HALF_SHIFT: { shift = 0.25f; break; }
+				case FULL_SHIFT: { shift = 0.5f; break; }
+			}
+			switch (this.angle)
+			{
+				case SOUTH:{output = new AxisAlignedBB(0.5F-shift, 0.0F, 0.0F, 1.0F-shift, 1.0F, 1.0F); break;}
+				case WEST:{output = new AxisAlignedBB(0.0F, 0.0F, 0.5F-shift, 1.0F, 1.0F, 1.0F-shift); break;}
+				case NORTH:{output = new AxisAlignedBB(0.0F+shift, 0.0F, 0.0F, 0.5F+shift, 1.0F, 1.0F); break;}
+				case EAST:{output = new AxisAlignedBB(0.0F, 0.0F, 0.0F+shift, 1.0F, 1.0F, 0.5F+shift); break;}
+				default: {output = new AxisAlignedBB(0.0F+shift, 0.0F, 0.0F, 0.5F+shift, 1.0F, 1.0F); break;}
+			}
+		}
+		
+		//VoxelShape collision = VoxelShapes.create(output);
+		this.collisionBox = VoxelShapes.create(output); 
+	}
 	
-	public EnumFacing getAngle()
+	public VoxelShape getCollision()
+	{
+		if (this.collisionBox == null)
+		{
+			getBiblioShape();
+		}
+		return this.collisionBox;
+		
+	}*/
+	
+	public Direction getAngle()
 	{
 		return this.angle;
 	}
@@ -234,7 +312,10 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	{
 		this.customTexture = tex;
 		getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
-		world.markBlockRangeForRenderUpdate(pos, pos);
+		//world.markForRerender(pos); broke in 1.14.4 TODO this is important 
+		
+		world.func_225319_b(this.getPos(), this.getBlockState(), this.getBlockState().rotate(Rotation.CLOCKWISE_90)); // this is the replacment, but its not getting called for some reason?
+		//world.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 	public boolean isLocked()
@@ -289,6 +370,8 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 			setInventorySlotContentsAdditionalCommands(slot, stack);
 			getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 		}
+		// 		System.out.println("is client: " + world.isRemote);
+		// TODO am I going to have to send a packet to the client and force the update?
 	}
 	
 
@@ -306,7 +389,7 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 			}
 			else
 			{
-				stack = stack.splitStack(amount);
+				stack = stack.split(amount);
 				if (stack.getCount() == 0)
 				{
 					setInventorySlotContents(slot, ItemStack.EMPTY);
@@ -338,7 +421,7 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	}
 	
 	@Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public AxisAlignedBB getRenderBoundingBox()
     {
         AxisAlignedBB bb = INFINITE_EXTENT_AABB;
@@ -350,19 +433,19 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	{
 		this.renderBoxAdditionalSize = size;
 	}
-	
+	/*
 	@Override
 	public boolean hasCustomName() 
 	{
 		return false;
 	}
+*/
+	@Override
+	public void openInventory(PlayerEntity player) {}
 
 	@Override
-	public void openInventory(EntityPlayer player) {}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {}
-
+	public void closeInventory(PlayerEntity player) {}
+/*
 	@Override
 	public int getField(int id) 
 	{
@@ -380,7 +463,7 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	{
 		return 0;
 	}
-
+*/
 	@Override
 	public void clear() 
 	{
@@ -388,40 +471,48 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	}
 	
 	@Override
-    public void readFromNBT(NBTTagCompound nbt)
+    public void read(CompoundNBT nbt)
     {
-		super.readFromNBT(nbt);
+		super.read(nbt);
 		loadNBTData(nbt);
     }
 	
     @Override
-    public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet)
+    public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet)
     {
-    	NBTTagCompound nbtData = packet.getNbtCompound();
+    	CompoundNBT nbtData = packet.getNbtCompound();
     	loadNBTData(nbtData);
-    	world.markBlockRangeForRenderUpdate(getPos(), getPos());
+    	if (world.isRemote)
+    	{
+    		ModelDataManager.requestModelDataRefresh(this);
+    		System.out.println("requesting model data refresh");
+			//world.markForRerender(this.pos);
+    	}
+    	//world.markForRerender(getPos());broke in 1.14.4. // markBlockRangeForRenderUpdate(getPos(), getPos()); TODO this is important
+    	
+    	world.func_225319_b(this.getPos(), this.getBlockState(), this.getBlockState().rotate(Rotation.CLOCKWISE_90));
     }
     
-    private void loadNBTData(NBTTagCompound nbt)
+    private void loadNBTData(CompoundNBT nbt)
     {
-    	NBTTagList tagList = nbt.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+    	ListNBT tagList = nbt.getList("Inventory", Constants.NBT.TAG_COMPOUND);
 		this.inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY); //new ItemStack[this.getSizeInventory()];
-		for (int i = 0; i < tagList.tagCount(); i++)
+		for (int i = 0; i < tagList.size(); i++)
 		{
-			NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+			CompoundNBT tag = (CompoundNBT) tagList.getCompound(i);
 			byte slot = tag.getByte("Slot");
 			if (slot >= 0 && slot < this.inventory.size())
 			{
-				this.inventory.set(slot, new ItemStack(tag));
+				this.inventory.set(slot, ItemStack.read(tag));
 			}
 		}
 
 		this.isLocked = nbt.getBoolean("locked");
 		this.lockee = nbt.getString("lockee");
 		// angle, shift, vert position
-		this.angle = getFacingFromAngleID(nbt.getInteger("angle"));
-		this.shift = EnumShiftPosition.getEnumFromID(nbt.getInteger("shift"));
-		this.vertPosition = EnumVertPosition.getEnumFromID(nbt.getInteger("position"));
+		this.angle = getFacingFromAngleID(nbt.getInt("angle"));
+		this.shift = EnumShiftPosition.getEnumFromID(nbt.getInt("shift"));
+		this.vertPosition = EnumVertPosition.getEnumFromID(nbt.getInt("position"));
 		loadCustomNBTData(nbt);
 		if (isRetexturable)
 			this.customTexture = nbt.getString("customTexture");
@@ -429,56 +520,68 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
     }
 	
 	@Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt)
+    public CompoundNBT write(CompoundNBT input)
     {
-		super.writeToNBT(nbt);
-    	nbt = writeNBTData(nbt);
-    	return nbt;
+		super.write(input);
+		//CompoundNBT nbt = writeNBTData(input);
+		//input = new CompoundNBT();
+		//super.write(input);
+    	return writeNBTData(input);
     }
 	
+	   /**
+	    * Retrieves packet to send to the client whenever this Tile Entity is resynced via World.notifyBlockUpdate. For
+	    * modded TE's, this packet comes back to you clientside in {@link #onDataPacket}
+	    */
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() 
+	public SUpdateTileEntityPacket getUpdatePacket() 
     {
-    	NBTTagCompound dataTag = new NBTTagCompound();
+    	CompoundNBT dataTag = new CompoundNBT();
     	dataTag = writeNBTData(dataTag);
-    	return new SPacketUpdateTileEntity(pos, 1, dataTag);
+    	return new SUpdateTileEntityPacket(pos, 1, dataTag);
     }
 	
 	
+	   /**
+	    * Get an NBT compound to sync to the client with SPacketChunkData, used for initial loading of the chunk or when
+	    * many blocks change at once. This compound comes back to you clientside in {@link handleUpdateTag}
+	    */
 	@Override
-	public NBTTagCompound getUpdateTag() 
+	public CompoundNBT getUpdateTag() 
 	{
-		NBTTagCompound tags = super.getUpdateTag();
+		System.out.println("biblio testo 6");
+		CompoundNBT tags = super.getUpdateTag();
 		return writeNBTData(tags);
 	}
 	
-    private NBTTagCompound writeNBTData(NBTTagCompound nbt)
+    private CompoundNBT writeNBTData(CompoundNBT nbt)
     {
-    	NBTTagList itemList = new NBTTagList();
+    	ListNBT itemList = new ListNBT();
     	for (int i = 0; i < inventory.size(); i++)
     	{
     		ItemStack stack = inventory.get(i);
     		if (stack != ItemStack.EMPTY)
     		{
-    			NBTTagCompound tag = new NBTTagCompound();
-    			tag.setByte("Slot", (byte) i);
-    			stack.writeToNBT(tag);
-    			itemList.appendTag(tag);
+    			CompoundNBT tag = new CompoundNBT();
+    			tag.putByte("Slot", (byte) i);
+    			stack.write(tag);
+    			itemList.add(tag);
     		}
     	}
-    	nbt.setTag("Inventory", itemList);
-    	nbt.setBoolean("locked", isLocked);
-    	nbt.setString("lockee", lockee);
-    	nbt.setInteger("angle", getAngleIDFromFacing(angle));
-    	nbt.setInteger("shift", shift.getID());
-    	nbt.setInteger("position", vertPosition.getID());
+    	//nbt.put
+    	nbt.put("Inventory", itemList);
+    	nbt.putBoolean("locked", isLocked);
+    	nbt.putString("lockee", lockee);
+    	nbt.putInt("angle", getAngleIDFromFacing(angle));
+    	nbt.putInt("shift", shift.getID());
+    	nbt.putInt("position", vertPosition.getID());
     	nbt = writeCustomNBTData(nbt);
     	if (isRetexturable)
-    		nbt.setString("customTexture", customTexture);
+    		nbt.putString("customTexture", customTexture);
     	return nbt;
     }
     
-    private int getAngleIDFromFacing(EnumFacing facing)
+    private int getAngleIDFromFacing(Direction facing)
     {
     	int angleID = 0;
     	switch (facing)
@@ -498,43 +601,44 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
     	return getAngleIDFromFacing(getAngle());
     }
     
-    private EnumFacing getFacingFromAngleID(int angle)
+    private Direction getFacingFromAngleID(int angle)
     {
-    	EnumFacing face = EnumFacing.SOUTH; 
+    	Direction face = Direction.SOUTH; 
     	switch (angle)
     	{
-	    	case 1:{ face = EnumFacing.WEST; break; }
-	    	case 2:{ face = EnumFacing.NORTH; break; }
-	    	case 3:{ face = EnumFacing.EAST; break; }
-	    	case 4:{ face = EnumFacing.DOWN; break; }
-	    	case 5:{ face = EnumFacing.UP; break; }
+	    	case 1:{ face = Direction.WEST; break; }
+	    	case 2:{ face = Direction.NORTH; break; }
+	    	case 3:{ face = Direction.EAST; break; }
+	    	case 4:{ face = Direction.DOWN; break; }
+	    	case 5:{ face = Direction.UP; break; }
     	}
     	return face;
     }
     
     public void updateSurroundingBlocks(Block blocktype)
     {
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(),		pos.getY(), 	pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() + 1, 	pos.getY(), 	pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() - 1, 	pos.getY(), 	pos.getZ() + 1), blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ() - 1), blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() + 1, pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() - 1, pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() + 2, 	pos.getY(), 	pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() - 2,	pos.getY(), 	pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ() + 2), blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ() - 2), blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() + 2, pos.getZ()), 	 blocktype, true);
-		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() - 2, pos.getZ()), 	 blocktype, true);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(),		pos.getY(), 	pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() + 1, 	pos.getY(), 	pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() - 1, 	pos.getY(), 	pos.getZ() + 1), blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ() - 1), blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() + 1, pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() - 1, pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() + 2, 	pos.getY(), 	pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX() - 2,	pos.getY(), 	pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ() + 2), blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY(), 	pos.getZ() - 2), blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() + 2, pos.getZ()), 	 blocktype);
+		world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), 		pos.getY() - 2, pos.getZ()), 	 blocktype);
 		getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
     }
-    
+    /* TODO shouldRefresh is gone?
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
+    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newSate)
     {
         return true;
     }
+    */
     
 	@Override
 	public boolean isEmpty() 
@@ -552,7 +656,7 @@ public abstract class BiblioTileEntity extends TileEntity implements IInventory,
 	}
 
 	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) 
+	public boolean isUsableByPlayer(PlayerEntity player) 
 	{
 		return world.getTileEntity(pos) == this && player.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 64;
 	}

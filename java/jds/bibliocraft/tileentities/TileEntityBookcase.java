@@ -2,22 +2,28 @@ package jds.bibliocraft.tileentities;
 
 import java.util.Random;
 
+import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
+import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BlockBookcase;
-import jds.bibliocraft.items.ItemRedstoneBook;
 import jds.bibliocraft.storygen.BookGenUtil;
 import jds.bibliocraft.storygen.BookGenWordLists;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.ByteNBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.model.ModelDataManager;
+import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelProperty;
+import net.minecraftforge.registries.ObjectHolder;
 
 
 public class TileEntityBookcase extends BiblioTileEntity
@@ -27,9 +33,53 @@ public class TileEntityBookcase extends BiblioTileEntity
 	private int redstonebookslot;
 	private int[] bookCheck = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
 	
+	//public static ModelProperty<int[]> BOOKS = new ModelProperty<int[]>();
+	public static ModelProperty<Boolean> BOOK1 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK2 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK3 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK4 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK5 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK6 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK7 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK8 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK9 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK10 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK11 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK12 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK13 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK14 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK15 = new ModelProperty<Boolean>();
+	public static ModelProperty<Boolean> BOOK16 = new ModelProperty<Boolean>();
+	
+	
+	@ObjectHolder("bibliocraft:bookcase")
+	public static TileEntityType<TileEntityBookcase> tileType;
+	
 	public TileEntityBookcase() 
 	{
-		super(16, true);
+		super(tileType, 16, true);
+		//this.tileType = tileEntityTypeIn;
+	}
+	
+	@Override
+	public ModelDataMap.Builder getAdditionalModelData(ModelDataMap.Builder map)
+	{
+		return map.withInitial(BOOK1, bookCheck[0] == 1)
+				  .withInitial(BOOK2, bookCheck[1] == 1)
+				  .withInitial(BOOK3, bookCheck[2] == 1)
+				  .withInitial(BOOK4, bookCheck[3] == 1)
+				  .withInitial(BOOK5, bookCheck[4] == 1)
+				  .withInitial(BOOK6, bookCheck[5] == 1)
+				  .withInitial(BOOK7, bookCheck[6] == 1)
+				  .withInitial(BOOK8, bookCheck[7] == 1)
+				  .withInitial(BOOK9, bookCheck[8] == 1)
+				  .withInitial(BOOK10, bookCheck[9] == 1)
+				  .withInitial(BOOK11, bookCheck[10] == 1)
+				  .withInitial(BOOK12, bookCheck[11] == 1)
+				  .withInitial(BOOK13, bookCheck[12] == 1)
+				  .withInitial(BOOK14, bookCheck[13] == 1)
+				  .withInitial(BOOK15, bookCheck[14] == 1)
+				  .withInitial(BOOK16, bookCheck[15] == 1);
 	}
 
 	@Override
@@ -39,34 +89,37 @@ public class TileEntityBookcase extends BiblioTileEntity
 		hasredstonebook = hasredstone();
 		if (redtest != hasredstonebook)
 		{
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), BlockBookcase.instance, true);
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX()+1, pos.getY(), pos.getZ()), BlockBookcase.instance, true);
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX()-1, pos.getY(), pos.getZ()), BlockBookcase.instance, true);
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY(), pos.getZ()+1), BlockBookcase.instance, true);
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY(), pos.getZ()-1), BlockBookcase.instance, true);
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY()+1, pos.getZ()), BlockBookcase.instance, true);
-			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY()-1, pos.getZ()), BlockBookcase.instance, true);
+			updateSurroundingBlocks(BlockLoader.bookcases[0]);
+			/*
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), BlockBookcase.instance);
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX()+1, pos.getY(), pos.getZ()), BlockBookcase.instance);
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX()-1, pos.getY(), pos.getZ()), BlockBookcase.instance);
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY(), pos.getZ()+1), BlockBookcase.instance);
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY(), pos.getZ()-1), BlockBookcase.instance);
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY()+1, pos.getZ()), BlockBookcase.instance);
+			world.notifyNeighborsOfStateChange(new BlockPos(pos.getX(), pos.getY()-1, pos.getZ()), BlockBookcase.instance);
+			*/
 		}
 		checkFilledSlots();
 		checkBooks();
 	}
 
 	@Override
-	public void loadCustomNBTData(NBTTagCompound nbt)
+	public void loadCustomNBTData(CompoundNBT nbt)
 	{
-		this.slotsFilled = nbt.getInteger("filledSlots");
+		this.slotsFilled = nbt.getInt("filledSlots");
 		this.hasredstonebook = nbt.getBoolean("hasredstonebook");
-		this.redstonebookslot = nbt.getInteger("redstonebookslot");
+		this.redstonebookslot = nbt.getInt("redstonebookslot");
 		this.bookCheck = nbt.getIntArray("bookCheck");	
 	}
 
 	@Override
-	public NBTTagCompound writeCustomNBTData(NBTTagCompound nbt) 
+	public CompoundNBT writeCustomNBTData(CompoundNBT nbt) 
 	{
-		nbt.setInteger("filledSlots", slotsFilled);
-    	nbt.setBoolean("hasredstonebook", hasredstonebook);
-    	nbt.setInteger("redstonebookslot", redstonebookslot);
-    	nbt.setIntArray("bookCheck", bookCheck);
+		nbt.putInt("filledSlots", slotsFilled);
+    	nbt.putBoolean("hasredstonebook", hasredstonebook);
+    	nbt.putInt("redstonebookslot", redstonebookslot);
+    	nbt.putIntArray("bookCheck", bookCheck);
 		return nbt;
 	}
 	
@@ -84,11 +137,11 @@ public class TileEntityBookcase extends BiblioTileEntity
 			if (stack != ItemStack.EMPTY)
 			{
 				Item item = stack.getItem();
-				if (item instanceof ItemRedstoneBook)
-				{
-					redstonebookslot = x;
-					return true;
-				}
+				//if (item instanceof ItemRedstoneBook) TODO removed temp 
+				//{
+				//	redstonebookslot = x;
+				//	return true;
+				//}
 			}
 		}
 		
@@ -185,41 +238,42 @@ public class TileEntityBookcase extends BiblioTileEntity
     	BookGenWordLists bookgenwordlist = new BookGenWordLists();
     	String authorName = bookgenwordlist.getRandomName();
     	BookGenUtil bookgen = new BookGenUtil(1, authorName);
-		ItemStack newBook = new ItemStack(Items.WRITTEN_BOOK, 1, 0);
-		NBTTagCompound bookTag = new NBTTagCompound();
-		NBTTagList bookTagList = new NBTTagList();
+		ItemStack newBook = new ItemStack(Items.WRITTEN_BOOK, 1);
+		CompoundNBT bookTag = new CompoundNBT();
+		ListNBT bookTagList = new ListNBT();
 		//stasis page
-		NBTTagString nbtPage = new NBTTagString(bookgen.getStasis(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		StringNBT nbtPage = new StringNBT(bookgen.getStasis(1, authorName));
+		bookTagList.add(nbtPage);
 		//trigger page
-		nbtPage = new NBTTagString(bookgen.getTrigger(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getTrigger(1, authorName));
+		bookTagList.add(nbtPage);
 		//quest page
-		nbtPage = new NBTTagString(bookgen.getQuest(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getQuest(1, authorName));
+		bookTagList.add(nbtPage);
 		//surprise page
-		nbtPage = new NBTTagString(bookgen.getSurprise(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getSurprise(1, authorName));
+		bookTagList.add(nbtPage);
 		//choice page
-		nbtPage = new NBTTagString(bookgen.getChoice(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getChoice(1, authorName));
+		bookTagList.add(nbtPage);
 		//climax page
-		nbtPage = new NBTTagString(bookgen.getClimax(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getClimax(1, authorName));
+		bookTagList.add(nbtPage);
 		//reversal page
-		nbtPage = new NBTTagString(bookgen.getReversal(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getReversal(1, authorName));
+		bookTagList.add(nbtPage);
 		//resolution
-		nbtPage = new NBTTagString(bookgen.getResolution(1, authorName));
-		bookTagList.appendTag(nbtPage);
+		nbtPage = new StringNBT(bookgen.getResolution(1, authorName));
+		bookTagList.add(nbtPage);
 		
-		bookTag.setTag("title", new NBTTagString(bookgen.getBookTitle()));
-		bookTag.setTag("author", new NBTTagString(authorName));
-		bookTag.setTag("pages", bookTagList);
+		bookTag.put("title", new StringNBT(bookgen.getBookTitle()));
+		bookTag.put("author", new StringNBT(authorName));
+		bookTag.put("pages", bookTagList);
 		byte resolveByte = 1;
-		NBTTagByte resolve = new NBTTagByte(resolveByte);
-		bookTag.setTag("resolved", resolve);
-		newBook.setTagCompound(bookTag);
+		ByteNBT resolve = new ByteNBT(resolveByte);
+		bookTag.put("resolved", resolve);
+		newBook.setTag(bookTag);
+		
 		return newBook;
     }
     
@@ -377,17 +431,30 @@ public class TileEntityBookcase extends BiblioTileEntity
 		}
 		return false;
 	}
-
+/*
 	@Override
-	public String getName() 
+	public ITextComponent getName() 
 	{
-		return BlockBookcase.name;
+		return new TextComponentString(BlockBookcase.name);
 	}
     
 	@Override
 	public ITextComponent getDisplayName() 
 	{
-		ITextComponent chat = new TextComponentString(getName());
-		return chat;
+		//ITextComponent chat = new TextComponentString(getName());
+		return getName();
+	}
+
+	@Override
+	public ITextComponent getCustomName() 
+	{
+		return getName();
+	}
+	*/
+	@Override
+	public boolean isItemValid(int slot, ItemStack stack) 
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

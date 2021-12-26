@@ -5,64 +5,66 @@ import java.util.HashMap;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.ItemLoader;
-import jds.bibliocraft.enchantments.EnchantmentDeathCompass;
-import jds.bibliocraft.items.ItemAtlas;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class RecipeBiblioAtlas extends ShapedRecipes
+public class RecipeBiblioAtlas extends ShapedRecipe
 {
 
 	public RecipeBiblioAtlas(int a, int b, NonNullList<Ingredient> stacks, ItemStack stack)
 	{
-		super("bibliocraft:enchantedatlas", a, b, stacks, stack);
+		super(new ResourceLocation("bibliocraft:enchantedatlas"), "bibliocraft:enchantedatlas", a, b, stacks, stack);
 	}
 	
+	
 	@Override
-    public ItemStack getCraftingResult(InventoryCrafting inv)
-    {
+	public ItemStack getCraftingResult(CraftingInventory inv) 
+	{
         ItemStack itemstack = this.getRecipeOutput().copy();
         
         ItemStack oldAtlas = inv.getStackInSlot(4);
         if (oldAtlas != ItemStack.EMPTY)
         {
-        	NBTTagCompound tags = oldAtlas.getTagCompound();
-        	NBTTagCompound newTags;
+        	CompoundNBT tags = oldAtlas.getTag();
+        	CompoundNBT newTags;
         	if (tags == null)
         	{
-        		newTags = new NBTTagCompound();
+        		newTags = new CompoundNBT();
         	}
         	else
         	{
-        		newTags = (NBTTagCompound) tags.copy();
+        		newTags = (CompoundNBT) tags.copy();
         	}
-    		NBTTagList enchTags = new NBTTagList();
-			NBTTagCompound enchantments = new NBTTagCompound();
-			enchantments.setInteger("id", EnchantmentDeathCompass.getEnchantmentID(BiblioCraft.deathCompassEnch));
-			enchantments.setInteger("lvl", 1);
-			enchTags.appendTag(enchantments);
+    		ListNBT enchTags = new ListNBT();
+			CompoundNBT enchantments = new CompoundNBT();
+			//enchantments.setInt("id", EnchantmentDeathCompass.getEnchantmentID(BiblioCraft.deathCompassEnch)); // TODO enchantment ID's?
+			enchantments.putInt("lvl", 1);
+			enchTags.add(enchantments);
 			//newTags.setTag("StoredEnchantments", enchTags);
-			newTags.setTag("ench", enchTags);
-			itemstack.setTagCompound(newTags);
-			itemstack.setItemDamage(oldAtlas.getItemDamage());
+			newTags.put("ench", enchTags);
+			itemstack.setTag(newTags);
+			//itemstack.setItemDamage(oldAtlas.getItemDamage()); // no more meta
+			
         	
         }
         return itemstack;
-    }
+	}
 	
+
+	/*
 	@Override
 	public boolean matches(InventoryCrafting p_77569_1_, World p_77569_2_)
     {
@@ -132,7 +134,7 @@ public class RecipeBiblioAtlas extends ShapedRecipes
         }
         return true;
     }
-	
+	*/
     public static IRecipe addAtlasEnchantRecipe(ItemStack stack, Object ... stuff)
     {
         String s = "";
@@ -171,11 +173,11 @@ public class RecipeBiblioAtlas extends ShapedRecipes
 
             if (stuff[i + 1] instanceof Item)
             {
-                itemstack1 = Ingredient.fromItem((Item)stuff[i + 1]);//new ItemStack((Item)stuff[i + 1]);
+                itemstack1 = Ingredient.fromItems((Item)stuff[i + 1]);//new ItemStack((Item)stuff[i + 1]);
             }
             else if (stuff[i + 1] instanceof Block)
             {
-                itemstack1 = Ingredient.fromStacks(new ItemStack((Block)stuff[i + 1], 1, 32767));
+                itemstack1 = Ingredient.fromStacks(new ItemStack((Block)stuff[i + 1], 1)); // TODO changed this, not sure how itll fair
             }
             else if (stuff[i + 1] instanceof ItemStack)
             {
@@ -207,25 +209,26 @@ public class RecipeBiblioAtlas extends ShapedRecipes
 	        ItemStack oldAtlas = m[0];
 	        if (oldAtlas != ItemStack.EMPTY)
 	        {
+	        	/* TODO temp commented out
 	        	if (oldAtlas.getItem() instanceof ItemAtlas)
 	        	{
-	        		NBTTagCompound tags = oldAtlas.getTagCompound();
+	        		CompoundNBT tags = oldAtlas.getTag();
 	        		if (tags == null)
 	        		{
-	        			tags = new NBTTagCompound();
+	        			tags = new CompoundNBT();
 	        		}
 	        		if (tags != null)
 	        		{
-	        			NBTTagList enchTags = new NBTTagList();
-	        			NBTTagCompound enchantments = new NBTTagCompound();
-	        			enchantments.setInteger("id", EnchantmentDeathCompass.getEnchantmentID(BiblioCraft.deathCompassEnch));
-	        			enchantments.setInteger("lvl", 1);
-	        			enchTags.appendTag(enchantments);
+	        			ListNBT enchTags = new ListNBT();
+	        			CompoundNBT enchantments = new CompoundNBT();
+	        			//enchantments.setInt("id", EnchantmentDeathCompass.getEnchantmentID(BiblioCraft.deathCompassEnch)); // TODO research enchantments, ids anymore?
+	        			enchantments.setInt("lvl", 1);
+	        			enchTags.add(enchantments);
 	        			//tags.setTag("StoredEnchantments", enchTags);
 	        			tags.setTag("ench", enchTags);
-	        			stack.setTagCompound(tags);
+	        			stack.setTag(tags);
 	        		}
-	        	}
+	        	}*/
 	        }
         }
         IRecipe shapedrecipes = new RecipeBiblioAtlas(j, k, aitemstack, stack); // TODO this is broken, so broken

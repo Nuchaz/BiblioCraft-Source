@@ -1,30 +1,30 @@
 package jds.bibliocraft.states;
 
-import net.minecraftforge.common.property.IUnlistedProperty;
+//import net.minecraftforge.common.property.IUnlistedProperty;
 
-public enum TextureProperty implements IUnlistedProperty<TextureState>
+public enum TextureProperty //implements IUnlistedProperty<TextureState> lots of brokenness
 {
 	instance;
 
-	@Override
+	//@Override
 	public String getName() 
 	{
 		return "TextureProperty";
 	}
 
-	@Override
+	//@Override
 	public boolean isValid(TextureState value) 
 	{
 		return value instanceof TextureState;
 	}
 
-	@Override
+	//@Override
 	public Class<TextureState> getType() 
 	{
 		return TextureState.class;
 	}
 
-	@Override
+	//@Override
 	public String valueToString(TextureState value) 
 	{
 		return value.toString();

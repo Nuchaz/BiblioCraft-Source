@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 
-public class RecipeBiblioFramedWood extends ShapedRecipes
+public class RecipeBiblioFramedWood extends ShapedRecipe
 {
 	//private static String textureString = "none"; // TODO this fails, it only registered this class 1 time and thus the textureString becomes the last recipe registered
 	// and also returns the last textureString reguardless of what wood goes into recipie
@@ -23,7 +24,7 @@ public class RecipeBiblioFramedWood extends ShapedRecipes
 
 	public RecipeBiblioFramedWood(int width, int height, NonNullList<Ingredient> ingredientsIn, ItemStack output) 
 	{
-		super("", width, height, ingredientsIn, output);
+		super(new ResourceLocation("framedwood"), "", width, height, ingredientsIn, output); // TODO unsure about resource location name
 		if (registry == null)
 			registry = new ArrayList<WoodRegistryEntry>();
 		
@@ -78,7 +79,7 @@ public class RecipeBiblioFramedWood extends ShapedRecipes
             }
             else if (stuff[i + 1] instanceof Block)
             {
-                itemstack1 = new ItemStack((Block)stuff[i + 1], 1, 32767);
+                itemstack1 = new ItemStack((Block)stuff[i + 1], 1);
             }
             else if (stuff[i + 1] instanceof ItemStack)
             {
@@ -107,15 +108,15 @@ public class RecipeBiblioFramedWood extends ShapedRecipes
            // }
         }
 
-        NBTTagCompound tags = new NBTTagCompound();
-        tags.setString("renderTexture", entry.getTextureString());
-        stack.setTagCompound(tags);
+        CompoundNBT tags = new CompoundNBT();
+        tags.putString("renderTexture", entry.getTextureString());
+        stack.setTag(tags);
 		IRecipe shapedrecipe = new RecipeBiblioFramedWood(width, height, stackarray, stack);
 		return shapedrecipe;
 	}
 	
 	@Override
-    public ItemStack getCraftingResult(InventoryCrafting inv)
+    public ItemStack getCraftingResult(CraftingInventory inv)
     {
         ItemStack itemstack = this.getRecipeOutput().copy();
         WoodRegistryEntry match;
@@ -131,9 +132,9 @@ public class RecipeBiblioFramedWood extends ShapedRecipes
         }
         // TODO here is where it happens I think, I need to call from the registry.
         
-        NBTTagCompound tags = new NBTTagCompound();
-        tags.setString("renderTexture", texture);
-        itemstack.setTagCompound(tags);
+        CompoundNBT tags = new CompoundNBT();
+        tags.putString("renderTexture", texture);
+        itemstack.setTag(tags);
         return itemstack;
     }
 	
@@ -145,7 +146,7 @@ public class RecipeBiblioFramedWood extends ShapedRecipes
 		for (int i = 0; i < registry.size(); i++)
 		{
 			WoodRegistryEntry entry = registry.get(i);
-			if (entry.hasMatch(stack.getUnlocalizedName()))
+			if (entry.hasMatch(stack.getDisplayName().getUnformattedComponentText()))
 			{
 				result = entry;
 				break;

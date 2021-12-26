@@ -1,30 +1,30 @@
 package jds.bibliocraft.states;
 
-import net.minecraftforge.common.property.IUnlistedProperty;
+//import net.minecraftforge.common.property.IUnlistedProperty;
 
-public enum MetalTypeProperty implements IUnlistedProperty<MetalTypeState>
+public enum MetalTypeProperty //implements IUnlistedProperty<MetalTypeState> more brokenness
 {
 	instance;
 	
-	@Override
+	//@Override
 	public String getName() 
 	{
 		return "TextureProperty";
 	}
 	
-	@Override
+	//@Override
 	public boolean isValid(MetalTypeState value) 
 	{
 		return value instanceof MetalTypeState;
 	}
 
-	@Override
+	//@Override
 	public Class<MetalTypeState> getType() 
 	{
 		return MetalTypeState.class;
 	}
 
-	@Override
+	//@Override
 	public String valueToString(MetalTypeState value) 
 	{
 		return value.toString();

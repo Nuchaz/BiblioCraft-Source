@@ -3,9 +3,9 @@ package jds.bibliocraft.helpers;
 
 import jds.bibliocraft.CommonProxy;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -18,10 +18,11 @@ public class BiblioRenderHelper
     	if (stack != ItemStack.EMPTY)
     	{
     		Block stackBlock = Block.getBlockFromItem(stack.getItem());
-    		IBlockState state = stackBlock.getDefaultState();
-    		ResourceLocation reloc = new ResourceLocation(stackBlock.getUnlocalizedName());
-    		IBakedModel test = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack); 
-    		returnValue = test.getParticleTexture().getIconName();
+    		BlockState state = stackBlock.getDefaultState();
+    		ResourceLocation reloc = stackBlock.getRegistryName();
+    		//IBakedModel test = Minecraft.getInstance().getRenderItem().getItemModelMesher().getItemModel(stack); TODO borked
+    		//Minecraft.getInstance().getModelManager().getModel(stack)old
+    		//returnValue = test.getParticleTexture().getName().toString(); TODO borked
     	}
         return returnValue;
     }

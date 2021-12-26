@@ -1,24 +1,37 @@
 package jds.bibliocraft;
 
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemBook;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemPotion;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.tuple.Pair;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.PotionItem;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+@EventBusSubscriber(modid = BiblioCraft.MODID)
 public class Config 
 {
-	//public static int readingenchantID;
-	//public static int deathcompenchantID;
-	public static int enchantmentMultiplyer;
+	public static final ForgeConfigSpec SPEC;
+	public static final Config instance;
+	static
+	{
+		Pair<Config, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Config::new);
+		SPEC = specPair.getRight();
+		instance = specPair.getLeft();
+	}
+	
+
+	public static int enchantmentMultiplyer; 
+	
+	
 	public static boolean disablerenderers;
+	
 	public static String allowedBooks;
 	public static String[] books;
 	public static String additionalTools;
@@ -28,22 +41,25 @@ public class Config
 	//public static int color; //= 16777215;//553648127;
 	//public static int color2 = 16711935;
 	//public static boolean textshadow;
+	
 	public static int enchPlateMaxUses;
 	public static boolean chairRedstone;
-	public static int mapUpdateRate;
-	public static boolean checkforupdate;
+	public static int mapUpdateRate; // this might not be relevent anymore. is this client or server thing? dont even know
+	public static boolean checkforupdate; // this seems like something that should be common.
+	
 	public static String additionalDiscs;
 	public static String[] discs;
 	public static String[] witcheryPotions = {"ingredient.brew", "ingredient.clayJar", "ingredient.foulFume", "ingredient.diamondVapour", "ingredient.oilOfVitriol", "ingredient.exhaleOfTheHornedOne", "ingredient.breathOfTheGoddess", "ingredient.hintOfRebirth", "ingredient.whiffOfMagic", "ingredient.reekOfMisfortune", "ingredient.odourOfPurity", "ingredient.tearOfTheGoddess", "ingredient.dropOfLuck", "ingredient.redstoneSoup", "ingredient.flyingOintment", "ingredient.ghostOfTheLight", "ingredient.soulOfTheWorld", "ingredient.spiritOfOtherwhere", "ingredient.infernalAnimus", "ingredient.enderDew", "ingredient.infernalblood", "ingredient.mysticunguent"};
+	
 	public static String lastCheckedversion = "";
 	public static int defaultBigBookTextScale = 0;
 	public static double renderDistancePainting;
-	public static Configuration bConfig;
-	
+	//public static Configuration bConfig;
 
 	public static boolean emitLight;
-
-	public static boolean enableBookcase;
+	
+/////////
+	public static boolean enableBookcase = true;
 	public static boolean enableArmorstand;
 	public static boolean enablePotionshelf;
 	public static boolean enableToolrack;
@@ -80,16 +96,15 @@ public class Config
 	public static boolean enableTesterItem;
 	public static boolean enableAtlas;
 	public static boolean enableDeathCompass;
-	public static boolean enableFurniturePaneler;
+	public static boolean enableFurniturePaneler = true;
 	public static boolean enablePlumbLine;
-	
 	public static boolean enableFramedChest;
 	public static boolean enableStockroomCatalog;
 	
 	public static boolean enableLockRecipe;
 	public static boolean enableRecipeBookCrafting;
 	public static boolean enablePublicTypesettingBooks;
-	
+	//////////
 	
 	public static boolean forceFastRenderShelf;
 	public static boolean forceFastRenderPotionShelf;
@@ -102,17 +117,77 @@ public class Config
 	public static boolean forceFastRenderDiscRack;
 	
 	
-	public static void init(FMLPreInitializationEvent event)
+    public static ForgeConfigSpec.ConfigValue<String> defaultCompletedTitleColor;
+    public static ForgeConfigSpec.BooleanValue doFade;
+    public static ForgeConfigSpec.IntValue intest;
+    public static ForgeConfigSpec.DoubleValue dtest;
+    
+    // client options
+    
+    // common options
+    
+    // server options
+    
+	
+	//public final ConfigValue<List<? extends String>> blacklist;
+    public Config() 
+    {
+    	
+    }
+	
+	public Config(ForgeConfigSpec.Builder build)
 	{
-		bConfig = new Configuration(event.getSuggestedConfigurationFile());
-		bConfig.load();
-		loadConfig();
+		build.comment("I can write things like this");
+		build.push("Something"); // I can send lists too
+		//blacklist = build.comment("A list of item registry names that are not allowed in ender bags.  Format is modid:name.").defineList("blacklist", def, (x) -> true);
+		build.pop(); 
+	}
+	
+	public static ForgeConfigSpec makeCommonConfig()
+	{
+		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+		doFade = builder.define("testy test", true);
+		return builder.build();
+	}
+	
+	public static ForgeConfigSpec makeServerConfig()
+	{
+		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+		// enable / disable blocks from here, so it can be done on a per-world basis
+		doFade = builder.define("testy test", true);
+		return builder.build();
+	}
+	
+	public static ForgeConfigSpec makeClientConfig()
+	{
+		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+		doFade = builder.define("testy test", true);
+		return builder.build();
+	}
+	
+	
+	/*
+	 * interesting thing from another mod done here
+	 * 	@SubscribeEvent
+	public static void onLoad(ModConfig.Loading e) {
+		if (e.getConfig().getModId().equals(EnderBags.MODID)) INSTANCE.parseBlacklist();
+	}
+	 */
+	
+	public static void init(FMLCommonSetupEvent event)
+	{
 		
-		FMLCommonHandler.instance().bus().register(new ConfigUpdateListener());
+		//bConfig = new Configuration(event.getSuggestedConfigurationFile());
+		//bConfig.load();
+		//loadConfig();
+		
+		//FMLCommonHandler.instance().bus().register(new ConfigUpdateListener());
 	}
 	
 	public static void loadConfig()
 	{
+		// TODO the way configs are done has completely changed. I need to implement the in-game style config menu anyway.
+		/*
 		bConfig.addCustomCategoryComment("Blocks Enabled", "Here you can disable or re-enable any blocks or items you choose. Change value to false to disable selected block or item.");
 		enableBookcase = bConfig.get("Blocks Enabled", "Bookcase", true).getBoolean(true);
 		enableArmorstand = bConfig.get("Blocks Enabled", "Armorstand", true).getBoolean(true);
@@ -219,7 +294,7 @@ public class Config
 		renderDistancePainting = bConfig.get(Configuration.CATEGORY_GENERAL, "PaintingRenderDistance", 64.0, "This will adjust the maximium render distance at which paintings can be seen. The default is 64.0 blocks.").getDouble();
 		
 		bConfig.save();
-		
+		*/
 		
 	}
 	
@@ -248,8 +323,8 @@ public class Config
 		if (stack != ItemStack.EMPTY)
 		{
 			//System.out.println(itemName); // turn this off before release
-			String testName = stack.getUnlocalizedName().toLowerCase();
-			String displayName = stack.getDisplayName().trim().toLowerCase();
+			String testName = stack.getDisplayName().getUnformattedComponentText().toLowerCase();
+			String displayName = stack.getDisplayName().getFormattedText().trim().toLowerCase();
 			
 			//System.out.println(testName);
 			for (int x=0; x < books.length; x++)
@@ -320,7 +395,7 @@ public class Config
 			String displayName = potDisplayName.trim().toLowerCase();
 			for (int x=0; x < potions.length; x++)
 			{
-				if (testName.contains(potions[x].trim().toLowerCase()) || displayName.contains(potions[x].trim().toLowerCase()) || potion instanceof ItemPotion || testName.contains("potion") || testName.contains("jarfilled") || testName.contains("fillingagent") || 
+				if (testName.contains(potions[x].trim().toLowerCase()) || displayName.contains(potions[x].trim().toLowerCase()) || potion instanceof PotionItem || testName.contains("potion") || testName.contains("jarfilled") || testName.contains("fillingagent") || 
 					testName.contains("flask")  || displayName.contains("drink") || testName.contains("elixir")  || displayName.contains("elixir") || testName.contains("jellyitem") ||
 					testName.contains("jellyitem") || testName.contains("milkshakeitem") || testName.contains("nutellaitem") || testName.contains("vegemiteitem") || testName.contains("sauceitem") ||
 					testName.contains("juiceitem") || testName.contains("smoothieitem") || testName.contains("wateritem") || testName.contains("sodaitem") || testName.contains("brewitem") ||
@@ -353,9 +428,9 @@ public class Config
 	{
 		if (stack != ItemStack.EMPTY)
 		{
-			String itemName = stack.getUnlocalizedName().toLowerCase();
+			String itemName = stack.getDisplayName().getUnformattedComponentText().toLowerCase();
 			//System.out.println("Item Test Name: "+itemName);
-			if (stack.getItem() instanceof ItemBlock || !(itemName.contains("item")) || !(stack.getItem() instanceof Item) || Block.getBlockFromItem(stack.getItem()) != Block.getBlockFromItem(ItemStack.EMPTY.getItem()))
+			if (stack.getItem() instanceof BlockItem || !(itemName.contains("item")) || !(stack.getItem() instanceof Item) || Block.getBlockFromItem(stack.getItem()) != Block.getBlockFromItem(ItemStack.EMPTY.getItem()))
 			{
 				return true;
 			}

@@ -1,30 +1,30 @@
 package jds.bibliocraft.states;
 
-import net.minecraftforge.common.property.IUnlistedProperty;
+//import net.minecraftforge.common.property.IUnlistedProperty;
 
-public enum PanelProperty implements IUnlistedProperty<PanelState>
+public enum PanelProperty //implements IUnlistedProperty<PanelState> more broken stuff
 {
 	instance;
 	
-	@Override
+	//@Override
 	public String getName() 
 	{
 		return "TextureProperty";
 	}
 
-	@Override
+	//@Override
 	public boolean isValid(PanelState value) 
 	{
 		return value instanceof PanelState;
 	}
 
-	@Override
+	//@Override
 	public Class<PanelState> getType() 
 	{
 		return PanelState.class;
 	}
 
-	@Override
+	//@Override
 	public String valueToString(PanelState value) 
 	{
 		return value.toString();

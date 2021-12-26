@@ -1,11 +1,16 @@
 package jds.bibliocraft;
 
-import java.util.Map;
+import java.util.Map; 
 
-import jds.bibliocraft.blocks.BlockLabel;
-import jds.bibliocraft.enchantments.EnchantmentDeathCompass;
 import jds.bibliocraft.enchantments.EnchantmentReading;
 import jds.bibliocraft.helpers.RecipeBiblioAtlas;
+import jds.bibliocraft.items.ItemFramingBoard;
+import jds.bibliocraft.items.ItemFramingSaw;
+import jds.bibliocraft.items.ItemFramingSheet;
+/*
+import jds.bibliocraft.blocks.BlockLabel;
+import jds.bibliocraft.enchantments.EnchantmentDeathCompass;
+
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemAtlasPlate;
 import jds.bibliocraft.items.ItemBigBook;
@@ -14,9 +19,7 @@ import jds.bibliocraft.items.ItemClipboard;
 import jds.bibliocraft.items.ItemDeathCompass;
 import jds.bibliocraft.items.ItemDrill;
 import jds.bibliocraft.items.ItemEnchantedPlate;
-import jds.bibliocraft.items.ItemFramingBoard;
-import jds.bibliocraft.items.ItemFramingSaw;
-import jds.bibliocraft.items.ItemFramingSheet;
+
 import jds.bibliocraft.items.ItemHandDrill;
 import jds.bibliocraft.items.ItemLock;
 import jds.bibliocraft.items.ItemMapTool;
@@ -37,26 +40,19 @@ import jds.bibliocraft.items.ItemStockroomCatalog;
 import jds.bibliocraft.items.ItemTape;
 import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.items.ItemTapeMeasure;
+*/
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 
 public class ItemLoader 
@@ -67,9 +63,9 @@ public class ItemLoader
 	
 	
 	
-	public static void initItems(RegistryEvent.Register<Item> event)
+	public static void initItems(Register<Item> event)
 	{
-		
+		/*
 		// OBJ models
 		if (Config.enableWaypointCompass)
 		{
@@ -99,14 +95,14 @@ public class ItemLoader
 		{
 			event.getRegistry().register(ItemPlumbLine.instance);
 		}
-		
+		*/
 		if (Config.enableFurniturePaneler)
 		{
-			event.getRegistry().register(ItemFramingSaw.instance);
-			event.getRegistry().register(ItemFramingBoard.instance);
-			event.getRegistry().register(ItemFramingSheet.instance);
+			event.getRegistry().register(ItemFramingSaw.instance.asItem());
+			event.getRegistry().register(ItemFramingBoard.instance.asItem());
+			event.getRegistry().register(ItemFramingSheet.instance.asItem());
 		}
-		
+		/*
 		if (Config.enableTesterItem)
 		{
 			event.getRegistry().register(ItemNameTester.instance);
@@ -165,7 +161,9 @@ public class ItemLoader
 		}
 		if (Config.enableReadingglasses)
 		{
-			event.getRegistry().register(ItemReadingGlasses.instance);
+			event.getRegistry().register(ItemReadingGlasses.instanceGlasses);
+			event.getRegistry().register(ItemReadingGlasses.instanceTinted);
+			event.getRegistry().register(ItemReadingGlasses.instanceMoncle);
 		}
 		if (Config.enableDrill)
 		{
@@ -182,31 +180,32 @@ public class ItemLoader
 		//readingChant = new EnchantmentReading();
 		//Enchantment.addToBookList(readingChant); 
 		
-		
+		*/
 	}
-
+/* TODO this is borked and needs work
 	public static void addRecipies(RegistryEvent.Register<IRecipe> event)
 	{
 		
-		ItemStack enchantedbook = new ItemStack(Items.ENCHANTED_BOOK, 1, 0);
-		ItemStack enchantedreadingbook = new ItemStack(Items.ENCHANTED_BOOK, 1, 0);
+		ItemStack enchantedbook = new ItemStack(Items.ENCHANTED_BOOK, 1);
+		ItemStack enchantedreadingbook = new ItemStack(Items.ENCHANTED_BOOK, 1);
 		if (Config.enableAtlas)
 		{
 			if (Config.enableDeathCompass && Config.enableWaypointCompass)
 			{			
 				ResourceLocation regName = new ResourceLocation("bibliocraft:enchantedatlas");
 				ResourceLocation regNameb = new ResourceLocation("bibliocraft:enchantedatlasalt");
-				ItemStack waypointCompass = new ItemStack(ItemWaypointCompass.instance, 1, 0);
-				ItemStack enderPearl = new ItemStack(Items.ENDER_PEARL, 1, 0);
-				RecipeSorter.register("bibliocraft:enchantedatlas", RecipeBiblioAtlas.class, RecipeSorter.Category.SHAPED, "");
-				IRecipe recipea = RecipeBiblioAtlas.addAtlasEnchantRecipe(new ItemStack(ItemAtlas.instance, 1, 0), "PBP", "CAC", "PBP", 'P', enderPearl, 'B', enchantedbook, 'C', waypointCompass, 'A', new ItemStack(ItemAtlas.instance));
-				recipea.setRegistryName(regName);
+				ItemStack waypointCompass = new ItemStack(ItemWaypointCompass.instance, 1);
+				ItemStack enderPearl = new ItemStack(Items.ENDER_PEARL, 1);
+				CraftingHelper.register("bibliocraft:enchantedatlas", RecipeBiblioAtlas.class, RecipeSorter.Category.SHAPED, "");
+				IRecipe recipea = RecipeBiblioAtlas.addAtlasEnchantRecipe(new ItemStack(ItemAtlas.instance, 1), "PBP", "CAC", "PBP", 'P', enderPearl, 'B', enchantedbook, 'C', waypointCompass, 'A', new ItemStack(ItemAtlas.instance));
+				//recipea.setRegistryName(regName); // TODO setRegistryName is gone
+				
 				event.getRegistry().register(recipea);
-				IRecipe recipeb =  RecipeBiblioAtlas.addAtlasEnchantRecipe(new ItemStack(ItemAtlas.instance, 1, 0), "PCP", "BAB", "PCP", 'P', enderPearl, 'B', enchantedbook, 'C', waypointCompass, 'A', new ItemStack(ItemAtlas.instance));
-				recipeb.setRegistryName(regNameb);
+				IRecipe recipeb =  RecipeBiblioAtlas.addAtlasEnchantRecipe(new ItemStack(ItemAtlas.instance, 1), "PCP", "BAB", "PCP", 'P', enderPearl, 'B', enchantedbook, 'C', waypointCompass, 'A', new ItemStack(ItemAtlas.instance));
+				//recipeb.setRegistryName(regNameb);
 				event.getRegistry().register(recipeb);
 			}
 		}
 		
-	}
+	}.*/
 }

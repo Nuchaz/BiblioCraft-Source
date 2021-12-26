@@ -5,10 +5,12 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import jds.bibliocraft.BlockLoader;
-import jds.bibliocraft.blocks.BlockArmorStand;
-import jds.bibliocraft.blocks.BlockBell;
 import jds.bibliocraft.blocks.BlockBookcase;
 import jds.bibliocraft.blocks.BlockBookcaseCreative;
+import jds.bibliocraft.helpers.EnumColor;
+/*
+import jds.bibliocraft.blocks.BlockArmorStand;
+import jds.bibliocraft.blocks.BlockBell;
 import jds.bibliocraft.blocks.BlockCase;
 import jds.bibliocraft.blocks.BlockClock;
 import jds.bibliocraft.blocks.BlockCookieJar;
@@ -36,10 +38,9 @@ import jds.bibliocraft.blocks.BlockTable;
 import jds.bibliocraft.blocks.BlockToolRack;
 import jds.bibliocraft.blocks.BlockTypeWriter;
 import jds.bibliocraft.blocks.BlockTypesettingTable;
-import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.models.ModelArmorStand;
 import jds.bibliocraft.models.ModelBell;
-import jds.bibliocraft.models.ModelBookcase;
+
 import jds.bibliocraft.models.ModelCase;
 import jds.bibliocraft.models.ModelClock;
 import jds.bibliocraft.models.ModelCookieJar;
@@ -63,17 +64,16 @@ import jds.bibliocraft.models.ModelTable;
 import jds.bibliocraft.models.ModelToolRack;
 import jds.bibliocraft.models.ModelTypesettingTable;
 import jds.bibliocraft.models.ModelTypewriter;
+*/
+import jds.bibliocraft.models.ModelBookcase;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
-public class BiblioBlockStateMapper extends DefaultStateMapper
+public class BiblioBlockStateMapper// extends DefaultStateMapper
 {
 	public final static BiblioBlockStateMapper instance = new BiblioBlockStateMapper();
 	
 	public BiblioBlockStateMapper() {}
-	
+	/*
 	@Override
 	public Map putStateModelLocations(Block block)
 	{
@@ -84,7 +84,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockBookcaseCreative bookcase = (BlockBookcaseCreative)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = bookcase.getStateFromMeta(i);
+				BlockState state = bookcase.getStateFromMeta(i);
 				modelLocations.put(state, ModelBookcase.modelResourceLocationFilledBookcase);
 			}
 		}
@@ -94,7 +94,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockBookcase bookcase = (BlockBookcase)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = bookcase.getStateFromMeta(i);
+				BlockState state = bookcase.getStateFromMeta(i);
 				modelLocations.put(state, ModelBookcase.modelResourceLocation);
 			}
 		}
@@ -104,7 +104,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockShelf bookcase = (BlockShelf)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = bookcase.getStateFromMeta(i);
+				BlockState state = bookcase.getStateFromMeta(i);
 				modelLocations.put(state, ModelShelf.modelResourceLocation);
 			}
 		}
@@ -114,7 +114,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockFurniturePaneler myBlock = (BlockFurniturePaneler)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelFurniturePaneler.modelResourceLocation);
 			}
 		}
@@ -124,7 +124,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockLabel myBlock = (BlockLabel)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelLabel.modelResourceLocation);
 			}
 		}
@@ -134,7 +134,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockToolRack myBlock = (BlockToolRack)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelToolRack.modelResourceLocation);
 			}
 		}
@@ -144,7 +144,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockPotionShelf myBlock = (BlockPotionShelf)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelPotionShelf.modelResourceLocation);
 			}
 		}
@@ -154,7 +154,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockSeat myBlock = (BlockSeat)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelSeat.modelResourceLocation);
 			}
 		}
@@ -164,7 +164,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockFancySign myBlock = (BlockFancySign)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelFancySign.modelResourceLocation);
 			}
 		}
@@ -174,7 +174,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockFancyWorkbench myBlock = (BlockFancyWorkbench)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelFancyWorkbench.modelResourceLocation);
 			}
 		}
@@ -184,7 +184,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockFramedChest myBlock = (BlockFramedChest)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelFramedChest.modelResourceLocation);
 			}
 		}
@@ -194,7 +194,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockDesk myBlock = (BlockDesk)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelDesk.modelResourceLocation);
 			}
 		}
@@ -204,7 +204,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockTable myBlock = (BlockTable)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelTable.modelResourceLocation);
 			}
 		}
@@ -214,7 +214,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockClock myBlock = (BlockClock)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelClock.modelResourceLocation);
 			}
 		}
@@ -224,7 +224,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockMapFrame myBlock = (BlockMapFrame)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelMapFrame.modelResourceLocation);
 			}
 		}
@@ -234,7 +234,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockCase myBlock = (BlockCase)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelCase.modelResourceLocation);
 			}
 		}
@@ -244,7 +244,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockPaintingFrameBorderless myBlock = (BlockPaintingFrameBorderless)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelPainting.modelResourceLocationBorderless);
 			}
 		}
@@ -254,7 +254,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockPaintingFrameFlat myBlock = (BlockPaintingFrameFlat)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelPainting.modelResourceLocationFlat);
 			}
 		}
@@ -264,7 +264,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockPaintingFrameSimple myBlock = (BlockPaintingFrameSimple)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelPainting.modelResourceLocationSimple);
 			}
 		}
@@ -274,7 +274,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockPaintingFrameMiddle myBlock = (BlockPaintingFrameMiddle)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelPainting.modelResourceLocationMiddle);
 			}
 		}
@@ -284,7 +284,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockPaintingFrameFancy myBlock = (BlockPaintingFrameFancy)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelPainting.modelResourceLocationFancy);
 			}
 		}
@@ -294,7 +294,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockTypeWriter myBlock = (BlockTypeWriter)block;
 			for (int i = 0; i < EnumColor.values().length; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelTypewriter.modelResourceLocation);
 			}
 		}
@@ -304,7 +304,7 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockSwordPedestal myBlock = (BlockSwordPedestal)block;
 			for (int i = 0; i < EnumColor.values().length; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelSwordPedestal.modelResourceLocation);
 			}
 		}
@@ -314,59 +314,60 @@ public class BiblioBlockStateMapper extends DefaultStateMapper
 			BlockArmorStand myBlock = (BlockArmorStand)block;
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
-				IBlockState state = myBlock.getStateFromMeta(i);
+				BlockState state = myBlock.getStateFromMeta(i);
 				modelLocations.put(state, ModelArmorStand.modelResourceLocation);
 			}
 		}
 		if (block instanceof BlockBell)
 		{
 			BlockBell myBlock = (BlockBell)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelBell.modelResourceLocation); 
 		}
 		
 		if (block instanceof BlockCookieJar)
 		{
 			BlockCookieJar myBlock = (BlockCookieJar)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelCookieJar.modelResourceLocation);
 		}
 		
 		if (block instanceof BlockPaintingPress)
 		{
 			BlockPaintingPress myBlock = (BlockPaintingPress)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelPaintingPress.modelResourceLocation);
 		}
 		
 		if (block instanceof BlockDinnerPlate)
 		{
 			BlockDinnerPlate myBlock = (BlockDinnerPlate)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelDinnerPlate.modelResourceLocation);
 		}
 		
 		if (block instanceof BlockDiscRack)
 		{
 			BlockDiscRack myBlock = (BlockDiscRack)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelDiscRack.modelResourceLocation);
 		}
 		
 		if (block instanceof BlockTypesettingTable)
 		{
 			BlockTypesettingTable myBlock = (BlockTypesettingTable)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelTypesettingTable.modelResourceLocation);
 		}
 		
 		if (block instanceof BlockPrintingPress)
 		{
 			BlockPrintingPress myBlock = (BlockPrintingPress)block;
-			IBlockState state = myBlock.getStateFromMeta(0);
+			BlockState state = myBlock.getStateFromMeta(0);
 			modelLocations.put(state, ModelPrintingPress.modelResourceLocation);
 		}
 		
 		return modelLocations;
 	}
+	*/
 }

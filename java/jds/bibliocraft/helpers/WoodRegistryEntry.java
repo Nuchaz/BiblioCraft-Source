@@ -1,6 +1,6 @@
 package jds.bibliocraft.helpers;
 
-import jds.bibliocraft.blocks.BlockMapFrame;
+//import jds.bibliocraft.blocks.BlockMapFrame;
 import net.minecraft.item.ItemStack;
 
 public class WoodRegistryEntry 
@@ -16,7 +16,7 @@ public class WoodRegistryEntry
 	{
 		this.slab = slabString;
 		this.plank = plankString;
-		this.mapFrame = BlockMapFrame.name;
+		//this.mapFrame = BlockMapFrame.name; // TODO temp commented out
 		this.texture = textureString;
 		this.exists = isReal;
 	}

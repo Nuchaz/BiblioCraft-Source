@@ -59,7 +59,7 @@ public enum EnumColor implements IStringSerializable
 		EnumColor color = EnumColor.WHITE;
 		if (stack != null)
 		{
-			switch (stack.getItemDamage())
+			switch (stack.getDamage()) // TODO this is broken for sure
 			{
 				case 0:{ color = EnumColor.WHITE; break; }
 				case 1:{ color = EnumColor.ORANGE; break; }

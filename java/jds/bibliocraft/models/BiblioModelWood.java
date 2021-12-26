@@ -3,8 +3,10 @@ package jds.bibliocraft.models;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
@@ -18,55 +20,161 @@ import com.google.common.collect.Lists;
 
 import jds.bibliocraft.blocks.BiblioWoodBlock;
 import jds.bibliocraft.blocks.BiblioWoodBlock.EnumWoodType;
+import jds.bibliocraft.helpers.EnumShiftPosition;
+import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.helpers.EnumWoodsType;
 import jds.bibliocraft.helpers.ModelCache;
 import jds.bibliocraft.states.TextureProperty;
 import jds.bibliocraft.states.TextureState;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemOverride;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.model.ItemOverride;
+import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.Attributes;
+import net.minecraftforge.client.model.BasicState;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.data.IDynamicBakedModel;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.property.IExtendedBlockState;
 
-public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel, ISmartItemModel, IPerspectiveAwareModel
+public abstract class BiblioModelWood implements IDynamicBakedModel// ,ISmartBlockModel, ISmartItemModel, IPerspectiveAwareModel
 {
 	private IModel model = null;
 	private IBakedModel baseModel;
 	private String modelLocation = " ";
-	private String textureLocation = "none";
-	private String customTextureLocation = "none";
-	private EnumWoodType wood = EnumWoodType.FRAME;
-	private CustomItemOverrideList overrides = new CustomItemOverrideList();
+	public String textureLocation = "none";
+	public String customTextureLocation = "none";
+	public EnumWoodsType wood = EnumWoodsType.framed;
+	//private CustomItemOverrideList overrides = new CustomItemOverrideList();
 	public IBakedModel wrapper;
 	private ModelCache cache;
 	private boolean gotOBJ = false; 
+	public EnumVertPosition vertpos = EnumVertPosition.FLOOR;
+	public EnumShiftPosition shiftpos = EnumShiftPosition.NO_SHIFT;
+	public Direction angle = Direction.NORTH;
 	
-	public BiblioModelWood(String modelLoc)
+	private ModelLoader loader;
+	
+	
+	//System.out.println(tileData.getData(BiblioTileEntity.TEXTURE));
+	//System.out.println(tileData.getData(BiblioTileEntity.DIRECTION));
+	//System.out.println(tileData.getData(BiblioTileEntity.SHIFTPOS));
+	//System.out.println(tileData.getData(BiblioTileEntity.VERTPOS));
+	
+	public BiblioModelWood(ModelBakeEvent event, String modelLoc, boolean isItem)
 	{
 		this.modelLocation = modelLoc;
 		this.wrapper = this;
 		this.cache = new ModelCache();
+		this.loader = event.getModelLoader();
+		getModel(isItem);
+
+	}
+
+    @Nonnull
+    @Override
+    public IModelData getModelData(@Nonnull IEnviromentBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData tileData)
+    {
+    	System.out.println("biblio testy testy");
+    	return tileData;
+    }
+	
+	@Override
+	public ItemOverrideList getOverrides() 
+	{
+		return null;
 	}
 	
-	private void getModel(IBlockState state, boolean isBlock, int attempt)
+    @Override
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand, IModelData modelData)
+    {
+        return baseModel.getQuads(state, side, rand, modelData);//modelData.getData(MAGIC_PROP) ? stone.getQuads(state, side, rand, modelData) : dirt.getQuads(state, side, rand, modelData);
+    }
+    
+    public TRSRTransformation getTransform()
+    {
+    	TRSRTransformation transform = TRSRTransformation.from(angle);
+  
+    	
+    	switch (shiftpos)
+    	{
+	    	case NO_SHIFT: break;
+	    	case HALF_SHIFT: transform.compose(new TRSRTransformation(new Vector3f(0.25f, 0.0f, 0.0f), new Quat4f(0.0f, 0.0f, 0.0f, 1.0f), new Vector3f(1.0f, 1.0f, 1.0f), new Quat4f(0.0f, 0.0f, 0.0f, 1.0f))); break;
+	    	case FULL_SHIFT: transform.compose(new TRSRTransformation(new Vector3f(0.5f, 0.0f, 0.0f), new Quat4f(0.0f, 0.0f, 0.0f, 1.0f), new Vector3f(1.0f, 1.0f, 1.0f), new Quat4f(0.0f, 0.0f, 0.0f, 1.0f))); break;
+	    	default: break;
+    	}
+    	/*
+    	switch (angle)
+    	{
+	    	case NORTH: break;
+	    	case EAST: break;
+	    	case SOUTH: break;
+	    	case WEST: break;
+	    	default: break;
+    	}*/
+    	return transform;
+    }
+    
+    @SuppressWarnings("deprecation")
+	public void getModel(boolean isItem)
+    {
+		IUnbakedModel m = ModelLoaderRegistry.getModelOrMissing(new ResourceLocation(modelLocation));
+        if (m instanceof OBJModel) 
+        {
+        	//OBJModel modelo = (OBJModel)m;
+        	m = m.process(ImmutableMap.of("flip-v", "true"));
+        	//omodel.
+        	OBJModel.OBJState modelState = new OBJModel.OBJState(getDefaultVisiableModelParts(), true, getTransform());
+        	switch (wood)
+			{
+				case oak: {textureLocation = "minecraft:block/oak_planks"; break;} //minecraft:block/oak_planks
+				case spruce: {textureLocation = "minecraft:block/spruce_planks"; break;}
+				case birch: {textureLocation = "minecraft:block/birch_planks"; break;}
+				case jungle: {textureLocation = "minecraft:block/jungle_planks"; break;}
+				case acacia: {textureLocation = "minecraft:block/acacia_planks"; break;}
+				case darkoak: {textureLocation = "minecraft:block/big_oak_planks"; break;}
+				case framed: 
+				{
+					//System.out.println(customTextureLocation.length());
+					if (customTextureLocation.contains("none") || customTextureLocation.contains("minecraft:white") || customTextureLocation.length() == 0)
+					{
+						textureLocation = "minecraft:block/oak_planks";//"bibliocraft:blocks/frame"; 
+					}
+					else
+					{
+						textureLocation = "minecraft:block/oak_planks";//customTextureLocation;
+					}
+					break;
+				}
+				default: {textureLocation = "minecraft:block/oak_planks"; break;}	
+			}
+        	//IBakedModel bakedModel = model.bake(event.getModelLoader(), ModelLoader.defaultTextureGetter(), modelState, DefaultVertexFormats.ITEM);
+        	//IBakedModel bakedModel = model.bake(modelState,  DefaultVertexFormats.ITEM, textureGetter);
+        	baseModel = m.bake(loader, textureGetter, new BasicState(modelState, false), DefaultVertexFormats.ITEM);
+        }
+    }
+	/*
+	private void getModel(BlockState state, boolean isBlock, int attempt)
 	{
 	   if (this.model == null || (this.model != null && !this.model.toString().contains("obj.OBJModel")))
         {
@@ -177,10 +285,10 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 			System.out.println("null pointer exception thrown in attempt bake model(s) " + e);
 		}
 	}
-	
+	*/
 	public void loadAdditionalTextureStateStuff(TextureState state) { }
 	
-	public void getAdditionalBlockStateStuff(IExtendedBlockState state){ }
+	//public void getAdditionalBlockStateStuff(IExtendedBlockState state){ }
 	
 	public abstract String getTextureLocation(String resourceLocation, String textureLocation);
 	
@@ -195,7 +303,7 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 		@Override
 		public TextureAtlasSprite apply(ResourceLocation location)
 		{
-			return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(getTextureLocation(location.toString(), textureLocation));
+			return Minecraft.getInstance().getTextureMap().getAtlasSprite(getTextureLocation(location.toString(), textureLocation));
 		}
 	};
 	
@@ -226,7 +334,7 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 		}
 		catch (NullPointerException e)
 		{
-			return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/planks_oak");
+			return Minecraft.getInstance().getTextureMap().getAtlasSprite("minecraft:blocks/planks_oak");
 		}
 	}
 
@@ -235,7 +343,7 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 	{
 		return ItemCameraTransforms.DEFAULT;
 	}
-	
+	/*
 	@Override
 	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) 
 	{
@@ -318,7 +426,7 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 		transform = getTweakedMasterTransform(transform);
 		return Pair.of(this, transform.getMatrix());
 	}
-	
+	*/
 	public TRSRTransformation getTweakedMasterTransform(TRSRTransformation transform)
 	{
 		return transform;
@@ -333,9 +441,10 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 	{
 		return transform;
 	}
-	
+
+	/*
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand)
+	public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand)
 	{
 		getModel(state, true, 0);
 		try 
@@ -348,7 +457,7 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 			return new ArrayList<BakedQuad>();
 		}
 	}
-
+*//*
 	@Override
 	public ItemOverrideList getOverrides() 
 	{
@@ -358,25 +467,33 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 	private void setCustomTextureString(String input)
 	{
 		this.customTextureLocation = input;
-	}
+	}*/
 	
 	private class CustomItemOverrideList extends ItemOverrideList
 	{
 		private CustomItemOverrideList()
 		{
-			super(ImmutableList.<ItemOverride>of());
+			//super(ImmutableList.<ItemOverride>of());
 		}
 		
+		@Override
+		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn)
+		{
+			getModel(true);
+			return baseModel;
+		}
+		
+		/*
 		@Nonnull
 		@Override
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) 
 		{
-			wood = EnumWoodType.getEnum(stack.getItemDamage());
+			wood = EnumWoodType.getEnum(stack.getDamage());
 			customTextureLocation = "none";
 			if (stack != ItemStack.EMPTY)
 			{
 				
-				NBTTagCompound tags = stack.getTagCompound();
+				CompoundNBT tags = stack.getTag();
 				if (tags != null && tags.hasKey("renderTexture")) 
 				{
 					customTextureLocation = tags.getString("renderTexture");
@@ -384,6 +501,7 @@ public abstract class BiblioModelWood implements IBakedModel// ,ISmartBlockModel
 			}
 			getModel(null, false, 0);
 			return wrapper;
-		}
+		}*/
 	}
+	
 }

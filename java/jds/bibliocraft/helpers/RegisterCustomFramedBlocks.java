@@ -3,41 +3,14 @@ package jds.bibliocraft.helpers;
 import java.util.ArrayList;
 
 import jds.bibliocraft.Config;
-import jds.bibliocraft.blocks.BlockArmorStand;
 import jds.bibliocraft.blocks.BlockBookcase;
 import jds.bibliocraft.blocks.BlockBookcaseCreative;
-import jds.bibliocraft.blocks.BlockCase;
-import jds.bibliocraft.blocks.BlockClock;
-import jds.bibliocraft.blocks.BlockDesk;
-import jds.bibliocraft.blocks.BlockFancySign;
-import jds.bibliocraft.blocks.BlockFancyWorkbench;
-import jds.bibliocraft.blocks.BlockFramedChest;
-import jds.bibliocraft.blocks.BlockFurniturePaneler;
-import jds.bibliocraft.blocks.BlockLabel;
-import jds.bibliocraft.blocks.BlockMapFrame;
-import jds.bibliocraft.blocks.BlockPaintingFrameBorderless;
-import jds.bibliocraft.blocks.BlockPaintingFrameFancy;
-import jds.bibliocraft.blocks.BlockPaintingFrameFlat;
-import jds.bibliocraft.blocks.BlockPaintingFrameMiddle;
-import jds.bibliocraft.blocks.BlockPaintingFrameSimple;
-import jds.bibliocraft.blocks.BlockPotionShelf;
-import jds.bibliocraft.blocks.BlockSeat;
-import jds.bibliocraft.blocks.BlockShelf;
-import jds.bibliocraft.blocks.BlockTable;
-import jds.bibliocraft.blocks.BlockToolRack;
 import jds.bibliocraft.items.ItemFramingSaw;
-import jds.bibliocraft.items.ItemSeatBack;
-import jds.bibliocraft.items.ItemSeatBack2;
-import jds.bibliocraft.items.ItemSeatBack3;
-import jds.bibliocraft.items.ItemSeatBack4;
-import jds.bibliocraft.items.ItemSeatBack5;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class RegisterCustomFramedBlocks 
 {
@@ -45,7 +18,7 @@ public class RegisterCustomFramedBlocks
 	private ArrayList<ItemStack> blockList;
 	private String textureString = "none";
 	private boolean enabledMap[];
-	
+	// TODO this is for loading the custom framed blocks for my 3rd party mods if I remeber right. Needs even more fixin now.
 	public RegisterCustomFramedBlocks(String texture)
 	{
 		this.enabledMap = new boolean[framedBlocks];
@@ -78,6 +51,7 @@ public class RegisterCustomFramedBlocks
 		this.enabledMap[26] = Config.enableSeat;
 		this.textureString = texture;
 		this.blockList = new ArrayList<ItemStack>();
+		/*
 		ItemStack bookcase = new ItemStack(BlockBookcase.instance, 1, 6);
 		this.blockList.add(new ItemStack(BlockBookcase.instance, 1, 6));                 //0 Bookcase
 		this.blockList.add(new ItemStack(BlockBookcaseCreative.instance, 1, 6));         //1 Creative Bookcase
@@ -106,12 +80,13 @@ public class RegisterCustomFramedBlocks
 		this.blockList.add(new ItemStack(ItemSeatBack3.instance, 1, 6));                 //24 Seat Back 3
 		this.blockList.add(new ItemStack(ItemSeatBack4.instance, 1, 6));                 //25 Seat Back 4
 		this.blockList.add(new ItemStack(ItemSeatBack5.instance, 1, 6));                 //26 Seat Back 5
-		NBTTagCompound tags = new NBTTagCompound();
+		CompoundNBT tags = new CompoundNBT();
 		tags.setString("renderTexture", this.textureString);
 		for (int i = 0; i < blockList.size(); i++)
 		{
-			this.blockList.get(i).setTagCompound(tags); 
+			this.blockList.get(i).setTag(tags); 
 		}
+		*/
 	}
 	
 	public ArrayList<ItemStack> getFramedBlockList()
@@ -126,24 +101,25 @@ public class RegisterCustomFramedBlocks
 	
 	public void registerRecipies(ItemStack plank, ItemStack slab)
 	{
-		WoodRegistryEntry recipeStrings = new WoodRegistryEntry(slab.getUnlocalizedName(), plank.getUnlocalizedName(), this.textureString, true); 
+		// TODO stuff that is commented out was broke in 1.13
+		//WoodRegistryEntry recipeStrings = new WoodRegistryEntry(slab.getUnlocalizedName(), plank.getUnlocalizedName(), this.textureString, true); 
 		
-		ItemStack stick = new ItemStack(Items.STICK, 1, 0);
-		ItemStack whiteWool = new ItemStack(Blocks.WOOL, 1, 0);
-		ItemStack saw = new ItemStack(ItemFramingSaw.instance, 1, 0);
-		ItemStack ironIngot = new ItemStack(Items.IRON_INGOT,1,0);
-		ItemStack goldIngot = new ItemStack(Items.GOLD_INGOT, 1, 0);
-		ItemStack vanclock = new ItemStack(Items.CLOCK, 1, 0);
-		ItemStack sign = new ItemStack(Items.SIGN, 1, 0);
-		ItemStack paper = new ItemStack(Items.PAPER, 1, 0);
-		ItemStack craftingBench = new ItemStack(Blocks.CRAFTING_TABLE, 1, 0);
-		ItemStack feather = new ItemStack(Items.FEATHER, 1, 0);
-		ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE, 1, 0);
-		ItemStack glassPane = new ItemStack(Blocks.GLASS, 1, 0);
-		ItemStack torch = new ItemStack(Blocks.TORCH, 1, 0);
-		ItemStack woodPP = new ItemStack(Blocks.WOODEN_PRESSURE_PLATE, 1, 0);
+		ItemStack stick = new ItemStack(Items.STICK, 1);
+		//ItemStack whiteWool = new ItemStack(Blocks.WOOL,1);
+		ItemStack saw = new ItemStack(ItemFramingSaw.instance, 1);
+		ItemStack ironIngot = new ItemStack(Items.IRON_INGOT,1);
+		ItemStack goldIngot = new ItemStack(Items.GOLD_INGOT, 1);
+		ItemStack vanclock = new ItemStack(Items.CLOCK, 1);
+		//ItemStack sign = new ItemStack(Items.sign, 1); TODO broke
+		ItemStack paper = new ItemStack(Items.PAPER, 1);
+		ItemStack craftingBench = new ItemStack(Blocks.CRAFTING_TABLE, 1);
+		ItemStack feather = new ItemStack(Items.FEATHER, 1);
+		ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE, 1);
+		ItemStack glassPane = new ItemStack(Blocks.GLASS, 1);
+		ItemStack torch = new ItemStack(Blocks.TORCH, 1);
+		//ItemStack woodPP = new ItemStack(Blocks.WOODEN_PRESSURE_PLATE, 1);
 		
-		/* TODO All recipes are bra-oke-en
+		/* TODO All recipes are bra-oke-en.Broke in 1.12, or 1.10, or 1.something
 		//GameRegistry.addShapedRecipe(name, group, output, params);
 		if (Config.enableBookcase)
 			GameRegistry.addRecipe(RecipeBiblioFramedWood.addShapedWoodRecipe(this.blockList.get(0), recipeStrings, new Object[]{"XYX", "XYX", "XYX", Character.valueOf('X'), plank, Character.valueOf('Y'), slab}));

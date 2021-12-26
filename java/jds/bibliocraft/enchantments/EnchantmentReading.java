@@ -2,18 +2,21 @@ package jds.bibliocraft.enchantments;
 
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemBook;
+import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.BookItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.translation.LanguageMap;
+
 
 public class EnchantmentReading extends Enchantment
 {
+	
 	public EnchantmentReading()
 	{
-		super(Enchantment.Rarity.UNCOMMON, EnumEnchantmentType.ARMOR_HEAD, new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD});
-		this.setName(I18n.translateToLocal("enchant.reading"));
+		//protected Enchantment(Enchantment.Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType[] slots)
+		super(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_HEAD, new EquipmentSlotType[]{EquipmentSlotType.HEAD});
+		this.setRegistryName(LanguageMap.getInstance().translateKey("enchant.reading"));
 		this.setRegistryName("bibliocraft.readingench");
 	}
 	
@@ -22,13 +25,13 @@ public class EnchantmentReading extends Enchantment
     {
         return 10 + 15 * (enchantmentLevel - 1);
     }
-    
+    /* this is gone I guess
 	@Override
     public int getMaxEnchantability(int par1)
     {
 		//System.out.println(par1);
         return super.getMinEnchantability(par1) + 50;
-    }
+    }*/
     
 	@Override
     public int getMaxLevel()
@@ -39,7 +42,7 @@ public class EnchantmentReading extends Enchantment
 	@Override
     public boolean canApplyAtEnchantingTable(ItemStack stack)
     {
-		if (stack.getItem() instanceof ItemBook)
+		if (stack.getItem() instanceof BookItem)
 		{
 			return true;
 		}
@@ -52,7 +55,7 @@ public class EnchantmentReading extends Enchantment
 	@Override
 	public String getName()
 	{
-		return I18n.translateToLocal("enchant.reading"); 
+		return LanguageMap.getInstance().translateKey("enchant.reading"); 
 	}
 
 }

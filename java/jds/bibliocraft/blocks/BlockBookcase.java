@@ -14,49 +14,97 @@ import jds.bibliocraft.Config;
 import jds.bibliocraft.GuiLoader;
 import jds.bibliocraft.blocks.BiblioWoodBlock.EnumWoodType;
 import jds.bibliocraft.blocks.blockitems.BlockItemBookcase;
+import jds.bibliocraft.config.ServerConfig;
+import jds.bibliocraft.containers.ContainerBookcase;
+import jds.bibliocraft.containers.provider.ContainerBookcaseProvider;
+import jds.bibliocraft.helpers.EnumWoodsType;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityBookcase;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;;
 
 
 public class BlockBookcase extends BiblioWoodBlock 
 {
-	public static final String name = "Bookcase";
-	public static final BlockBookcase instance = new BlockBookcase(name);
+	public static final String name = "bookcase";
 	
-	public BlockBookcase(String blockName) 
+	private INamedContainerProvider containerProvider = new INamedContainerProvider() 
 	{
-		super(blockName, true);
-		setTickRandomly(true);
+		
+		@Override
+		public Container createMenu(int id, PlayerInventory inv, PlayerEntity player) 
+		{
+			//                         Inventory inv = new Inventory(9);
+            //for (int i = 0; i < inv.getSizeInventory(); i++)
+            //{
+           //     inv.setInventorySlotContents(i, new ItemStack(Items.DIAMOND));
+           // }
+           // return new TestContainer(p_createMenu_1_, inv, text);
+			return new ContainerBookcase(id, inv, new Inventory(16));
+		}
+		
+		@Override
+		public ITextComponent getDisplayName() 
+		{
+			return new StringTextComponent("bookcasecontainer");
+		}
+	};
+	//public static final BlockBookcase instance = new BlockBookcase(name);
+	
+	public BlockBookcase(EnumWoodsType wood) 
+	{
+		super(name, true, wood);
+		//setTickRandomly(true); // TODO this doesnt work
+		
 		//setRegistryName(blockName);
 	}
+	
+	public BlockBookcase(String nameo, EnumWoodsType wood) 
+	{
+		super(nameo, true, wood);
+		//setTickRandomly(true); // TODO this doesnt work
+		
+		//setRegistryName(blockName);
+	}
+	
+
 
 	@Override
-	public boolean onBlockActivatedCustomCommands(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) 
+	public boolean onBlockActivatedCustomCommands(World world, BlockPos pos, BlockState state, PlayerEntity player, Direction side, double hitX, double hitY, double hitZ) 
 	{
+		//ServerConfig.loadConfig(); // TODO temp testing
 		if (!world.isRemote)
 		{
+			
 			BiblioTileEntity biblioTile = (BiblioTileEntity)world.getTileEntity(pos);
-			ItemStack playerhand = player.getHeldItem(EnumHand.MAIN_HAND);
+			ItemStack playerhand = player.getHeldItem(Hand.MAIN_HAND);
 			if (playerhand != ItemStack.EMPTY && playerhand.getItem() instanceof BlockItemBookcase)
 			{
 				return false;
@@ -64,26 +112,35 @@ public class BlockBookcase extends BiblioWoodBlock
 			
 			if (biblioTile instanceof TileEntityBookcase)
 			{
+				
 				TileEntityBookcase tileBookCase = (TileEntityBookcase)biblioTile;
-				int yCheck = (int) (hitY * 2);
-				EnumFacing angle = tileBookCase.getAngle();
+				double hitreduction = hitY - pos.getY();
+				int yCheck = (int) (hitreduction * 2);
+				Direction angle = tileBookCase.getAngle();
+				//System.out.println("on block activated ycheck: " + yCheck);
 				if  (yCheck == 1)  // so this is the top shelf
 				{
-					int booktest = isWhatBook(angle, hitX, hitZ);
+					
+					int booktest = isWhatBook(angle, hitX - pos.getX(), hitZ - pos.getZ());
 					if (player.isSneaking())
 					{
 						if (booktest >= 0 && booktest < 16)
 						{
-							dropStackInSlot(world, pos, booktest, getDropPositionOffset(pos, player));
+							//dropStackInSlot(world, pos, booktest, getDropPositionOffset(pos, player));
+							//spawnDrops(state, world, getDropPositionOffset(pos, player), biblioTile, player, biblioTile.getStackInSlot(booktest));
+							spawnAsEntity(world, getDropPositionOffset(pos, player), biblioTile.getStackInSlot(booktest));
 							tileBookCase.setBook(booktest, ItemStack.EMPTY);
 						}
 						return true;
 					}
 					else
 					{
+						//System.out.println("on block activated what book:" + booktest);
 						if (playerhand != ItemStack.EMPTY)
 						{
-							if (!Config.isBlock(playerhand) && Config.testBookValidity(playerhand))
+							System.out.println(!Config.isBlock(playerhand));
+							boolean validBook = true; // Config.testBookValidity(playerhand) && !Config.isBlock(playerhand) // TODO this isnt working right
+							if (validBook)
 							{
 								// here is where I try to add the book.
 								if (booktest >= 0 && booktest < 16)
@@ -98,7 +155,10 @@ public class BlockBookcase extends BiblioWoodBlock
 							}
 							else
 							{
-								player.openGui(BiblioCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+								//NetworkHooks.openGui()
+								//player.openContainer
+								System.out.println("gui haa ha");
+								//player.openGui(BiblioCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ()); TODO temp
 								return true;
 							}
 							
@@ -108,12 +168,14 @@ public class BlockBookcase extends BiblioWoodBlock
 				}
 				else if (yCheck == 0)  // and this is the bottom shelf
 				{
-					int booktest = isWhatBook(angle, hitX, hitZ) + 8;
+					int booktest = isWhatBook(angle, hitX - pos.getX(), hitZ - pos.getZ()) + 8;
 					if (player.isSneaking())
 					{
 						if (booktest >= 0 && booktest < 16)
 						{
-							dropStackInSlot(world, pos, booktest, getDropPositionOffset(pos, player));
+							//dropStackInSlot(world, pos, booktest, getDropPositionOffset(pos, player));
+							//spawnDrops(state, world, getDropPositionOffset(pos, player), biblioTile, player, biblioTile.getStackInSlot(booktest));
+							spawnAsEntity(world, getDropPositionOffset(pos, player), biblioTile.getStackInSlot(booktest));
 							tileBookCase.setBook(booktest, ItemStack.EMPTY);
 						}
 						return true;
@@ -136,7 +198,8 @@ public class BlockBookcase extends BiblioWoodBlock
 							}
 							else
 							{
-								player.openGui(BiblioCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+								System.out.println("gui hoo ho");
+								//player.openGui(BiblioCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ()); TODO temp
 								return true;
 							}
 							
@@ -144,21 +207,25 @@ public class BlockBookcase extends BiblioWoodBlock
 					}
 					
 				}
+				System.out.println("default guyi");
+				//NetworkHooks.openGui(player, new ContainerBookcase(0, player.inventory, new PacketBuffer(null)));
 				// the gui should open if the player does not have a book in hand. Will use shift-click to remove books.
-				player.openGui(BiblioCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+				//player.openGui(BiblioCraft.instance, 0, world, pos.getX(), pos.getY(), pos.getZ()); TODO temp
+				//ContainerBookcaseProvider provider = new ContainerBookcaseProvider(tileBookCase);
+				player.openContainer(new ContainerBookcaseProvider(tileBookCase));
 			}
 		}
 		return true;
 	}
 
 	@Override
-    public void additionalPlacementCommands(BiblioTileEntity biblioTile, EntityLivingBase player)
+    public void additionalPlacementCommands(BiblioTileEntity biblioTile, LivingEntity player)
     {
     	//System.out.println("Bookcase placment?");
     }
 	
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) 
+	public TileEntity createNewTileEntity(IBlockReader worldIn) 
 	{
 		return new TileEntityBookcase(); 
 	}
@@ -189,6 +256,7 @@ public class BlockBookcase extends BiblioWoodBlock
 		return modelParts;
 	}
 
+	/* TODO this is borked
 	@Override 
     public float getEnchantPowerBonus(World world, BlockPos pos)
     {
@@ -204,16 +272,16 @@ public class BlockBookcase extends BiblioWoodBlock
 			return 0.0F;
 		}
     }
-	
+	*/
 
 	@Override
-    public boolean canProvidePower(IBlockState state)
+    public boolean canProvidePower(BlockState state)
     {
         return true;
     }
 	
 	@Override
-    public int getWeakPower(IBlockState state, IBlockAccess blocka, BlockPos pos, EnumFacing side)
+    public int getWeakPower(BlockState state, IBlockReader blocka, BlockPos pos, Direction side)
     {
 		// IMPORTANT Number To Angle Conversion System
 		// 0 = West
@@ -233,14 +301,14 @@ public class BlockBookcase extends BiblioWoodBlock
 		if (tile != null && tile instanceof TileEntityBookcase)
 		{
 			TileEntityBookcase bookcase = (TileEntityBookcase)blocka.getTileEntity(pos);
-			EnumFacing angle = bookcase.getAngle();
+			Direction angle = bookcase.getAngle();
 			if (bookcase.getredstone())
 			{
 				switch (angle)
 				{
 				case SOUTH:
 				{
-					if (side == EnumFacing.EAST) 
+					if (side == Direction.EAST) 
 					{
 						return 0;
 					}
@@ -251,7 +319,7 @@ public class BlockBookcase extends BiblioWoodBlock
 				}
 				case WEST:
 				{
-					if (side == EnumFacing.SOUTH)
+					if (side == Direction.SOUTH)
 					{
 						return 0;
 					}
@@ -262,7 +330,7 @@ public class BlockBookcase extends BiblioWoodBlock
 				}
 				case NORTH:
 				{
-					if (side == EnumFacing.WEST)
+					if (side == Direction.WEST)
 					{
 						return 0;
 					}
@@ -273,7 +341,7 @@ public class BlockBookcase extends BiblioWoodBlock
 				}
 				case EAST:
 				{
-					if (side == EnumFacing.NORTH)
+					if (side == Direction.NORTH)
 					{
 						return 0;
 					}
@@ -290,7 +358,7 @@ public class BlockBookcase extends BiblioWoodBlock
     }
 	
 	@Override
-	public int getStrongPower(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+	public int getStrongPower(BlockState state, IBlockReader worldIn, BlockPos pos, Direction side)
     {
 		
 		return getWeakPower(state, worldIn, pos, side);
@@ -310,7 +378,7 @@ public class BlockBookcase extends BiblioWoodBlock
 		}
 	}
 	
-	public static int isWhatBook(EnumFacing angle, float hitX, float hitZ)
+	public static int isWhatBook(Direction angle, double hitX, double hitZ)
 	{
 		int xt = (int) (hitX * 8);
 		int zt = (int)( hitZ * 8);
@@ -359,12 +427,12 @@ public class BlockBookcase extends BiblioWoodBlock
 		return -1;
 	}
 	
-
-    @SideOnly(Side.CLIENT)
+/* TODO temp disable
+    @OnlyIn(Dist.CLIENT)
     @Override
-    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rando)
+    public void tick(BlockState state, World world, BlockPos pos, Random rando)
     {
-        super.randomDisplayTick(state, world, pos, rando);
+        super.tick(state, world, pos, rando);
         
     	TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile instanceof TileEntityBookcase)
@@ -399,7 +467,7 @@ public class BlockBookcase extends BiblioWoodBlock
 		                            double velx = (double)((float)(pos.getX() - x) + rando.nextFloat()) - 0.5D;
 		                            double vely = (double)((float)(pos.getY() - y) - rando.nextFloat() - 1.0F);
 		                            double velz = (double)((float)(pos.getZ() - z) +  rando.nextFloat()) - 0.5D;
-		                            world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, px, py, pz, velx, vely, velz, new int[0]);
+		                            //world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, px, py, pz, velx, vely, velz, new int[0]); TODO borked
 		                        }
 		                    }
 		                }
@@ -409,7 +477,7 @@ public class BlockBookcase extends BiblioWoodBlock
    			
         }
     }
-
+*/
 	@Override
 	public TRSRTransformation getAdditionalTransforms(TRSRTransformation transform, BiblioTileEntity tile) 
 	{

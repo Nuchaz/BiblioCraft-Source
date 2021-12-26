@@ -1,6 +1,6 @@
 package jds.bibliocraft.helpers;
 
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.model.IBakedModel;
 
 public class ModelCachePackage 
 {

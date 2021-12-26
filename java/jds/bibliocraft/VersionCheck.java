@@ -1,5 +1,6 @@
 package jds.bibliocraft;
 
+import java.awt.TextComponent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,12 +8,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponentUtils;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 
 
@@ -25,7 +27,7 @@ public class VersionCheck
 	private static String versionURL = "http://www.bibliocraftmod.com/vcheck/version.txt";
 	private static String messageURL = "http://www.bibliocraftmod.com/vcheck/message.txt";
 	private boolean runEvent = true;
-	private EntityPlayer player;
+	private PlayerEntity player;
 
 	public VersionCheck(){}
 		
@@ -35,9 +37,9 @@ public class VersionCheck
 	{
 		if (runEvent && Config.checkforupdate)
 		{
-			if (event.getEntity() instanceof EntityPlayer && event.getWorld().isRemote)
+			if (event.getEntity() instanceof PlayerEntity && event.getWorld().isRemote)
 			{
-				this.player = (EntityPlayer)event.getEntity();
+				this.player = (PlayerEntity)event.getEntity();
 				runEvent = false;
 				new Thread(new Runnable() 
 				{
@@ -50,7 +52,7 @@ public class VersionCheck
 		}
 	}
 	
-	public static void getNetVersion(EntityPlayer player)
+	public static void getNetVersion(PlayerEntity player)
 	{
 		try 
 		{
@@ -70,6 +72,7 @@ public class VersionCheck
 				return;
 			}
 
+			/* TODO config is borked. Learn the new config system and fix this
 			lastCheckedversion = Config.bConfig.get("Stored Variables", "lastVersionChecked", VersionCheck.currentversion).getString();
 			if (!latestWebVersion.contains(lastCheckedversion) && !latestWebVersion.contains(currentversion))
 			{
@@ -78,6 +81,7 @@ public class VersionCheck
 				setUpdateMessage(player);
 				Config.bConfig.save();
 			}
+			*/
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -90,7 +94,7 @@ public class VersionCheck
 		
 	}
 	
-	public static void setUpdateMessage(EntityPlayer player)
+	public static void setUpdateMessage(PlayerEntity player)
 	{
 		try 
 		{
@@ -98,7 +102,7 @@ public class VersionCheck
 			InputStream stream = updateMsg.openStream();
 			byte[] data = new byte[stream.available()];
 			stream.read(data);
-			player.sendMessage(new TextComponentString(new String(data)));
+			player.sendMessage(new StringTextComponent(new String(data)));
 		} 
 		catch (MalformedURLException e) 
 		{

@@ -1,7 +1,7 @@
 package jds.bibliocraft;
 
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class SoundLoader 
 {

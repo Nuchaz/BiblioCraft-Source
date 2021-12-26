@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[16,)" 
+issueTrackerURL="https://github.com/Nuchaz/BiblioCraft/issues"
+[[mods]]
+modId="bibliocraft"
+version="3.0.0"
+displayName="BiblioCraft"
+displayURL="https://bibliocraftmod.com/" 
+logoFile="BiblioCraft.png"
+authors="Nuchaz"
+description='''
+BiblioCraft adds fancy storage containers including bookcases, armor stands, potion shelves, regular shelves, tool racks, glass weapon cases, wooden desks and wooden chest labels and now add machines, redstone interactions, and eyeware, fancy lamps and golden lanterns. Also Tables, enchanted plates, map frames, and seats!
+'''

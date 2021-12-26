@@ -1,10 +1,10 @@
 package jds.bibliocraft.helpers;
 
 import jds.bibliocraft.tileentities.BiblioTileEntity;
-import jds.bibliocraft.tileentities.TileEntityFancySign;
+//import jds.bibliocraft.tileentities.TileEntityFancySign;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.Constants;
 
@@ -51,8 +51,9 @@ public class CustomBlockItemDataPack
 		this.fs_text = text;
 	}
 	
-	public static void applyDataToBlock(NBTTagCompound tags, BiblioTileEntity tile)
+	public static void applyDataToBlock(CompoundNBT tags, BiblioTileEntity tile)
 	{
+		/* TODO temp commented out while sign is out of commision
 		if (tile instanceof TileEntityFancySign && tags != null)
 		{
 			TileEntityFancySign sign = (TileEntityFancySign)tile;
@@ -61,55 +62,56 @@ public class CustomBlockItemDataPack
 			{
 				textlines[n] = tags.getString("text"+n); 
 			}
-	    	NBTTagList tagList = tags.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
-			for (int i = 0; i < tagList.tagCount(); i++)
+	    	ListNBT tagList = tags.getList("Inventory", Constants.NBT.TAG_COMPOUND);
+			for (int i = 0; i < tagList.size(); i++)
 			{
-				NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
+				CompoundNBT tag = (CompoundNBT) tagList.getCompound(i);
 				byte slot = tag.getByte("Slot");
 				if (slot >= 0 && slot < sign.inventory.size())
 				{
-					sign.inventory.set(slot, new ItemStack(tag));
+					sign.inventory.set(slot, ItemStack.read(tag));
 				}
 			}
-			sign.updateFromPacket(textlines, tags.getIntArray("textscale"), tags.getInteger("numoflines"), tags.getInteger("s1scale"), tags.getInteger("s1rot"), tags.getInteger("s1x"), tags.getInteger("s1y"), 
-					tags.getInteger("s2scale"), tags.getInteger("s2rot"), tags.getInteger("s2x"), tags.getInteger("s2y"));
+			sign.updateFromPacket(textlines, tags.getIntArray("textscale"), tags.getInt("numoflines"), tags.getInt("s1scale"), tags.getInt("s1rot"), tags.getInt("s1x"), tags.getInt("s1y"), 
+					tags.getInt("s2scale"), tags.getInt("s2rot"), tags.getInt("s2x"), tags.getInt("s2y"));
 		}
+		*/
 	}
 	
-	public NBTTagCompound applyDataToItemStack(NBTTagCompound tags)
+	public CompoundNBT applyDataToItemStack(CompoundNBT tags)
 	{
 		// TODO also would be nice if some of the sign info was rendered on the mini sign item.
 		switch (this.datatype)
 		{
 			case FANCY_SIGN: 
 			{
-				tags.setInteger("s1scale", this.fs_slot1Scale);
-				tags.setInteger("s1rot", this.fs_slot1Rot);
-				tags.setInteger("s1x", this.fs_slot1X);
-				tags.setInteger("s1y", this.fs_slot1Y);
-				tags.setInteger("s2scale", this.fs_slot2Scale);
-				tags.setInteger("s2rot", this.fs_slot2Rot);
-				tags.setInteger("s2x", this.fs_slot2X);
-				tags.setInteger("s2y", this.fs_slot2Y);
-				tags.setInteger("numoflines", this.fs_numOfLines);
-				tags.setIntArray("textscale", this.fs_textScale);
+				tags.putInt("s1scale", this.fs_slot1Scale);
+				tags.putInt("s1rot", this.fs_slot1Rot);
+				tags.putInt("s1x", this.fs_slot1X);
+				tags.putInt("s1y", this.fs_slot1Y);
+				tags.putInt("s2scale", this.fs_slot2Scale);
+				tags.putInt("s2rot", this.fs_slot2Rot);
+				tags.putInt("s2x", this.fs_slot2X);
+				tags.putInt("s2y", this.fs_slot2Y);
+				tags.putInt("numoflines", this.fs_numOfLines);
+				tags.putIntArray("textscale", this.fs_textScale);
 		    	for (int n = 0; n<15; n++)
 		    	{
-		    		tags.setString("text"+n, this.fs_text[n]); 
+		    		tags.putString("text"+n, this.fs_text[n]); 
 		    	}
-		    	NBTTagList itemList = new NBTTagList();
+		    	ListNBT itemList = new ListNBT();
 		    	for (int i = 0; i < this.inv.size(); i++)
 		    	{
 		    		ItemStack stack = this.inv.get(i);
 		    		if (stack != ItemStack.EMPTY)
 		    		{
-		    			NBTTagCompound tag = new NBTTagCompound();
-		    			tag.setByte("Slot", (byte) i);
-		    			stack.writeToNBT(tag);
-		    			itemList.appendTag(tag);
+		    			CompoundNBT tag = new CompoundNBT();
+		    			tag.putByte("Slot", (byte) i);
+		    			stack.write(tag);
+		    			itemList.add(tag);
 		    		}
 		    	}
-		    	tags.setTag("Inventory", itemList);
+		    	tags.put("Inventory", itemList);
 				break;
 			}
 			default: break;

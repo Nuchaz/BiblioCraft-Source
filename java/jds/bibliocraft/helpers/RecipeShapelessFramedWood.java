@@ -5,28 +5,31 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 
-public class RecipeShapelessFramedWood extends ShapelessRecipes
+public class RecipeShapelessFramedWood extends ShapelessRecipe
 {
 	//private static String textureString = "none";
 	private static ArrayList<WoodRegistryEntry> registry;
 
-	public RecipeShapelessFramedWood(ItemStack output, NonNullList<Ingredient> inputList) 
+	public RecipeShapelessFramedWood(String name, ItemStack output, NonNullList<Ingredient> inputList) 
 	{
-		super("", output, inputList);
+		super(new ResourceLocation(name), "", output, inputList);
 		if (registry == null)
 			registry = new ArrayList<WoodRegistryEntry>();
 	}
 
-	public static IRecipe addShapedWoodRecipe(ItemStack stack, WoodRegistryEntry entry, Object ... stuff)
+	// TODO I might have screwed this up. Dunno.
+	public static IRecipe addShapedWoodRecipe(String name, ItemStack stack, WoodRegistryEntry entry, Object ... stuff)
 	{
 		if (registry == null)
 			registry = new ArrayList<WoodRegistryEntry>();
@@ -42,16 +45,16 @@ public class RecipeShapelessFramedWood extends ShapelessRecipes
 			}
 		}
 		
-        NBTTagCompound tags = new NBTTagCompound();
-        tags.setString("renderTexture", entry.getTextureString());
-        stack.setTagCompound(tags);
+        CompoundNBT tags = new CompoundNBT();
+        tags.putString("renderTexture", entry.getTextureString());
+        stack.setTag(tags);
         
-		IRecipe shapedrecipe = new RecipeShapelessFramedWood(stack, inputstacks);
+		IRecipe shapedrecipe = new RecipeShapelessFramedWood(name, stack, inputstacks);
 		return shapedrecipe;
 	}
 	
 	@Override
-    public ItemStack getCraftingResult(InventoryCrafting inv)
+    public ItemStack getCraftingResult(CraftingInventory inv)
     {
         ItemStack itemstack = this.getRecipeOutput().copy();
         WoodRegistryEntry match;
@@ -65,9 +68,9 @@ public class RecipeShapelessFramedWood extends ShapelessRecipes
         		break;
         	}
         }
-        NBTTagCompound tags = new NBTTagCompound();
-        tags.setString("renderTexture", texture);
-        itemstack.setTagCompound(tags);
+        CompoundNBT tags = new CompoundNBT();
+        tags.putString("renderTexture", texture);
+        itemstack.setTag(tags);
         return itemstack;
     }
 	
@@ -79,7 +82,7 @@ public class RecipeShapelessFramedWood extends ShapelessRecipes
 		for (int i = 0; i < registry.size(); i++)
 		{
 			WoodRegistryEntry entry = registry.get(i);
-			if (entry.hasMatch(stack.getUnlocalizedName()))
+			if (entry.hasMatch(stack.getDisplayName().getUnformattedComponentText()))
 			{
 				result = entry;
 				break;

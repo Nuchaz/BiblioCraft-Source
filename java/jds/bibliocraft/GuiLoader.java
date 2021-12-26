@@ -1,10 +1,11 @@
 package jds.bibliocraft;
 
 import java.util.ArrayList;
-
+import jds.bibliocraft.containers.ContainerBookcase;
+import jds.bibliocraft.gui.GuiBookcase;
+/*
 import jds.bibliocraft.containers.ContainerArmor;
 import jds.bibliocraft.containers.ContainerAtlas;
-import jds.bibliocraft.containers.ContainerBookcase;
 import jds.bibliocraft.containers.ContainerCookieJar;
 import jds.bibliocraft.containers.ContainerDinnerPlate;
 import jds.bibliocraft.containers.ContainerDiscRack;
@@ -25,7 +26,6 @@ import jds.bibliocraft.containers.ContainerWeaponRack;
 import jds.bibliocraft.containers.ContainerWritingDesk;
 import jds.bibliocraft.gui.GuiArmorStand;
 import jds.bibliocraft.gui.GuiAtlas;
-import jds.bibliocraft.gui.GuiBookcase;
 import jds.bibliocraft.gui.GuiCookieJar;
 import jds.bibliocraft.gui.GuiDinnerPlate;
 import jds.bibliocraft.gui.GuiDiscRack;
@@ -47,10 +47,13 @@ import jds.bibliocraft.gui.GuiWeaponCase;
 import jds.bibliocraft.gui.GuiWeaponRack;
 import jds.bibliocraft.gui.GuiWritingDesk;
 import jds.bibliocraft.helpers.BiblioSortingHelper;
+*/
 import jds.bibliocraft.helpers.SortedListItem;
+/*
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemSlottedBook;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
+*/
 /*
 import jds.bibliocraft.blocks.ContainerArmor;
 import jds.bibliocraft.blocks.ContainerCookieJar;
@@ -76,6 +79,7 @@ import jds.bibliocraft.items.ContainerSlottedBook;
 import jds.bibliocraft.items.ItemLoader;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;*/
 import jds.bibliocraft.tileentities.TileEntityBookcase;
+/*
 import jds.bibliocraft.tileentities.TileEntityCookieJar;
 import jds.bibliocraft.tileentities.TileEntityDinnerPlate;
 import jds.bibliocraft.tileentities.TileEntityDiscRack;
@@ -93,6 +97,7 @@ import jds.bibliocraft.tileentities.TileEntityTable;
 import jds.bibliocraft.tileentities.TileEntityCase;
 import jds.bibliocraft.tileentities.TileEntityToolRack;
 import jds.bibliocraft.tileentities.TileEntityDesk;
+*/
 import net.minecraft.client.Minecraft;
 /*
 import jds.bibliocraft.tileentities.TileEntityCookieJar;
@@ -113,14 +118,14 @@ import jds.bibliocraft.tileentities.TileEntityWeaponCase;
 import jds.bibliocraft.tileentities.TileEntityWeaponRack;
 import jds.bibliocraft.tileentities.TileEntityWritingDesk;
 */
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -130,13 +135,14 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class GuiLoader implements IGuiHandler
 {
 	@Override
-	public Object getServerGuiElement (int id, EntityPlayer player, World world, int x, int y, int z)
+	public Object getServerGuiElement (int id, PlayerEntity player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
+		/*
 		if (id == 100)
 		{
 			ItemStack currentItem = player.inventory.getCurrentItem();
-			if (currentItem != null && currentItem.getUnlocalizedName().equals(ItemAtlas.instance.getUnlocalizedName()))
+			if (currentItem != null && currentItem.equals(new ItemStack(ItemAtlas.instance), true))//  currentItem.getUnlocalizedName().equals(ItemAtlas.instance.getUnlocalizedName()))
 			{
 				return new ContainerAtlas(player.inventory, world);
 			}
@@ -144,7 +150,7 @@ public class GuiLoader implements IGuiHandler
 		if (id == 101)
 		{
 			ItemStack currentItem = player.inventory.getCurrentItem();
-			if (currentItem != null && currentItem.getUnlocalizedName().equals(ItemSlottedBook.instance.getUnlocalizedName()))
+			if (currentItem != null && currentItem.equals(new ItemStack(ItemSlottedBook.instance)))
 			{
 				return new ContainerSlottedBook(player.inventory);
 			}
@@ -153,11 +159,12 @@ public class GuiLoader implements IGuiHandler
 		{
 			return new ContainerNameTester(player.inventory);
 		}
+		*/
 		if (tileEntity instanceof TileEntityBookcase)
 		{
-			return new ContainerBookcase(player.inventory, tileEntity);
+			//return new ContainerBookcase(player.inventory, tileEntity);
 		}
-		
+		/*
 		if (tileEntity instanceof TileEntityArmorStand)
 		{
 			return new ContainerArmor(player.inventory, (TileEntityArmorStand) tileEntity);
@@ -275,11 +282,11 @@ public class GuiLoader implements IGuiHandler
 			}
 			return new ContainerFramedChest(player.inventory, chest, chest2); 
 		}
-		
+		*/
 		return null;
 	}
 	
-	private int getXcoordForChest(boolean isLeft, EnumFacing angle, int oldX)
+	private int getXcoordForChest(boolean isLeft, Direction angle, int oldX)
 	{
 		if (isLeft)
 		{
@@ -306,7 +313,7 @@ public class GuiLoader implements IGuiHandler
 		return -1;
 	}
 	
-	private int getZcoordForChest(boolean isLeft, EnumFacing angle, int oldZ)
+	private int getZcoordForChest(boolean isLeft, Direction angle, int oldZ)
 	{
 		if (isLeft)
 		{
@@ -333,7 +340,7 @@ public class GuiLoader implements IGuiHandler
 		return -1;
 	}
 	
-	private int getXcoordForWorkbenchBookcase(boolean isLeft, EnumFacing angle, int oldX)
+	private int getXcoordForWorkbenchBookcase(boolean isLeft, Direction angle, int oldX)
 	{
 		if (isLeft)
 		{
@@ -360,7 +367,7 @@ public class GuiLoader implements IGuiHandler
 		return -1;
 	}
 	
-	private int getZcoordForWorkbenchBookcase(boolean isLeft, EnumFacing angle, int oldZ)
+	private int getZcoordForWorkbenchBookcase(boolean isLeft, Direction angle, int oldZ)
 	{
 		if (isLeft)
 		{
@@ -389,13 +396,16 @@ public class GuiLoader implements IGuiHandler
 	
 	//returns an instance of the Gui you made earlier
 	@Override
-	public Object getClientGuiElement(int id, EntityPlayer player, World world, int i, int j, int k)
+	public Object getClientGuiElement(int id, PlayerEntity player, World world, int i, int j, int k)
 	{
+		
 		TileEntity tileEntity = world.getTileEntity(new BlockPos(i, j, k));
+		
+		/*
 		if (id == 100)
 		{
 			ItemStack currentItem = player.inventory.getCurrentItem();
-			if (currentItem != null && currentItem.getUnlocalizedName().equals(ItemAtlas.instance.getUnlocalizedName()))
+			if (currentItem != null && currentItem.equals(new ItemStack(ItemAtlas.instance), true))
 			{
 				return new GuiAtlas(player.inventory, world, player);
 			}
@@ -405,25 +415,28 @@ public class GuiLoader implements IGuiHandler
 		{
 			if (tileEntity instanceof TileEntityDesk)
 			{
-				//return new GuiSlottedBook(player.inventory, player.getHeldItem(EnumHand.MAIN_HAND), false, i, j, k);
+				//return new GuiSlottedBook(player.inventory, player.getHeldItem(Hand.MAIN_HAND), false, i, j, k);
 			}
 			else
 			{
 				ItemStack currentItem = player.inventory.getCurrentItem();
-				if (currentItem != null && currentItem.getUnlocalizedName().equals(ItemSlottedBook.instance.getUnlocalizedName()))
+				if (currentItem != null && currentItem.equals(new ItemStack(ItemSlottedBook.instance), true))
 				{
-					return new GuiSlottedBook(player.inventory, player.getHeldItem(EnumHand.MAIN_HAND), true, 0, 0, 0);
+					return new GuiSlottedBook(player.inventory, player.getHeldItem(Hand.MAIN_HAND), true, 0, 0, 0);
 				}
 			}
 		}
 		if (id == 102)
 		{
-			return new GuiNameTester(player.inventory, player.getHeldItem(EnumHand.MAIN_HAND));
+			return new GuiNameTester(player.inventory, player.getHeldItem(Hand.MAIN_HAND));
 		}
+		*/
 		if (tileEntity instanceof TileEntityBookcase)
 		{
-			return new GuiBookcase(player.inventory,  tileEntity);
+			// I have no idea how this works now
+			//return new GuiBookcase(player.inventory,  tileEntity);
 		}
+		/*
 		if (tileEntity instanceof TileEntityShelf)
 		{
 			return new GuiGenericShelf(player.inventory, (TileEntityShelf) tileEntity);
@@ -539,7 +552,7 @@ public class GuiLoader implements IGuiHandler
 			}
 			return new GuiFramedChest(player.inventory, chest, chest2); 
 		}
-		
+		*/
 		return null;
 	}
 }

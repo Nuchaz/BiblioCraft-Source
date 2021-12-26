@@ -1,16 +1,20 @@
 package jds.bibliocraft;
 
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.HopperContainer;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.MinecraftForgeClient;
+import jds.bibliocraft.tileentities.TileEntityBookcase;
+/*
 import jds.bibliocraft.tileentities.BiblioLightTileEntity;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
 import jds.bibliocraft.tileentities.TileEntityBell;
-import jds.bibliocraft.tileentities.TileEntityBookcase;
 import jds.bibliocraft.tileentities.TileEntityCase;
 import jds.bibliocraft.tileentities.TileEntityClipboard;
 import jds.bibliocraft.tileentities.TileEntityClock;
@@ -44,7 +48,9 @@ import jds.bibliocraft.tileentities.TileEntityTypewriter;
 import jds.bibliocraft.blocks.BiblioLightBlock;
 import jds.bibliocraft.blocks.BlockArmorStand;
 import jds.bibliocraft.blocks.BlockBell;
+*/
 import jds.bibliocraft.blocks.BlockBookcase;
+/*
 import jds.bibliocraft.blocks.BlockCase;
 import jds.bibliocraft.blocks.BlockClipboard;
 import jds.bibliocraft.blocks.BlockClock;
@@ -75,43 +81,46 @@ import jds.bibliocraft.blocks.BlockToolRack;
 import jds.bibliocraft.blocks.BlockTypeWriter;
 import jds.bibliocraft.blocks.BlockTypesettingTable;
 import jds.bibliocraft.entity.EntitySeat;
+*/
+import jds.bibliocraft.containers.ContainerBookcase;
 
 public class CommonProxy
 {
-	public static final ResourceLocation BOOKCASEGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/bookshelfGUI.png");
-	public static final ResourceLocation ARMORGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/armorstandGUI.png");
-	public static final ResourceLocation POTIONGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/potionshelfGUI.png");
-	public static final ResourceLocation TOOLRACKGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/toolrackGUI.png");
-	public static final ResourceLocation GENERICSHELFGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/genericshelfGUI.png");
-	public static final ResourceLocation WEAPONCASEGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/weaponcaseGUI.png");
-	public static final ResourceLocation WOODLABELGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/woodlabelGUI.png");
-	public static final ResourceLocation WRITINGDESKGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/writingdeskGUI.png");
-	public static final ResourceLocation TYPEMACHINEGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/typesettinggui.png");
+	public static final ResourceLocation BOOKCASEGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/bookshelfgui.png");
+	
+	public static final ResourceLocation ARMORGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/armorstandgui.png");
+	public static final ResourceLocation POTIONGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/potionshelfgui.png");
+	public static final ResourceLocation TOOLRACKGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/toolrackgui.png");
+	public static final ResourceLocation GENERICSHELFGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/genericshelfgui.png");
+	public static final ResourceLocation WEAPONCASEGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/weaponcasegui.png");
+	public static final ResourceLocation WOODLABELGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/woodlabelgui.png");
+	public static final ResourceLocation WRITINGDESKGUI_PNG = new ResourceLocation("bibliocraft", "textures/gui/writingdeskgui.png");
+	public static final ResourceLocation TYPEMACHINEgui_PNG = new ResourceLocation("bibliocraft", "textures/gui/typesettinggui.png");
 	public static final ResourceLocation TYPEMACHINEGUI_L_PNG = new ResourceLocation("bibliocraft", "textures/gui/typesettinggui_l.png");
 	public static final ResourceLocation TYPEMACHINEGUI_R_PNG = new ResourceLocation("bibliocraft", "textures/gui/typesettinggui_r.png");
 	public static final ResourceLocation GUITYPEBACK_PNG = new ResourceLocation("bibliocraft", "textures/models/guitypebackg.png");
-	public static final ResourceLocation GUICOOKIEJAR = new ResourceLocation("bibliocraft", "textures/gui/cookiejarGUI.png");
+	public static final ResourceLocation GUICOOKIEJAR = new ResourceLocation("bibliocraft", "textures/gui/cookiejargui.png");
 	
-	public static final ResourceLocation DISCRACKGUI = new ResourceLocation("bibliocraft", "textures/gui/discrackGUI.png"); 
-	public static final ResourceLocation MAPPINGUI = new ResourceLocation("bibliocraft", "textures/gui/mapWaypointGUI.png");
+	public static final ResourceLocation DISCRACKgui = new ResourceLocation("bibliocraft", "textures/gui/discrackgui.png"); 
+	public static final ResourceLocation MAPPINGUI = new ResourceLocation("bibliocraft", "textures/gui/mapwaypointgui.png");
 	public static final ResourceLocation COMPASSGUI = new ResourceLocation("bibliocraft", "textures/gui/compasswaypointgui.png");
-	public static final ResourceLocation ATLASGUI = new ResourceLocation("bibliocraft", "textures/gui/atlasGUI.png");
-	public static final ResourceLocation ATLASGUIBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/atlasGUIbuttons.png");
-	public static final ResourceLocation ATLASGUITRANSFER = new ResourceLocation("bibliocraft", "textures/gui/atlasTransferGUI.png");
+	public static final ResourceLocation ATLASGUI = new ResourceLocation("bibliocraft", "textures/gui/atlasgui.png");
+	public static final ResourceLocation ATLASGUIBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/atlasguibuttons.png");
+	public static final ResourceLocation ATLASGUITRANSFER = new ResourceLocation("bibliocraft", "textures/gui/atlastransfergui.png");
 	public static final ResourceLocation ATLASCOVER = new ResourceLocation("bibliocraft", "textures/gui/atlas_cover.png");
-	public static final ResourceLocation SLOTTEDBOOKGUI = new ResourceLocation("bibliocraft", "textures/gui/slottedbookGUI.png");
-	public static final ResourceLocation BIGBOOKGUI = new ResourceLocation("bibliocraft", "textures/gui/bigbookGUI.png");
+	public static final ResourceLocation SLOTTEDBOOKGUI = new ResourceLocation("bibliocraft", "textures/gui/slottedbookgui.png");
+	public static final ResourceLocation BIGBOOKGUI = new ResourceLocation("bibliocraft", "textures/gui/bigbookgui.png");
 	public static final ResourceLocation BIGBOOKGUIBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/bigbookbuttons.png");
-	public static final ResourceLocation FANCYSIGNGUI = new ResourceLocation("bibliocraft", "textures/gui/fancysignGUI.png");
-	public static final ResourceLocation FANCYSIGNGUIBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/fancysignGUIbuttons.png");
-	public static final ResourceLocation FANCYWORKBENCHGUI = new ResourceLocation("bibliocraft", "textures/gui/fancyworkbenchGUI.png");
-	public static final ResourceLocation FANCYWORKBENCHBOOKCASEGUI = new ResourceLocation("bibliocraft", "textures/gui/fancyworkbenchBookcaseGUI.png");
-	public static final ResourceLocation RECIPEBOOKGUI = new ResourceLocation("bibliocraft", "textures/gui/recipebookGUI.png");
-	public static final ResourceLocation CLOCKGUI = new ResourceLocation("bibliocraft", "textures/gui/clockGUI.png");
+	public static final ResourceLocation FANCYSIGNGUI = new ResourceLocation("bibliocraft", "textures/gui/fancysigngui.png");
+	public static final ResourceLocation FANCYSIGNGUIBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/fancysignguibuttons.png");
+	public static final ResourceLocation FANCYWORKBENCHGUI = new ResourceLocation("bibliocraft", "textures/gui/fancyworkbenchgui.png");
+	public static final ResourceLocation FANCYWORKBENCHBOOKCASEGUI = new ResourceLocation("bibliocraft", "textures/gui/fancyworkbenchbookcasegui.png");
+	public static final ResourceLocation RECIPEBOOKGUI = new ResourceLocation("bibliocraft", "textures/gui/recipebookgui.png");
+	public static final ResourceLocation CLOCKGUI = new ResourceLocation("bibliocraft", "textures/gui/clockgui.png");
 
-	public static final ResourceLocation PANELER_GUI = new ResourceLocation("bibliocraft", "textures/gui/panelerGUI.png");
-	public static final ResourceLocation STOCKROOMCATALOGGUI = new ResourceLocation("bibliocraft", "textures/gui/stockcatalogGUI.png");
-	public static final ResourceLocation STOCKROOMCATALOGSUBGUI = new ResourceLocation("bibliocraft", "textures/gui/stockcatalogsubGUI.png");
+	public static final ResourceLocation PANELER_GUI = new ResourceLocation("bibliocraft", "textures/gui/panelergui.png");
+	public static final ResourceLocation STOCKROOMCATALOGGUI = new ResourceLocation("bibliocraft", "textures/gui/stockcataloggui.png");
+	public static final ResourceLocation STOCKROOMCATALOGSUBGUI = new ResourceLocation("bibliocraft", "textures/gui/stockcatalogsubgui.png");
 	
 	public static final ResourceLocation PAINTINGCANVAS = new ResourceLocation("bibliocraft", "textures/paintings/canvas.png");
 	public static final ResourceLocation PAINTING01_128LONG = new ResourceLocation("bibliocraft", "textures/paintings/128painting01l.png");
@@ -157,9 +166,9 @@ public class CommonProxy
 	public static final ResourceLocation RAVEN_64FULL = new ResourceLocation("bibliocraft", "textures/paintings/raven_64.png");
 	public static final ResourceLocation RAVEN_32FULL = new ResourceLocation("bibliocraft", "textures/paintings/raven_32.png");
 	public static final ResourceLocation PAINTINGNOTFOUND = new ResourceLocation("bibliocraft", "textures/paintings/paintingnotfound.png");
-	public static final ResourceLocation PAINTINGGUI = new ResourceLocation("bibliocraft", "textures/gui/paintingGUI.png");
-	public static final ResourceLocation PAINTINGPRESSGUI = new ResourceLocation("bibliocraft", "textures/gui/paintpressGUI.png");
-	public static final ResourceLocation PAINTINGPRESSBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/paintpressGUIbuttons.png");
+	public static final ResourceLocation PAINTINGGUI = new ResourceLocation("bibliocraft", "textures/gui/paintinggui.png");
+	public static final ResourceLocation PAINTINGPRESSGUI = new ResourceLocation("bibliocraft", "textures/gui/paintpressgui.png");
+	public static final ResourceLocation PAINTINGPRESSBUTTONS = new ResourceLocation("bibliocraft", "textures/gui/paintpressguibuttons.png");
 	
 	public static final ResourceLocation BLACKWOOL = new ResourceLocation("textures/blocks/wool_colored_black.png");
 	public static final ResourceLocation BLUEWOOL = new ResourceLocation("textures/blocks/wool_colored_blue.png");
@@ -181,6 +190,9 @@ public class CommonProxy
 	
 	public static final ResourceLocation PLANKSOAK = new ResourceLocation("textures/blocks/planks_oak.png");
 	public static final ResourceLocation PAINTINGSHEET = new ResourceLocation("textures/painting/paintings_kristoffer_zetterstrand.png");
+	
+	
+	
 	
 	
 	public static final SoundEvent SOUND_DING = new SoundEvent(new ResourceLocation("bibliocraft:ding"));
@@ -205,13 +217,99 @@ public class CommonProxy
 	public static final SoundEvent SOUND_TAPE_OPEN = new SoundEvent(new ResourceLocation("bibliocraft:tapeopen"));
 	public static final SoundEvent SOUND_TAPE_CLOSE = new SoundEvent(new ResourceLocation("bibliocraft:tapeclose"));
 	
+	
+	
+	
+	//https://www.minecraftforge.net/forum/topic/71577-1142-containers-and-guis/
+	//public static final ContainerType<HopperContainer> field_221522_p = func_221505_a("hopper", HopperContainer::new);
+	//public static final ContainerType<ContainerBookcase> bookcaseContainer = null;//ContainerTypeBuilder("bookcase", ContainerBookcase::new);
+	/*
+    private static <T extends Container> ContainerType<T> ContainerTypeBuilder(String p_221505_0_, ContainerType.IFactory<T> p_221505_1_) 
+    {
+    	return Registry.register(Registry.???, p_221505_0_, new ContainerType<>(p_221505_1_));
+    }
+	*/
 	public void registerRenderers()
 	{
 		
 	}
 	
+	//public static TileEntityType<TileEntityBookcase> TILE_BOOKCASE;
+	/*
+	public static TileEntityType<TileEntityShelf> TILE_SHELF;
+	public static TileEntityType<TileEntityMarkerPole> TILE_MARKERPOLE;
+	public static TileEntityType<TileEntityClipboard> TILE_CLIPBOARD;
+	public static TileEntityType<BiblioLightTileEntity> TILE_LIGHT;
+	public static TileEntityType<TileEntityFurniturePaneler> TILE_PANELER;
+	public static TileEntityType<TileEntityPotionShelf> TILE_POTIONSHELF;
+	public static TileEntityType<TileEntityToolRack> TILE_TOOLRACK;
+	public static TileEntityType<TileEntityLabel> TILE_LABEL;
+	public static TileEntityType<TileEntityDesk> TILE_DESK;
+	public static TileEntityType<TileEntityTable> TILE_TABLE;
+	public static TileEntityType<TileEntitySeat> TILE_SEAT;
+	public static TileEntityType<TileEntityFancySign> TILE_FANCYSIGN;
+	public static TileEntityType<TileEntityFancyWorkbench> TILE_FANCYWORKBENCH;
+	public static TileEntityType<TileEntityFramedChest> TILE_FRAMEDCHEST;
+	public static TileEntityType<TileEntityMapFrame> TILE_MAPFRAME;
+	public static TileEntityType<TileEntityCase> TILE_CASE;
+	public static TileEntityType<TileEntityClock> TILE_CLOCK;
+	public static TileEntityType<TileEntityPaintingBorderless> TILE_PAINTING_BORDERLESS;
+	public static TileEntityType<TileEntityPaintingFancy> TILE_PAINTING_FANCY;
+	public static TileEntityType<TileEntityPaintingFlat> TILE_PAINTING_FLAT;
+	public static TileEntityType<TileEntityPaintingMiddle> TILE_PAINTING_MIDDLE;
+	public static TileEntityType<TileEntityPaintingSimple> TILE_PAINTING_SIMPLE;
+	public static TileEntityType<TileEntityPaintPress> TILE_PAINTPRESS;
+	public static TileEntityType<TileEntityArmorStand> TILE_ARMORSTAND;
+	public static TileEntityType<TileEntityTypeMachine> TILE_TYPEMACHINE;
+	public static TileEntityType<TileEntityPrintPress> TILE_PRINTPRESS;
+	public static TileEntityType<TileEntityCookieJar> TILE_COOKIEJAR;
+	public static TileEntityType<TileEntityDinnerPlate> TILE_DINNERPLATE;
+	public static TileEntityType<TileEntityDiscRack> TILE_DISCRACK;
+	public static TileEntityType<TileEntitySwordPedestal> TILE_SWORDPEDESTAL;
+	public static TileEntityType<TileEntityBell> TILE_BELL;
+	public static TileEntityType<TileEntityTypewriter> TILE_TYPEWRITER;
+	*/
+	
+	
 	public void initTileEntities()
 	{
+		// TODO well this is broken now too I guess
+		//TILE_BOOKCASE = TileEntityType.register(BlockBookcase.name, TileEntityType.Builder.func_223042_a(TileEntityBookcase::new)); //func_223042_a == create
+		/*
+		TILE_SHELF = TileEntityType.register(BlockShelf.name, TileEntityType.Builder.create(TileEntityShelf::new));
+		TILE_MARKERPOLE = TileEntityType.register(BlockMarkerPole.name, TileEntityType.Builder.create(TileEntityMarkerPole::new));
+		TILE_CLIPBOARD = TileEntityType.register(BlockClipboard.name, TileEntityType.Builder.create(TileEntityClipboard::new));
+		TILE_LIGHT = TileEntityType.register(BiblioLightBlock.name, TileEntityType.Builder.create(BiblioLightTileEntity::new));
+		TILE_PANELER = TileEntityType.register(BlockFurniturePaneler.name, TileEntityType.Builder.create(TileEntityFurniturePaneler::new));
+		TILE_POTIONSHELF = TileEntityType.register(BlockPotionShelf.name, TileEntityType.Builder.create(TileEntityPotionShelf::new));
+		TILE_TOOLRACK = TileEntityType.register(BlockToolRack.name, TileEntityType.Builder.create(TileEntityToolRack::new));
+		TILE_LABEL = TileEntityType.register(BlockLabel.name, TileEntityType.Builder.create(TileEntityLabel::new));
+		TILE_DESK = TileEntityType.register(BlockDesk.name, TileEntityType.Builder.create(TileEntityDesk::new));
+		TILE_TABLE = TileEntityType.register(BlockTable.name, TileEntityType.Builder.create(TileEntityTable::new));
+		TILE_SEAT = TileEntityType.register(BlockSeat.name, TileEntityType.Builder.create(TileEntitySeat::new));
+		TILE_FANCYSIGN = TileEntityType.register(BlockFancySign.name, TileEntityType.Builder.create(TileEntityFancySign::new));
+		TILE_FANCYWORKBENCH = TileEntityType.register(BlockFancyWorkbench.name, TileEntityType.Builder.create(TileEntityFancyWorkbench::new));
+		TILE_FRAMEDCHEST = TileEntityType.register(BlockFramedChest.name, TileEntityType.Builder.create(TileEntityFramedChest::new));
+		TILE_MAPFRAME = TileEntityType.register(BlockMapFrame.name, TileEntityType.Builder.create(TileEntityMapFrame::new));
+		TILE_CASE = TileEntityType.register(BlockCase.name, TileEntityType.Builder.create(TileEntityCase::new));
+		TILE_CLOCK = TileEntityType.register(BlockClock.name, TileEntityType.Builder.create(TileEntityClock::new));
+		TILE_PAINTING_BORDERLESS = TileEntityType.register(BlockPaintingFrameBorderless.name, TileEntityType.Builder.create(TileEntityPaintingBorderless::new));
+		TILE_PAINTING_FANCY = TileEntityType.register(BlockPaintingFrameFancy.name, TileEntityType.Builder.create(TileEntityPaintingFancy::new));
+		TILE_PAINTING_FLAT = TileEntityType.register(BlockPaintingFrameFlat.name, TileEntityType.Builder.create(TileEntityPaintingFlat::new));
+		TILE_PAINTING_MIDDLE = TileEntityType.register(BlockPaintingFrameMiddle.name, TileEntityType.Builder.create(TileEntityPaintingMiddle::new));
+		TILE_PAINTING_SIMPLE = TileEntityType.register(BlockPaintingFrameSimple.name, TileEntityType.Builder.create(TileEntityPaintingSimple::new));
+		TILE_PAINTPRESS = TileEntityType.register(BlockPaintingPress.name, TileEntityType.Builder.create(TileEntityPaintPress::new));
+		TILE_ARMORSTAND = TileEntityType.register(BlockArmorStand.name, TileEntityType.Builder.create(TileEntityArmorStand::new));
+		TILE_TYPEMACHINE = TileEntityType.register(BlockTypesettingTable.name, TileEntityType.Builder.create(TileEntityTypeMachine::new));
+		TILE_PRINTPRESS = TileEntityType.register(BlockPrintingPress.name, TileEntityType.Builder.create(TileEntityPrintPress::new));
+		TILE_COOKIEJAR = TileEntityType.register(BlockCookieJar.name, TileEntityType.Builder.create(TileEntityCookieJar::new));
+		TILE_DINNERPLATE = TileEntityType.register(BlockDinnerPlate.name, TileEntityType.Builder.create(TileEntityDinnerPlate::new));
+		TILE_DISCRACK = TileEntityType.register(BlockDiscRack.name, TileEntityType.Builder.create(TileEntityDiscRack::new));
+		TILE_SWORDPEDESTAL = TileEntityType.register(BlockSwordPedestal.name, TileEntityType.Builder.create(TileEntitySwordPedestal::new));
+		TILE_BELL = TileEntityType.register(BlockBell.name, TileEntityType.Builder.create(TileEntityBell::new));
+		TILE_TYPEWRITER = TileEntityType.register(BlockTypeWriter.name, TileEntityType.Builder.create(TileEntityTypewriter::new));
+		*/
+		/* is this gone with?
 		if (Config.enableBookcase){
 			GameRegistry.registerTileEntity(TileEntityBookcase.class, BlockBookcase.name);}
 		if (Config.enableGenericshelf){
@@ -272,6 +370,7 @@ public class CommonProxy
 			GameRegistry.registerTileEntity(TileEntityBell.class, BlockBell.name);}
 		if (Config.enableTypewriter){
 			GameRegistry.registerTileEntity(TileEntityTypewriter.class, BlockTypeWriter.name);}
+			*/
 	}
 	
 	public void initNetwork()

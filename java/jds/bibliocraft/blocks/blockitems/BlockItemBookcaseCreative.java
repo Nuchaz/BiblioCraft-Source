@@ -2,42 +2,46 @@ package jds.bibliocraft.blocks.blockitems;
 
 import java.util.List;
 
+import jds.bibliocraft.blocks.BiblioWoodBlock;
 import jds.bibliocraft.blocks.BlockBookcaseCreative;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import jds.bibliocraft.helpers.EnumWoodsType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.translation.LanguageMap;
 import net.minecraft.world.World;
 
 public class BlockItemBookcaseCreative extends BiblioWoodBlockItem
 {
-	public static BlockItemBookcaseCreative instance = new BlockItemBookcaseCreative(BlockBookcaseCreative.instance);;
+	//public static BlockItemBookcaseCreative instance = new BlockItemBookcaseCreative(BlockBookcaseCreative.instance);; TODO so so borked
 	
-	public BlockItemBookcaseCreative(Block block)
+	public BlockItemBookcaseCreative(Block block, EnumWoodsType wood)
 	{
-		super(block, BlockBookcaseCreative.name);
-		setHasSubtypes(true);
-		setRegistryName(BlockBookcaseCreative.name);
+		super(block, BlockBookcaseCreative.name + wood.name());
+		//setHasSubtypes(true);
+		setRegistryName(BlockBookcaseCreative.name + wood.name());
 		//instance = new BlockItemBookcaseCreative(block);
 	}
 	
-	@SideOnly(Side.CLIENT)
+	//@OnlyIn(Dist.CLIENT)
 	@Override
-    public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced)
+    public void addInformation(ItemStack stack, World playerIn, List<ITextComponent> tooltip, ITooltipFlag advanced)  
 	{
-		tooltip.add(I18n.translateToLocal("item.creativebookcase.randombooks"));
-		tooltip.add("\u00a7d" + I18n.translateToLocal("item.creativebookcase.mode"));
-    	if (stack.getItemDamage() == 6)
+		tooltip.add(new StringTextComponent(LanguageMap.getInstance().translateKey("item.creativebookcase.randombooks")));
+		tooltip.add(new StringTextComponent("\u00a7d" + LanguageMap.getInstance().translateKey("item.creativebookcase.mode")));
+		Block theblock = Block.getBlockFromItem(stack.getItem());
+    	if (theblock instanceof BiblioWoodBlock && ((BiblioWoodBlock)theblock).woodType == EnumWoodsType.framed)
     	{
-    		NBTTagCompound nbt = stack.getTagCompound();
+    		CompoundNBT nbt = stack.getTag();
     		if (nbt != null)
     		{
-    			tooltip.add(I18n.translateToLocal("item.paneler.panels")+" \u00a7o"+nbt.getString("renderTexture"));
+    			tooltip.add(new StringTextComponent(LanguageMap.getInstance().translateKey("item.paneler.panels")+" \u00a7o"+nbt.getString("renderTexture")));
     		}
     	}
     	super.addInformation(stack, playerIn, tooltip, advanced);

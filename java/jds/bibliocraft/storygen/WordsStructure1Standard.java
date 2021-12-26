@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.Language;
-import net.minecraft.util.text.translation.I18n;
 
 public class WordsStructure1Standard
 {
@@ -174,7 +173,7 @@ public class WordsStructure1Standard
 	public String currentLanguage = "";
 	public WordsStructure1Standard()
 	{
-		//this.currentLanguage = Minecraft.getMinecraft().gameSettings.language;
+		//this.currentLanguage = Minecraft.getInstance().gameSettings.language;
 		//System.out.println(this.currentLanguage);
 		
 		// read directory and get list of .lang files

@@ -7,36 +7,31 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import jds.bibliocraft.Config;
 import jds.bibliocraft.helpers.EnumShiftPosition;
-import jds.bibliocraft.helpers.EnumVertPosition;
-import jds.bibliocraft.items.ItemClipboard;
+import jds.bibliocraft.helpers.EnumVertPosition; 
+//import jds.bibliocraft.items.ItemClipboard;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-//import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-//import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MapItem;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.model.Attributes;
 //import net.minecraftforge.client.model.IBakedModel;
@@ -44,11 +39,11 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJModel;
 
-public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
+public abstract class TileEntityBiblioRenderer extends TileEntityRenderer<BiblioTileEntity>
 {
 	private static final ResourceLocation RES_MAP_BACKGROUND = new ResourceLocation("textures/map/map_background.png");
-	Minecraft mc = Minecraft.getMinecraft();
-	private EnumFacing angle = EnumFacing.NORTH;
+	Minecraft mc = Minecraft.getInstance();
+	private Direction angle = Direction.NORTH;
 	private EnumVertPosition vert = EnumVertPosition.FLOOR;
 	private EnumShiftPosition shift = EnumShiftPosition.NO_SHIFT;
 	public float xshift;
@@ -60,11 +55,11 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
 	public Tessellator tessellator;
 	public BufferBuilder worldRenderer;
 	
-	private RenderItem itemRenderer;
-	private RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+	private ItemRenderer itemRenderer;
+	private EntityRendererManager renderManager = Minecraft.getInstance().getRenderManager();
 	
 	@Override
-	public void render(TileEntity tileEntity, double x, double y, double z, float tick, int destroyStage, float what) 
+	public void render(BiblioTileEntity tileEntity, double x, double y, double z, float tick, int destroyStage) 
 	{
 		this.globalX = x;
 		this.globalY = y;
@@ -80,7 +75,7 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
 		zshift = 0.0f;
 	    if (this.itemRenderer == null || this.tessellator == null || this.worldRenderer == null)
 	    {
-	    	this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
+	    	this.itemRenderer = Minecraft.getInstance().getItemRenderer();
 	    	this.tessellator = Tessellator.getInstance();
 	    	this.worldRenderer = tessellator.getBuffer();
 	    }
@@ -163,7 +158,7 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
 	
 	public abstract void render(BiblioTileEntity tile, double x, double y, double z, float tick);
 	
-	public EnumFacing getAngle()
+	public Direction getAngle()
 	{
 		return this.angle;
 	}
@@ -211,29 +206,29 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
 				default: break;
 			}
 			GlStateManager.pushMatrix();
-			GlStateManager.color(1.0f, 1.0f, 1.0f);
-			GlStateManager.translate(this.globalX + x + xshift, this.globalY + y + 0.05, this.globalZ + z + zshift);
-			GlStateManager.rotate(degreeAngle+180.0F, 0.0F, 1.0F, 0.0F);
+			GlStateManager.color3f(1.0f, 1.0f, 1.0f);
+			GlStateManager.translated(this.globalX + x + xshift, this.globalY + y + 0.05, this.globalZ + z + zshift);
+			GlStateManager.rotatef(degreeAngle+180.0F, 0.0F, 1.0F, 0.0F);
 			additionalGLStuffForItemStack();
 			Block testBlock = Block.getBlockFromItem(stack.getItem());
-			if (isRotatedBlock(stack.getUnlocalizedName()))
+			if (isRotatedBlock(stack.getDisplayName().getUnformattedComponentText()))
 			{
-				GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);
 			}
-			
+			/* TODO temp
 			if (stack.getItem() instanceof ItemClipboard)
 			{
-				GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-				GlStateManager.translate(0.4, 0.05, 0.0);
+				GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.translated(0.4, 0.05, 0.0);
 			}
-			
+			*/
 			if (testBlock == null)
 			{
 				// is item
 				scale *= 0.7f;
-				GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+				GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);
 			}
-			GlStateManager.scale(scale, scale, scale);
+			GlStateManager.scalef(scale, scale, scale);
 			
 			this.itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED);	
 			GlStateManager.popMatrix();
@@ -265,10 +260,10 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
     public void renderItemMap(ItemStack stack, float x, float y, float z, float scale)
     {
     	GlStateManager.pushMatrix();
-    	GlStateManager.translate(this.globalX + x, this.globalY + y + 1.02f, this.globalZ + z);
-    	GlStateManager.rotate(90.0f, 1.0f, 0.0f, 0.0f);
+    	GlStateManager.translated(this.globalX + x, this.globalY + y + 1.02f, this.globalZ + z);
+    	GlStateManager.rotatef(90.0f, 1.0f, 0.0f, 0.0f);
     	scale *= 0.0063;
-    	GlStateManager.scale(scale, scale, scale);
+    	GlStateManager.scaled(scale, scale, scale);
         this.mc.getTextureManager().bindTexture(RES_MAP_BACKGROUND);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder worldrenderer = tessellator.getBuffer();
@@ -279,14 +274,16 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
         worldrenderer.pos(135.0D, -7.0D, 0.0D).tex(1.0D, 0.0D).endVertex();
         worldrenderer.pos(-7.0D, -7.0D, 0.0D).tex(0.0D, 0.0D).endVertex();
         tessellator.draw();
-        MapData mapdata =Items.FILLED_MAP.getMapData(stack, this.getWorld());
+        /* TODO more broken stuff
+        MapData mapdata = MapItem.getMapData(stack, this.getWorld());
         if (mapdata != null)
         {
             this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, false);
         }
         GlStateManager.popMatrix();
+        */
     }
-    
+    /* removed casuse broken I guess
 	public IBakedModel initModel(List<String> parts, ResourceLocation modelResource)
 	{
 		IModel model = null;
@@ -302,13 +299,13 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
 		OBJModel.OBJState state = new OBJModel.OBJState(parts, true);
 		return  model.bake(state,  Attributes.DEFAULT_BAKED_FORMAT, getModelTexture);
 	}
-	
+	*/
 	protected Function<ResourceLocation, TextureAtlasSprite> getModelTexture = new Function<ResourceLocation, TextureAtlasSprite>()
 	{
 		@Override
 		public TextureAtlasSprite apply(ResourceLocation location)
 		{
-			return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(getTextureString(location));
+			return Minecraft.getInstance().getTextureMap().getAtlasSprite(getTextureString(location));
 		}
 	};
 	
@@ -331,40 +328,40 @@ public abstract class TileEntityBiblioRenderer extends TileEntitySpecialRenderer
 			default: break;
 		}
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(this.globalX + 0.5 + offsetx, this.globalY, this.globalZ + 0.5 + offsetz);
+		GlStateManager.translated(this.globalX + 0.5 + offsetx, this.globalY, this.globalZ + 0.5 + offsetz);
 		
 		switch (this.getAngle())
 		{
-			case SOUTH:{GlStateManager.rotate(180, 0.0f, 1.0f, 0.0f); break; } 
-			case WEST:{GlStateManager.rotate(90, 0.0f, 1.0f, 0.0f); break; } 
-			case EAST:{GlStateManager.rotate(-90, 0.0f, 1.0f, 0.0f); break;} 
+			case SOUTH:{GlStateManager.rotatef(180, 0.0f, 1.0f, 0.0f); break; } 
+			case WEST:{GlStateManager.rotatef(90, 0.0f, 1.0f, 0.0f); break; } 
+			case EAST:{GlStateManager.rotatef(-90, 0.0f, 1.0f, 0.0f); break;} 
 			default: break;
 		}
 		
-		GlStateManager.translate(-0.5 + xAdjust, yAdjust, zAdjust);
+		GlStateManager.translated(-0.5 + xAdjust, yAdjust, zAdjust);
 		GlStateManager.depthMask(false);
-		GlStateManager.scale(0.0045F, 0.0045F, 0.0045F);
-		GlStateManager.rotate(270, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(180, 0.0F, 0.0F, 1.0F);
+		GlStateManager.scalef(0.0045F, 0.0045F, 0.0045F);
+		GlStateManager.rotatef(270, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotatef(180, 0.0F, 0.0F, 1.0F);
 		switch (this.shift)
 		{
 			case HALF_SHIFT:
 			{
-				GlStateManager.translate(0.0, 0.0, -95.0);
+				GlStateManager.translated(0.0, 0.0, -95.0);
 				break;
 			}
 			case FULL_SHIFT:
 			{
-				GlStateManager.translate(0.0, 0.0, -205.0);
+				GlStateManager.translated(0.0, 0.0, -205.0);
 				break;
 			}
 			default: break;
 		}
 		additionalGLStuffForText();
-        GlStateManager.glNormal3f(0.0F, 0.0F, -0.010416667F);
+        GlStateManager.normal3f(0.0F, 0.0F, -0.010416667F);
 		fontRender.drawString(text, 0, 0, 0); 
 		GlStateManager.depthMask(true);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.popMatrix();
 	}
 	

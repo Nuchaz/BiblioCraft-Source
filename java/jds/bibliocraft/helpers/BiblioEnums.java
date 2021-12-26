@@ -1,4 +1,4 @@
-package jds.bibliocraft.helpers;
+package jds.bibliocraft.helpers; 
 
 import jds.bibliocraft.CommonProxy;
 import net.minecraft.util.ResourceLocation;

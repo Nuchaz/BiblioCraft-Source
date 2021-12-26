@@ -1,24 +1,16 @@
 package jds.bibliocraft;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import jds.bibliocraft.*;
-import jds.bibliocraft.blocks.BlockArmorStand;
-import jds.bibliocraft.blocks.BlockBell;
+
 import jds.bibliocraft.blocks.BlockBookcase;
 import jds.bibliocraft.blocks.BlockBookcaseCreative;
+import jds.bibliocraft.blocks.TestBlock;
+/*
+import jds.bibliocraft.blocks.BlockArmorStand;
+import jds.bibliocraft.blocks.BlockBell;
 import jds.bibliocraft.blocks.BlockCase;
 import jds.bibliocraft.blocks.BlockClipboard;
 import jds.bibliocraft.blocks.BlockClock;
@@ -53,8 +45,7 @@ import jds.bibliocraft.blocks.BlockToolRack;
 import jds.bibliocraft.blocks.BlockTypeWriter;
 import jds.bibliocraft.blocks.BlockTypesettingTable;
 import jds.bibliocraft.blocks.blockitems.BlockItemArmorStand;
-import jds.bibliocraft.blocks.blockitems.BlockItemBookcase;
-import jds.bibliocraft.blocks.blockitems.BlockItemBookcaseCreative;
+
 import jds.bibliocraft.blocks.blockitems.BlockItemCase;
 import jds.bibliocraft.blocks.blockitems.BlockItemClock;
 import jds.bibliocraft.blocks.blockitems.BlockItemDesk;
@@ -78,11 +69,12 @@ import jds.bibliocraft.blocks.blockitems.BlockItemSwordPedestal;
 import jds.bibliocraft.blocks.blockitems.BlockItemTable;
 import jds.bibliocraft.blocks.blockitems.BlockItemToolRack;
 import jds.bibliocraft.blocks.blockitems.BlockItemTypewriter;
-import jds.bibliocraft.items.ItemChase;
-import jds.bibliocraft.items.ItemFramingBoard;
-import jds.bibliocraft.items.ItemFramingSaw;
-import jds.bibliocraft.items.ItemFramingSheet;
-import jds.bibliocraft.items.ItemPaintingCanvas;
+*/
+import jds.bibliocraft.blocks.blockitems.BlockItemBookcase;
+import jds.bibliocraft.blocks.blockitems.BlockItemBookcaseCreative;
+import jds.bibliocraft.blocks.blockitems.BlockItemTestBlock;
+import jds.bibliocraft.helpers.EnumWoodsType;
+
 
 public class BlockLoader 
 {	
@@ -127,14 +119,14 @@ public class BlockLoader
         
     };
 	
-	public static int creativetabID = CreativeTabs.getNextID();
+	//public static int creativetabID = CreativeTabs.getNextID();
 	
-	public static final CreativeTabs biblioTab = new BiblioTab("BiblioCraft");
-	public static CreativeTabs biblioLightsTab;// = new BiblioLightsTab("BiblioCraftLights");
-	public static void initLightTab()
-	{
-		biblioLightsTab = new BiblioLightsTab("BiblioCraftLights");
-	}
+	//public static final ItemGroup biblioTab = new BiblioTab("BiblioCraft");
+	//public static final ItemGroup biblioLightsTab = new BiblioLightsTab("BiblioCraftLights");
+	//public static void initLightTab()
+	//{
+	//	biblioLightsTab = new BiblioLightsTab("BiblioCraftLights");
+	//}
 	
 	/** The number of woods starting at 0 so easy use in loops.  */
 	public final static int NUMBER_OF_WOODS = 6;
@@ -149,134 +141,156 @@ public class BlockLoader
 	public static final Item bookcase_item = BlockItemBookcase.instance;
 	*/
 	
-
+	public static final BlockBookcase[] bookcases = {new BlockBookcase(EnumWoodsType.oak), 
+													 new BlockBookcase(EnumWoodsType.spruce), 
+													 new BlockBookcase(EnumWoodsType.birch), 
+													 new BlockBookcase(EnumWoodsType.jungle), 
+													 new BlockBookcase(EnumWoodsType.acacia), 
+													 new BlockBookcase(EnumWoodsType.darkoak), 
+													 new BlockBookcase(EnumWoodsType.framed)};
+	
+	public static final BlockItemBookcase[] bookcaseItems = {new BlockItemBookcase(bookcases[0], EnumWoodsType.oak),
+															 new BlockItemBookcase(bookcases[1], EnumWoodsType.spruce),
+															 new BlockItemBookcase(bookcases[2], EnumWoodsType.birch),
+															 new BlockItemBookcase(bookcases[3], EnumWoodsType.jungle),
+															 new BlockItemBookcase(bookcases[4], EnumWoodsType.acacia),
+															 new BlockItemBookcase(bookcases[5], EnumWoodsType.darkoak),
+															 new BlockItemBookcase(bookcases[6], EnumWoodsType.framed)};
+	
+	public static final TestBlock tblock = new TestBlock();
+	public static final BlockItemTestBlock tblockitem = new BlockItemTestBlock(tblock, "testblock");
 	
 	public static void initBlocks(RegistryEvent.Register<Block> event)
 	{
 		if (Config.enableBookcase)
 		{
-			event.getRegistry().register(BlockBookcase.instance);
-			event.getRegistry().register(BlockBookcaseCreative.instance);
+			for (int i = 0; i < bookcases.length; i++)
+			{
+				event.getRegistry().register(bookcases[i]);
+			}
+			event.getRegistry().register(tblock);
+			//event.getRegistry().register(bookcases[0]);
+			//event.getRegistry().register(BlockBookcaseCreative.instance);
 		}
 		if (Config.enableGenericshelf)
 		{	
-			event.getRegistry().register(BlockShelf.instance);
+			//event.getRegistry().register(BlockShelf.instance);
 		}
 		if (Config.enableTapemeasure)
 		{
-			event.getRegistry().register(BlockMarkerPole.instance);
+			//event.getRegistry().register(BlockMarkerPole.instance);
 		}
 		if (Config.enableClipboard)
 		{
-			event.getRegistry().register(BlockClipboard.instance);
+			//event.getRegistry().register(BlockClipboard.instance);
 		}
 		
 		if (Config.enableLantern)
 		{	
-			event.getRegistry().register(BlockLanternGold.instance);
-			event.getRegistry().register(BlockLanternIron.instance);
+			//event.getRegistry().register(BlockLanternGold.instance);
+			//event.getRegistry().register(BlockLanternIron.instance);
 		}
 		if (Config.enableLamp)
 		{	
-			event.getRegistry().register(BlockLampGold.instance);
-			event.getRegistry().register(BlockLampIron.instance);
+			//event.getRegistry().register(BlockLampGold.instance);
+			//event.getRegistry().register(BlockLampIron.instance);
 		}
 		if (Config.enableFurniturePaneler)
 		{
-			event.getRegistry().register(BlockFurniturePaneler.instance);
+			//event.getRegistry().register(BlockFurniturePaneler.instance);
 		}
 		if (Config.enableFramedChest)
 		{
-			event.getRegistry().register(BlockFramedChest.instance);
+			//event.getRegistry().register(BlockFramedChest.instance);
 		}
 		if (Config.enableFancySign)
 		{
-			event.getRegistry().register(BlockFancySign.instance);
+			//event.getRegistry().register(BlockFancySign.instance);
 		}
 		if (Config.enableFancyWorkbench)
 		{
-			event.getRegistry().register(BlockFancyWorkbench.instance);
+			//event.getRegistry().register(BlockFancyWorkbench.instance);
 		}
 		if (Config.enablePotionshelf)
 		{
-			event.getRegistry().register(BlockPotionShelf.instance);
+			//event.getRegistry().register(BlockPotionShelf.instance);
 		}
 		if (Config.enableToolrack)
 		{	
-			event.getRegistry().register(BlockToolRack.instance);
+			//event.getRegistry().register(BlockToolRack.instance);
 		}
 		if (Config.enableWoodLabel)
 		{	
-			event.getRegistry().register(BlockLabel.instance);
+			//event.getRegistry().register(BlockLabel.instance);
 		}
 		if (Config.enableWritingdesk)
 		{	
-			event.getRegistry().register(BlockDesk.instance);
+			//event.getRegistry().register(BlockDesk.instance);
 		}
 		if (Config.enableTable)
 		{	
-			event.getRegistry().register(BlockTable.instance);
+			//event.getRegistry().register(BlockTable.instance);
 		}
 		if (Config.enableSeat)
 		{
-			event.getRegistry().register(BlockSeat.instance);
+			//event.getRegistry().register(BlockSeat.instance);
 		}
 		
 		if (Config.enableClock)
 		{
-			event.getRegistry().register(BlockClock.instance);
+			//event.getRegistry().register(BlockClock.instance);
 		}
 		if (Config.enableWeaponcase)
 		{	
-			event.getRegistry().register(BlockCase.instance);
+			//event.getRegistry().register(BlockCase.instance);
 		}
 		if (Config.enableMapFrame)
 		{
-			event.getRegistry().register(BlockMapFrame.instance);
+			//event.getRegistry().register(BlockMapFrame.instance);
 		}
 		
 		if (Config.enablePainting)
 		{
-			event.getRegistry().register(BlockPaintingFrameFlat.instance);
-			event.getRegistry().register(BlockPaintingFrameSimple.instance);
-			event.getRegistry().register(BlockPaintingFrameMiddle.instance);
-			event.getRegistry().register(BlockPaintingFrameFancy.instance);
-			event.getRegistry().register(BlockPaintingFrameBorderless.instance);
+			//event.getRegistry().register(BlockPaintingFrameFlat.instance);
+			//event.getRegistry().register(BlockPaintingFrameSimple.instance);
+			//event.getRegistry().register(BlockPaintingFrameMiddle.instance);
+			//event.getRegistry().register(BlockPaintingFrameFancy.instance);
+			//event.getRegistry().register(BlockPaintingFrameBorderless.instance);
 
-			event.getRegistry().register(BlockPaintingPress.instance);
+			//event.getRegistry().register(BlockPaintingPress.instance);
 		}
 		if (Config.enableTypewriter)
 		{
-			event.getRegistry().register(BlockTypeWriter.instance);
+			//event.getRegistry().register(BlockTypeWriter.instance);
 		}
 		if (Config.enableSwordPedestal)
 		{
-			event.getRegistry().register(BlockSwordPedestal.instance);
+			//event.getRegistry().register(BlockSwordPedestal.instance);
 		}
 		if (Config.enableArmorstand)
 		{	
-			event.getRegistry().register(BlockArmorStand.instance);
+			//event.getRegistry().register(BlockArmorStand.instance);
 		}
 		if (Config.enableDeskBell)
 		{
-			event.getRegistry().register(BlockBell.instance); 
+			//event.getRegistry().register(BlockBell.instance); 
 		}
 		if (Config.enablePrintpressTypeMachine)
 		{	
-			event.getRegistry().register(BlockTypesettingTable.instance);
-			event.getRegistry().register(BlockPrintingPress.instance); 
+			//event.getRegistry().register(BlockTypesettingTable.instance);
+			//event.getRegistry().register(BlockPrintingPress.instance); 
 		}
 		if (Config.enableCookieJar)
 		{
-			event.getRegistry().register(BlockCookieJar.instance); 
+			//event.getRegistry().register(BlockCookieJar.instance); 
 		}
 		if (Config.enableDinnerPlate)
 		{
-			event.getRegistry().register(BlockDinnerPlate.instance); 
+			//event.getRegistry().register(BlockDinnerPlate.instance); 
 		}
 		if (Config.enableDiscRack)
 		{
-			event.getRegistry().register(BlockDiscRack.instance); 
+			//event.getRegistry().register(BlockDiscRack.instance); 
 		}
 	}
 	
@@ -284,21 +298,30 @@ public class BlockLoader
 	{
 		if (Config.enableBookcase)
 		{
-			event.getRegistry().register(BlockItemBookcase.instance);
+			for (int i = 0; i < bookcaseItems.length; i++)
+			{
+				event.getRegistry().register(bookcaseItems[i]);
+			}
+			event.getRegistry().register(tblockitem);
+			//event.getRegistry().register(bookcaseItems[0]);
+			
+			//event.getRegistry().register(BlockItemBookcase.instance);
 
-			event.getRegistry().register(BlockItemBookcaseCreative.instance); 
+			//event.getRegistry().register(BlockItemBookcaseCreative.instance); 
 		}
+		/*
 		if (Config.enableGenericshelf)
 		{	
 			event.getRegistry().register(BlockItemShelf.instance); 
 		}
 		if (Config.enableTapemeasure)
 		{
-			event.getRegistry().register(new ItemBlock(BlockMarkerPole.instance).setRegistryName(BlockMarkerPole.name)); 
+			
+			event.getRegistry().register(new ItemBlock(BlockMarkerPole.instance, new Item.Properties()).setRegistryName(BlockMarkerPole.name)); 
 		}
 		if (Config.enableClipboard)
 		{
-			event.getRegistry().register(new ItemBlock(BlockClipboard.instance).setRegistryName(BlockClipboard.name)); 
+			event.getRegistry().register(new ItemBlock(BlockClipboard.instance, new Item.Properties()).setRegistryName(BlockClipboard.name)); 
 		}
 		
 		if (Config.enableLantern)
@@ -372,7 +395,7 @@ public class BlockLoader
 			event.getRegistry().register(BlockItemPaintingFrameMiddle.instance); 
 			event.getRegistry().register(BlockItemPaintingFrameFancy.instance); 
 			event.getRegistry().register(BlockItemPaintingFrameBorderless.instance); 
-			event.getRegistry().register(new ItemBlock(BlockPaintingPress.instance).setRegistryName(BlockPaintingPress.name)); 
+			event.getRegistry().register(new ItemBlock(BlockPaintingPress.instance, new Item.Properties()).setRegistryName(BlockPaintingPress.name)); 
 		}
 		if (Config.enableTypewriter)
 		{
@@ -388,24 +411,25 @@ public class BlockLoader
 		}
 		if (Config.enableDeskBell)
 		{
-			event.getRegistry().register(new ItemBlock(BlockBell.instance).setRegistryName(BlockBell.name)); 
+			event.getRegistry().register(new ItemBlock(BlockBell.instance, new Item.Properties()).setRegistryName(BlockBell.name)); 
 		}
 		if (Config.enablePrintpressTypeMachine)
 		{	
-			event.getRegistry().register(new ItemBlock(BlockTypesettingTable.instance).setRegistryName(BlockTypesettingTable.name)); 
-			event.getRegistry().register(new ItemBlock(BlockPrintingPress.instance).setRegistryName(BlockPrintingPress.name)); 
+			event.getRegistry().register(new ItemBlock(BlockTypesettingTable.instance, new Item.Properties()).setRegistryName(BlockTypesettingTable.name)); 
+			event.getRegistry().register(new ItemBlock(BlockPrintingPress.instance, new Item.Properties()).setRegistryName(BlockPrintingPress.name)); 
 		}
 		if (Config.enableCookieJar)
 		{
-			event.getRegistry().register(new ItemBlock(BlockCookieJar.instance).setRegistryName(BlockCookieJar.name)); 
+			event.getRegistry().register(new ItemBlock(BlockCookieJar.instance, new Item.Properties()).setRegistryName(BlockCookieJar.name)); 
 		}
 		if (Config.enableDinnerPlate)
 		{
-			event.getRegistry().register(new ItemBlock(BlockDinnerPlate.instance).setRegistryName(BlockDinnerPlate.name)); 
+			event.getRegistry().register(new ItemBlock(BlockDinnerPlate.instance, new Item.Properties()).setRegistryName(BlockDinnerPlate.name)); 
 		}
 		if (Config.enableDiscRack)
 		{
-			event.getRegistry().register(new ItemBlock(BlockDiscRack.instance).setRegistryName(BlockDiscRack.name)); 
+			event.getRegistry().register(new ItemBlock(BlockDiscRack.instance, new Item.Properties()).setRegistryName(BlockDiscRack.name)); 
 		}
+		*/
 	}
 }

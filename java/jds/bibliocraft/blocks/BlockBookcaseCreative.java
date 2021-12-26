@@ -1,21 +1,18 @@
 package jds.bibliocraft.blocks;
 
+import jds.bibliocraft.helpers.EnumWoodsType;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityBookcase;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.entity.LivingEntity;
 
 public class BlockBookcaseCreative extends BlockBookcase
 {
-	public static final String name = "BookcaseCreative";
-	public static final BlockBookcaseCreative instance = new BlockBookcaseCreative();
+	public static final String name = "bookcasecreative";
+	//public static final BlockBookcaseCreative instance = new BlockBookcaseCreative();
 	
-	public BlockBookcaseCreative()
+	public BlockBookcaseCreative(EnumWoodsType wood)
 	{
-		super(name);
+		super(name, wood);
 		//setRegistryName(name);
 		//setUnlocalizedName(BlockBookcase.name);
 		//setRegistryName(name);
@@ -23,7 +20,7 @@ public class BlockBookcaseCreative extends BlockBookcase
 	}
 	
 	@Override
-	public void additionalPlacementCommands(BiblioTileEntity biblioTile, EntityLivingBase player)
+	public void additionalPlacementCommands(BiblioTileEntity biblioTile, LivingEntity player)
 	{
 		if (biblioTile instanceof TileEntityBookcase)
 		{

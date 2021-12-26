@@ -3,23 +3,26 @@ package jds.bibliocraft;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import jds.bibliocraft.CommonProxy;
+/*
 import jds.bibliocraft.blocks.BiblioLightBlock;
 import jds.bibliocraft.blocks.BlockArmorStand;
 import jds.bibliocraft.blocks.BlockBell;
+*/
 import jds.bibliocraft.blocks.BlockBookcase;
 import jds.bibliocraft.blocks.BlockBookcaseCreative;
+/*
 import jds.bibliocraft.blocks.BlockCase;
 import jds.bibliocraft.blocks.BlockClipboard;
 import jds.bibliocraft.blocks.BlockClock;
@@ -53,15 +56,19 @@ import jds.bibliocraft.blocks.BlockTable;
 import jds.bibliocraft.blocks.BlockToolRack;
 import jds.bibliocraft.blocks.BlockTypeWriter;
 import jds.bibliocraft.blocks.BlockTypesettingTable;
+*/
 import jds.bibliocraft.blocks.blockitems.BlockItemBookcase;
+/*
 import jds.bibliocraft.entity.EntitySeat;
 import jds.bibliocraft.entity.EntitySeatRenderer;
 import jds.bibliocraft.events.BakeEventHandler;
 import jds.bibliocraft.events.GuiBiblioOverlay;
 import jds.bibliocraft.events.RenderAtlasFace;
 import jds.bibliocraft.events.RenderClipboardText;
+*/
 import jds.bibliocraft.events.TextureStichHandler;
 import jds.bibliocraft.helpers.EnumColor;
+/*
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemAtlasPlate;
 import jds.bibliocraft.items.ItemBigBook;
@@ -70,9 +77,11 @@ import jds.bibliocraft.items.ItemClipboard;
 import jds.bibliocraft.items.ItemDeathCompass;
 import jds.bibliocraft.items.ItemDrill;
 import jds.bibliocraft.items.ItemEnchantedPlate;
+*/
 import jds.bibliocraft.items.ItemFramingBoard;
 import jds.bibliocraft.items.ItemFramingSaw;
 import jds.bibliocraft.items.ItemFramingSheet;
+/*
 import jds.bibliocraft.items.ItemHandDrill;
 import jds.bibliocraft.items.ItemLock;
 import jds.bibliocraft.items.ItemMapTool;
@@ -96,7 +105,9 @@ import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.models.ModelArmorStand;
 import jds.bibliocraft.models.ModelAtlas;
 import jds.bibliocraft.models.ModelBell;
+*/
 import jds.bibliocraft.models.ModelBookcase;
+/*
 import jds.bibliocraft.models.ModelCanvas;
 import jds.bibliocraft.models.ModelCase;
 import jds.bibliocraft.models.ModelClipboard;
@@ -124,6 +135,8 @@ import jds.bibliocraft.models.ModelPrintingPress;
 import jds.bibliocraft.models.ModelSeat;
 import jds.bibliocraft.models.ModelSeatBack1;
 import jds.bibliocraft.models.ModelSeatBack2;
+
+
 import jds.bibliocraft.models.ModelSeatBack3;
 import jds.bibliocraft.models.ModelSeatBack4;
 import jds.bibliocraft.models.ModelSeatBack5;
@@ -134,7 +147,9 @@ import jds.bibliocraft.models.ModelToolRack;
 import jds.bibliocraft.models.ModelTypesettingTable;
 import jds.bibliocraft.models.ModelTypewriter;
 import jds.bibliocraft.rendering.TileEntityArmorStandRenderer;
+*/
 import jds.bibliocraft.rendering.TileEntityCaseRenderer;
+/*
 import jds.bibliocraft.rendering.TileEntityClipboardRenderer;
 import jds.bibliocraft.rendering.TileEntityClockRenderer;
 import jds.bibliocraft.rendering.TileEntityDeskRenderer;
@@ -154,12 +169,16 @@ import jds.bibliocraft.rendering.TileEntitySwordPedestalRenderer;
 import jds.bibliocraft.rendering.TileEntityTableRenderer;
 import jds.bibliocraft.rendering.TileEntityToolRackRenderer;
 import jds.bibliocraft.rendering.TileEntityTypeWriterRenderer;
+*/
 import jds.bibliocraft.statemappers.BiblioBlockStateMapper;
+/*
 import jds.bibliocraft.statemappers.ClipboardStateMapper;
 import jds.bibliocraft.statemappers.LightingStateMapper;
 import jds.bibliocraft.statemappers.MarkerPoleStateMapper;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
+*/
 import jds.bibliocraft.tileentities.TileEntityBookcase;
+/*
 import jds.bibliocraft.tileentities.TileEntityCase;
 import jds.bibliocraft.tileentities.TileEntityClipboard;
 import jds.bibliocraft.tileentities.TileEntityClock;
@@ -180,17 +199,20 @@ import jds.bibliocraft.tileentities.TileEntitySwordPedestal;
 import jds.bibliocraft.tileentities.TileEntityTable;
 import jds.bibliocraft.tileentities.TileEntityToolRack;
 import jds.bibliocraft.tileentities.TileEntityTypewriter;
+*/
 
 public class ClientProxy extends CommonProxy 
 {
 
+	@SuppressWarnings("unchecked")
 	public void registerRenderers()
 	{
 		MinecraftForge.EVENT_BUS.register(TextureStichHandler.instance);
-		MinecraftForge.EVENT_BUS.register(BakeEventHandler.instance);
+		//MinecraftForge.EVENT_BUS.register(BakeEventHandler.instance);
 		
 		if (!Config.disablerenderers)
 		{
+			/*
 			if (Config.enableGenericshelf){
 				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityShelf.class, new TileEntityShelfRenderer());} 
 			if (Config.enableClipboard)
@@ -233,22 +255,23 @@ public class ClientProxy extends CommonProxy
 			}
 			if (Config.enableFancySign){
 				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFancySign.class, new TileEntityFancySignRenderer());}
-			if (Config.enableSeat){
-				RenderingRegistry.registerEntityRenderingHandler(EntitySeat.class, new EntitySeatRenderer(Minecraft.getMinecraft().getRenderManager()));}
+			//if (Config.enableSeat){ // TODO something is up with seat entity renderer
+				//RenderingRegistry.registerEntityRenderingHandler(EntitySeat.class, new EntitySeatRenderer(Minecraft.getInstance().getRenderManager()));}
 			if (Config.enablePrintpressTypeMachine){
 				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPrintPress.class, new TileEntityPrintPressRenderer());}
 			
 			if (Config.enableArmorstand){
 				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityArmorStand.class, new TileEntityArmorStandRenderer());
 			}
+			*/
 		}
 		
 		OBJLoader.INSTANCE.addDomain("bibliocraft");
-
+		/*
 		if (Config.enableBookcase)
 		{
 			Item bookcase_item = Item.getItemFromBlock(BlockBookcase.instance);
-			Item bookcase_creative_item = Item.getItemFromBlock(BlockBookcaseCreative.instance);
+			Item bookcase_creative_item = Item.getItemFromBlock(BlockBookcaseCreative.instance); 
 			for (int i = 0; i <= BlockLoader.NUMBER_OF_WOODS; i++)
 			{
 				ModelLoader.setCustomModelResourceLocation(bookcase_item, i, ModelBookcase.modelResourceLocation);
@@ -480,6 +503,7 @@ public class ClientProxy extends CommonProxy
 			ModelLoader.setCustomModelResourceLocation(ItemPlate.instance, 0, plateModel);
 			ModelLoader.setCustomModelResourceLocation(ItemAtlasPlate.instance, 0, plateModel);
 			ModelLoader.setCustomModelResourceLocation(ItemEnchantedPlate.instance, 0, plateModel);
+			
 		}
 		if (Config.enableClipboard)
 		{
@@ -615,9 +639,10 @@ public class ClientProxy extends CommonProxy
 			ModelResourceLocation vanillaBookModel = new ModelResourceLocation("bibliocraft:book");
 			ModelLoader.setCustomModelResourceLocation(ItemNameTester.instance, 0, vanillaBookModel);
 		}	
+		*/
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void initTileEntities()
 	{
@@ -625,7 +650,7 @@ public class ClientProxy extends CommonProxy
 		
 	}
 	
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void initNetwork()
 	{

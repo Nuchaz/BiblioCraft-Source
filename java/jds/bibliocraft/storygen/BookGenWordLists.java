@@ -1,10 +1,6 @@
 package jds.bibliocraft.storygen;
 
-import java.io.File;
 import java.util.Random;
-
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.common.config.Configuration;
 
 public class BookGenWordLists
 {
@@ -14,7 +10,7 @@ public class BookGenWordLists
 	private static String[] wEndConsonants = {"c","d","g","k","l","m","n","p","r","s","t","rd","rk","rv","rt","ny","nk","wn","ch", "gon", "wood", "ix", "th", "ck"};
 	private static String[] wCapitalLetters = {"A","B","C","D","F","G","H","J","K","L","M","N","P","R","S","T","V","W","Z"};
 	Random rando;
-	public static Configuration config;
+
 	
 	////paragraph 1
 	
@@ -23,7 +19,7 @@ public class BookGenWordLists
 	{
 		rando = new Random();
 		/*
-		File configFolder = new File(Minecraft.getMinecraft().mcDataDir, "config");
+		File configFolder = new File(Minecraft.getInstance().mcDataDir, "config");
 		config = new Configuration(new File(configFolder, "BiblioCraftWordLists.cfg"));
 		config.load();
 		config.addCustomCategoryComment("Words", "These are the lists of words that the typewriter randomly chooses from as it constructs a story from a predetermined story structure");
