@@ -71,7 +71,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer
 		        double zPos = tile.getPos().getZ() + 0.5 - this.rendererDispatcher.entityZ;
 		        float yaw = degreeAngle;
 		        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-				renderManager.doRenderEntity(steve, xPos, yPos, zPos, degreeAngle, 1.0f, false);
+				renderManager.renderEntity(steve, xPos, yPos, zPos, degreeAngle, 1.0f, false);
 		        GlStateManager.disableBlend();
 				GlStateManager.popMatrix();
 				

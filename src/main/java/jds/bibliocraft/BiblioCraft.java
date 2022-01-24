@@ -29,6 +29,7 @@ import jds.bibliocraft.items.ItemDrill;
 import jds.bibliocraft.items.ItemHandDrill;
 import jds.bibliocraft.items.ItemTape;
 import jds.bibliocraft.items.ItemTapeMeasure;
+import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.ClientPacketHandler;
 import jds.bibliocraft.network.ServerPacketHandler;
 import jds.bibliocraft.SoundLoader;
@@ -233,7 +234,7 @@ public class BiblioCraft
 	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiLoader());
 		MinecraftForge.EVENT_BUS.register(proxy);
-		
+		BiblioNetworking.setup();
 		ch_BiblioType = NetworkRegistry.INSTANCE.newEventDrivenChannel("BiblioType");
 		ch_BiblioTypeFlag = NetworkRegistry.INSTANCE.newEventDrivenChannel("BiblioTypeFlag");
 		ch_BiblioTypeDelete = NetworkRegistry.INSTANCE.newEventDrivenChannel("BiblioTypeDelete");

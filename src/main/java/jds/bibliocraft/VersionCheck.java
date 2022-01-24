@@ -22,8 +22,8 @@ public class VersionCheck
 	private static String lastCheckedversion = "";
 	private static String latestWebVersion;
 	
-	private static String versionURL = "http://www.bibliocraftmod.com/vcheck/version.txt";
-	private static String messageURL = "http://www.bibliocraftmod.com/vcheck/message.txt";
+	private static String versionURL = "https://www.bibliocraftmod.com/vcheck/version.txt";
+	private static String messageURL = "https://www.bibliocraftmod.com/vcheck/message.txt";
 	private boolean runEvent = true;
 	private EntityPlayer player;
 

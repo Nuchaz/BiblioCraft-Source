@@ -558,7 +558,6 @@ public class GuiFancySign extends GuiContainer
                 
                 for (int m = 0; m<textTest.length(); m++)
                 {
-                	//System.out.println(textTest.substring(m, m+1).contains("§"));
                 	if (textTest.substring(m, m+1).contains("\u00a7"))
                 	{
                 		formcount++;

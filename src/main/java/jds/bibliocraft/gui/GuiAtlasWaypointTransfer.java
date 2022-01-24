@@ -8,6 +8,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.BiblioAtlasWPT;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -84,13 +86,15 @@ public class GuiAtlasWaypointTransfer extends GuiScreen
     
     private void sendTransferPacket(boolean toMapFrame)
     {
-    	ByteBuf buffer = Unpooled.buffer();
-    	buffer.writeBoolean(toMapFrame);
-    	buffer.writeInt(frameTile.getPos().getX());
-    	buffer.writeInt(frameTile.getPos().getY());
-    	buffer.writeInt(frameTile.getPos().getZ());
-    	ByteBufUtils.writeItemStack(buffer, this.atlasStack);
-    	BiblioCraft.ch_BiblioAtlasWPT.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasWPT"));
+		System.out.println("balls");
+    	// ByteBuf buffer = Unpooled.buffer();
+    	// buffer.writeBoolean(toMapFrame);
+    	// buffer.writeInt(frameTile.getPos().getX());
+    	// buffer.writeInt(frameTile.getPos().getY());
+    	// buffer.writeInt(frameTile.getPos().getZ());
+    	// ByteBufUtils.writeItemStack(buffer, this.atlasStack);
+		BiblioNetworking.INSTANCE.sendToServer(new BiblioAtlasWPT(toMapFrame, frameTile.getPos(), this.atlasStack));
+    	// BiblioCraft.ch_BiblioAtlasWPT.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasWPT"));
     }
    
     @Override
