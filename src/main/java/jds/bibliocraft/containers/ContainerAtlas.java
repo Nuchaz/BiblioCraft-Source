@@ -7,6 +7,8 @@ import scala.Array;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemWaypointCompass;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioAtlasClient;
 import jds.bibliocraft.slots.SlotAtlas;
 import jds.bibliocraft.slots.SlotAtlasMap;
 import jds.bibliocraft.slots.SlotLocked;
@@ -200,9 +202,10 @@ public class ContainerAtlas extends Container
 				if (player instanceof EntityPlayerMP)
 				{
 					//ystem.out.println("MP player");
-			    	ByteBuf buffer = Unpooled.buffer();
-			    	ByteBufUtils.writeItemStack(buffer, atlasStack);
-			    	BiblioCraft.ch_BiblioAtlas.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlas"), (EntityPlayerMP) player);
+			    	BiblioNetworking.INSTANCE.sendTo(new BiblioAtlasClient(atlasStack), (EntityPlayerMP) player);
+					// ByteBuf buffer = Unpooled.buffer();
+			    	// ByteBufUtils.writeItemStack(buffer, atlasStack);
+			    	// BiblioCraft.ch_BiblioAtlas.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlas"), (EntityPlayerMP) player);
 				}
 			}
 			tags.setBoolean("containerUpdate", false);

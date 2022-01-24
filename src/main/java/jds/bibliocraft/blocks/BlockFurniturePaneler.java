@@ -13,6 +13,8 @@ import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.Config;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioPanelerClient;
 import jds.bibliocraft.states.PanelProperty;
 import jds.bibliocraft.states.PanelState;
 import jds.bibliocraft.states.TextureProperty;
@@ -103,12 +105,13 @@ public class BlockFurniturePaneler extends BiblioWoodBlock
 										
 										player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 
-										ByteBuf buffer = Unpooled.buffer();
-								    	ByteBufUtils.writeItemStack(buffer, playerHand);
-								    	buffer.writeInt(paneler.getPos().getX());
-								    	buffer.writeInt(paneler.getPos().getY());
-								    	buffer.writeInt(paneler.getPos().getZ());
-										BiblioCraft.ch_BiblioPaneler.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaneler"), (EntityPlayerMP)player);
+										// ByteBuf buffer = Unpooled.buffer();
+								    	// ByteBufUtils.writeItemStack(buffer, playerHand);
+								    	// buffer.writeInt(paneler.getPos().getX());
+								    	// buffer.writeInt(paneler.getPos().getY());
+								    	// buffer.writeInt(paneler.getPos().getZ());
+										BiblioNetworking.INSTANCE.sendTo(new BiblioPanelerClient(playerHand, paneler.getPos()), (EntityPlayerMP) player);
+										//BiblioCraft.ch_BiblioPaneler.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaneler"), (EntityPlayerMP)player);
 										return true;
 									}
 								}

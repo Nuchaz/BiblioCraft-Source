@@ -11,6 +11,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.gui.GuiAtlasMap;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioAtlasTGUI;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -128,12 +130,13 @@ public class ItemAtlas extends ItemMap
 							}
 							else
 							{
-								ByteBuf buffer = Unpooled.buffer();
-						    	ByteBufUtils.writeItemStack(buffer, stack);
-						    	buffer.writeInt(pos.getX());
-						    	buffer.writeInt(pos.getY());
-						    	buffer.writeInt(pos.getZ());
-						    	BiblioCraft.ch_BiblioAtlas.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasTGUI"), (EntityPlayerMP) player);
+								BiblioNetworking.INSTANCE.sendTo(new BiblioAtlasTGUI(stack, pos), (EntityPlayerMP) player);
+								// ByteBuf buffer = Unpooled.buffer();
+						    	// ByteBufUtils.writeItemStack(buffer, stack);
+						    	// buffer.writeInt(pos.getX());
+						    	// buffer.writeInt(pos.getY());
+						    	// buffer.writeInt(pos.getZ());
+						    	// BiblioCraft.ch_BiblioAtlas.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasTGUI"), (EntityPlayerMP) player);
 							}
 						}
 					}

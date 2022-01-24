@@ -14,6 +14,8 @@ import jds.bibliocraft.blocks.BlockSeat;
 import jds.bibliocraft.helpers.EnumRelativeLocation;
 import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioDrillText;
 import jds.bibliocraft.tileentities.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
@@ -1346,9 +1348,10 @@ public class ItemDrill extends Item
 	
 	private void sendPacketToClient(String displayString, EntityPlayerMP player)
 	{
-		ByteBuf buffer = Unpooled.buffer();
-		ByteBufUtils.writeUTF8String(buffer, displayString);
-		BiblioCraft.ch_BiblioDrillText.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioDrillText"), player);
+		BiblioNetworking.INSTANCE.sendTo(new BiblioDrillText(displayString), player);
+		// ByteBuf buffer = Unpooled.buffer();
+		// ByteBufUtils.writeUTF8String(buffer, displayString);
+		// BiblioCraft.ch_BiblioDrillText.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioDrillText"), player);
 	}
 	
 	public void updateFromPacket(String displayString)

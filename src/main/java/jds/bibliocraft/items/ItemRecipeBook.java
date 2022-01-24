@@ -8,6 +8,8 @@ import java.util.List;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.gui.GuiRecipeBook;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioOpenBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,9 +54,10 @@ public class ItemRecipeBook extends Item
 	{
 		if (!world.isRemote && hand == EnumHand.MAIN_HAND)
 		{
-			ByteBuf buffer = Unpooled.buffer();
-			buffer.writeBoolean(Config.enableRecipeBookCrafting);
-			BiblioCraft.ch_BiblioOpenBook.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioOpenBook"), (EntityPlayerMP) player);
+			BiblioNetworking.INSTANCE.sendTo(new BiblioOpenBook(Config.enableRecipeBookCrafting), (EntityPlayerMP) player);
+			// ByteBuf buffer = Unpooled.buffer();
+			// buffer.writeBoolean(Config.enableRecipeBookCrafting);
+			// BiblioCraft.ch_BiblioOpenBook.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioOpenBook"), (EntityPlayerMP) player);
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}

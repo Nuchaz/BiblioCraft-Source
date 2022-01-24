@@ -1,6 +1,15 @@
 package jds.bibliocraft.network;
 
 import jds.bibliocraft.BiblioCraft;
+import jds.bibliocraft.network.packet.client.BiblioAtlasClient;
+import jds.bibliocraft.network.packet.client.BiblioAtlasSWPClient;
+import jds.bibliocraft.network.packet.client.BiblioAtlasTGUI;
+import jds.bibliocraft.network.packet.client.BiblioDeskOpenGui;
+import jds.bibliocraft.network.packet.client.BiblioDrillText;
+import jds.bibliocraft.network.packet.client.BiblioOpenBook;
+import jds.bibliocraft.network.packet.client.BiblioPanelerClient;
+import jds.bibliocraft.network.packet.client.BiblioRecipeText;
+import jds.bibliocraft.network.packet.client.BiblioStockLog;
 import jds.bibliocraft.network.packet.server.BiblioAtlas;
 import jds.bibliocraft.network.packet.server.BiblioAtlasWPT;
 import jds.bibliocraft.network.packet.server.BiblioClipboard;
@@ -35,31 +44,41 @@ import net.minecraftforge.fml.relauncher.Side;
  */
 public class BiblioNetworking {
     public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(BiblioCraft.MODID);
-    private static int packetID = 0;
-
+    private static int sPacketId = 0;
+    private static int cPacketId = 0;
     public static void setup() {
-        INSTANCE.registerMessage(BiblioAtlasWPT.Handler.class, BiblioAtlasWPT.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioType.Handler.class, BiblioType.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioTypeFlag.Handler.class, BiblioTypeFlag.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioTypeDelete.Handler.class, BiblioTypeDelete.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioTypeUpdate.Handler.class, BiblioTypeUpdate.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioMCBEdit.Handler.class, BiblioMCBEdit.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioMCBPage.Handler.class, BiblioMCBPage.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioPaneler.Handler.class, BiblioPaneler.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioRecipeCraft.Handler.class, BiblioRecipeCraft.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioStockTitle.Handler.class, BiblioStockTitle.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioStockCompass.Handler.class, BiblioStockCompass.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioClipboard.Handler.class, BiblioClipboard.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioUpdateInv.Handler.class, BiblioUpdateInv.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioAtlas.Handler.class, BiblioAtlas.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioMeasure.Handler.class, BiblioMeasure.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioMapPin.Handler.class, BiblioMapPin.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioRBook.Handler.class, BiblioRBook.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioRBookLoad.Handler.class, BiblioRBookLoad.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioSign.Handler.class, BiblioSign.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioClock.Handler.class, BiblioClock.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioPaintPress.Handler.class, BiblioPaintPress.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioPainting.Handler.class, BiblioPainting.class, packetID++, Side.SERVER);
-        INSTANCE.registerMessage(BiblioPaintingC.Handler.class, BiblioPaintingC.class, packetID++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioAtlasWPT.Handler.class, BiblioAtlasWPT.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioType.Handler.class, BiblioType.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioTypeFlag.Handler.class, BiblioTypeFlag.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioTypeDelete.Handler.class, BiblioTypeDelete.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioTypeUpdate.Handler.class, BiblioTypeUpdate.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioMCBEdit.Handler.class, BiblioMCBEdit.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioMCBPage.Handler.class, BiblioMCBPage.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioPaneler.Handler.class, BiblioPaneler.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioRecipeCraft.Handler.class, BiblioRecipeCraft.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioStockTitle.Handler.class, BiblioStockTitle.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioStockCompass.Handler.class, BiblioStockCompass.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioClipboard.Handler.class, BiblioClipboard.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioUpdateInv.Handler.class, BiblioUpdateInv.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioAtlas.Handler.class, BiblioAtlas.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioMeasure.Handler.class, BiblioMeasure.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioMapPin.Handler.class, BiblioMapPin.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioRBook.Handler.class, BiblioRBook.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioRBookLoad.Handler.class, BiblioRBookLoad.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioSign.Handler.class, BiblioSign.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioClock.Handler.class, BiblioClock.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioPaintPress.Handler.class, BiblioPaintPress.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioPainting.Handler.class, BiblioPainting.class, sPacketId++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioPaintingC.Handler.class, BiblioPaintingC.class, sPacketId++, Side.SERVER);
+
+        INSTANCE.registerMessage(BiblioDrillText.Handler.class, BiblioDrillText.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioOpenBook.Handler.class, BiblioOpenBook.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioDeskOpenGui.Handler.class, BiblioDeskOpenGui.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioAtlasClient.Handler.class, BiblioAtlasClient.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioAtlasSWPClient.Handler.class, BiblioAtlasSWPClient.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioAtlasTGUI.Handler.class, BiblioAtlasTGUI.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioPanelerClient.Handler.class, BiblioPanelerClient.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioRecipeText.Handler.class, BiblioRecipeText.class, cPacketId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioStockLog.Handler.class, BiblioStockLog.class, cPacketId++, Side.CLIENT);
     }
 }

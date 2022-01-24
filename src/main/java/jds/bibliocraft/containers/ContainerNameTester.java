@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.items.ItemNameTester;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioAtlasClient;
 import jds.bibliocraft.slots.SlotTesterSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -219,9 +221,10 @@ public class ContainerNameTester extends Container
 				if (this.playerPointer instanceof EntityPlayerMP)
 				{
 					//ystem.out.println("MP player");
-			    	ByteBuf buffer = Unpooled.buffer();
-			    	ByteBufUtils.writeItemStack(buffer, this.testerStack);
-			    	BiblioCraft.ch_BiblioAtlas.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlas"), (EntityPlayerMP) this.playerPointer);
+			    	// ByteBuf buffer = Unpooled.buffer();
+			    	// ByteBufUtils.writeItemStack(buffer, this.testerStack);
+			    	BiblioNetworking.INSTANCE.sendTo(new BiblioAtlasClient(this.testerStack), (EntityPlayerMP) this.playerPointer);
+					// BiblioCraft.ch_BiblioAtlas.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlas"), (EntityPlayerMP) this.playerPointer);
 			    	//System.out.println("sent the update");
 				}
 			}

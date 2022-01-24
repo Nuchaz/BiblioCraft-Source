@@ -41,6 +41,8 @@ import jds.bibliocraft.items.ItemSeatBack2;
 import jds.bibliocraft.items.ItemSeatBack3;
 import jds.bibliocraft.items.ItemSeatBack4;
 import jds.bibliocraft.items.ItemSeatBack5;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioPanelerClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -106,15 +108,16 @@ public class TileEntityFurniturePaneler extends BiblioTileEntity
 	
 	public void updateCraftingTexture()
 	{
-		ByteBuf buffer = Unpooled.buffer();
-    	ByteBufUtils.writeItemStack(buffer, getStackInSlot(0));
-    	//ByteBufUtils.writeItemStack(buffer, getStackInSlot(1));
-    	buffer.writeInt(this.pos.getX());
-    	buffer.writeInt(this.pos.getY());
-    	buffer.writeInt(this.pos.getZ());
+		// ByteBuf buffer = Unpooled.buffer();
+    	// ByteBufUtils.writeItemStack(buffer, getStackInSlot(0));
+    	// //ByteBufUtils.writeItemStack(buffer, getStackInSlot(1));
+    	// buffer.writeInt(this.pos.getX());
+    	// buffer.writeInt(this.pos.getY());
+    	// buffer.writeInt(this.pos.getZ());
 		if (this.playerFromBlock != null)
 		{
-			BiblioCraft.ch_BiblioPaneler.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaneler"), (EntityPlayerMP) this.playerFromBlock);
+			BiblioNetworking.INSTANCE.sendTo(new BiblioPanelerClient(getStackInSlot(0), this.pos), (EntityPlayerMP) this.playerFromBlock);
+			// BiblioCraft.ch_BiblioPaneler.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaneler"), (EntityPlayerMP) this.playerFromBlock);
 		}
 	}
 	

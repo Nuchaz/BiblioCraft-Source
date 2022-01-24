@@ -1,0 +1,59 @@
+package jds.bibliocraft.network.packet.client;
+
+import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
+import jds.bibliocraft.tileentities.TileEntityMapFrame;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+public class BiblioAtlasTGUI implements IMessage {
+    ItemStack atlas;
+    BlockPos pos;
+
+    public BiblioAtlasTGUI() {
+
+    }
+    public BiblioAtlasTGUI(ItemStack atlas, BlockPos pos) {
+        this.atlas = atlas;
+        this.pos = pos;
+    }
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.atlas = ByteBufUtils.readItemStack(buf);
+        this.pos = BlockPos.fromLong(buf.readLong());
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        ByteBufUtils.writeItemStack(buf, this.atlas);
+        buf.writeLong(this.pos.toLong());
+    }
+
+    public static class Handler implements IMessageHandler<BiblioAtlasTGUI, IMessage> {
+
+        @Override
+        public IMessage onMessage(BiblioAtlasTGUI message, MessageContext ctx) {
+            EntityPlayerSP player = Minecraft.getMinecraft().player;
+            final TileEntityMapFrame tile = (TileEntityMapFrame) player.world.getTileEntity(message.pos);
+            if (tile != null) {
+                Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.openWaypointTransferGUI(Minecraft.getMinecraft().world, Minecraft.getMinecraft().player,
+                                message.atlas,
+                                tile);
+                    }
+                });
+
+            }
+            return null;
+        }
+
+    }
+}

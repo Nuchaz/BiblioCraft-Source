@@ -39,188 +39,164 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
-public class BlockArmorStand extends BiblioWoodBlock
-{
+public class BlockArmorStand extends BiblioWoodBlock {
 	public static final BlockArmorStand instance = new BlockArmorStand();
 	public static final String name = "ArmorStand";
-	
-	public BlockArmorStand()
-	{
+
+	public BlockArmorStand() {
 		super(name, false);
 	}
 
 	@Override
-	public boolean onBlockActivatedCustomCommands(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
-	{
-		TileEntity te = world.getTileEntity(pos);		
-		if (!world.isRemote && te != null && te instanceof TileEntityArmorStand)
-		{
-			TileEntityArmorStand tile = (TileEntityArmorStand)te;
+	public boolean onBlockActivatedCustomCommands(World world, BlockPos pos, IBlockState state, EntityPlayer player,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		TileEntity te = world.getTileEntity(pos);
+		if (!world.isRemote && te != null && te instanceof TileEntityArmorStand) {
+			TileEntityArmorStand tile = (TileEntityArmorStand) te;
 			ItemStack playerhand = player.getHeldItem(EnumHand.MAIN_HAND);
 			boolean isPoweredBottom;
 			boolean isPowerTop;
 			int yCheck = (int) (hitY * 2);
-			if (!tile.getIsBottomStand())
-			{
-				tile = (TileEntityArmorStand)world.getTileEntity(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()));
+			if (!tile.getIsBottomStand()) {
+				tile = (TileEntityArmorStand) world.getTileEntity(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()));
 				if (tile == null)
 					return false;
 				isPowerTop = world.isBlockIndirectlyGettingPowered(pos) > 0;
-				isPoweredBottom = world.isBlockIndirectlyGettingPowered(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())) > 0;
+				isPoweredBottom = world
+						.isBlockIndirectlyGettingPowered(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())) > 0;
 				yCheck += 2;
-			}
-			else
-			{
+			} else {
 				isPoweredBottom = world.isBlockIndirectlyGettingPowered(pos) > 0;
-				isPowerTop = world.isBlockIndirectlyGettingPowered(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())) > 0;
+				isPowerTop = world
+						.isBlockIndirectlyGettingPowered(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())) > 0;
 			}
-			
-			if (player.isSneaking())
-			{
-				if (isPoweredBottom || isPowerTop)
-				{
+
+			if (player.isSneaking()) {
+				if (isPoweredBottom || isPowerTop) {
 					handleArmorTransation(player, tile, 0);
 					handleArmorTransation(player, tile, 1);
 					handleArmorTransation(player, tile, 2);
 					handleArmorTransation(player, tile, 3);
 					return true;
 				}
-				
-				if (yCheck >= 0 && yCheck <= 3)
-				{
+
+				if (yCheck >= 0 && yCheck <= 3) {
 					handleArmorTransation(player, tile, yCheck);
 				}
 				return true;
 			}
 
-			if (playerhand != ItemStack.EMPTY)
-			{
+			if (playerhand != ItemStack.EMPTY) {
 				Item stackItem = playerhand.getItem();
-				if (stackItem instanceof ItemArmor)
-				{
-					ItemArmor armorItem = (ItemArmor)stackItem;
+				if (stackItem instanceof ItemArmor) {
+					ItemArmor armorItem = (ItemArmor) stackItem;
 					EntityEquipmentSlot armorType = armorItem.armorType;
-					if ((yCheck == 0 && armorType == EntityEquipmentSlot.FEET) || 
-						(yCheck == 1 && armorType == EntityEquipmentSlot.LEGS) || 
-						(yCheck == 2 && armorType == EntityEquipmentSlot.CHEST) ||
-						(yCheck == 3 && armorType == EntityEquipmentSlot.HEAD))
-					{
-						if (tile.addArmor(playerhand, armorType))
-						{
+					if ((yCheck == 0 && armorType == EntityEquipmentSlot.FEET) ||
+							(yCheck == 1 && armorType == EntityEquipmentSlot.LEGS) ||
+							(yCheck == 2 && armorType == EntityEquipmentSlot.CHEST) ||
+							(yCheck == 3 && armorType == EntityEquipmentSlot.HEAD)) {
+						if (tile.addArmor(playerhand, armorType)) {
 							player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 							return true;
 						}
 					}
 				}
 			}
-			
-			player.openGui(BiblioCraft.instance, 1, world, tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ());
+
+			player.openGui(BiblioCraft.instance, 1, world, tile.getPos().getX(), tile.getPos().getY(),
+					tile.getPos().getZ());
 
 		}
 		return true;
 	}
-	
+
 	/**
 	 * For armor type, 0 = feet, 1 = legs, 2 = chest, 3 = head
+	 * 
 	 * @param player
 	 * @param armorTile
 	 * @param armortype
 	 */
-	private void handleArmorTransation(EntityPlayer player, TileEntityArmorStand armorTile, int armortype)
-	{
+	private void handleArmorTransation(EntityPlayer player, TileEntityArmorStand armorTile, int armortype) {
 		ItemStack playerArmor = player.inventory.armorInventory.get(armortype);
 		int atilearmor = -1;
-		switch (armortype)
-		{
-		case 0: {atilearmor = 3; break;}
-		case 1: {atilearmor = 2; break;}
-		case 2: {atilearmor = 1; break;}
-		case 3: {atilearmor = 0; break;}
-		default: break;
+		switch (armortype) {
+			case 0: {
+				atilearmor = 3;
+				break;
+			}
+			case 1: {
+				atilearmor = 2;
+				break;
+			}
+			case 2: {
+				atilearmor = 1;
+				break;
+			}
+			case 3: {
+				atilearmor = 0;
+				break;
+			}
+			default:
+				break;
 		}
-		if (atilearmor != -1 && armortype >= 0 && armortype < 4)
-		{
-			ItemStack standArmor = armorTile.getStackInSlot(atilearmor);//getArmor(atilearmor);
-			//ItemStack plegcopy = null;
-			//ItemStack alegcopy = null;
+		if (atilearmor != -1 && armortype >= 0 && armortype < 4) {
+			ItemStack standArmor = armorTile.getStackInSlot(atilearmor);// getArmor(atilearmor);
+			// ItemStack plegcopy = null;
+			// ItemStack alegcopy = null;
 			/*
-			if (playerArmor != null)
-			{
-				plegcopy = playerArmor.copy();
-			}
-			if (standArmor != null)
-			{
-				alegcopy = standArmor.copy();
-			}
-			*/
-			if (standArmor != ItemStack.EMPTY)
-			{
+			 * if (playerArmor != null)
+			 * {
+			 * plegcopy = playerArmor.copy();
+			 * }
+			 * if (standArmor != null)
+			 * {
+			 * alegcopy = standArmor.copy();
+			 * }
+			 */
+			if (standArmor != ItemStack.EMPTY) {
 				player.inventory.armorInventory.set(armortype, standArmor);
-				//sendPlayerArmorPacket(player, alegcopy, armortype); 
-			}
-			else
-			{
+				// sendPlayerArmorPacket(player, alegcopy, armortype);
+			} else {
 				player.inventory.armorInventory.set(armortype, ItemStack.EMPTY);
 			}
-			
-			if (playerArmor != ItemStack.EMPTY)
-			{
+
+			if (playerArmor != ItemStack.EMPTY) {
 				armorTile.setInventorySlotContents(atilearmor, playerArmor);
-			}
-			else
-			{
+			} else {
 				armorTile.setInventorySlotContents(atilearmor, ItemStack.EMPTY);
 			}
 			/*
-			if (alegcopy == null)
-			{
-				player.inventory.armorInventory[armortype] = null;
-				//sendPlayerArmorPacket(player, alegcopy, armortype); //  I'm not sure I actually need these packets to the client anymore
-			}
-			if (playerArmor == null)
-			{
-				armorTile.setInventorySlotContents(atilearmor, null);
-			}
-			*/
+			 * if (alegcopy == null)
+			 * {
+			 * player.inventory.armorInventory[armortype] = null;
+			 * //sendPlayerArmorPacket(player, alegcopy, armortype); // I'm not sure I
+			 * actually need these packets to the client anymore
+			 * }
+			 * if (playerArmor == null)
+			 * {
+			 * armorTile.setInventorySlotContents(atilearmor, null);
+			 * }
+			 */
 		}
 	}
-	
-	private void sendPlayerArmorPacket(EntityPlayer player, ItemStack armor, int armorslot)
-	{
-          ByteBuf buffer = Unpooled.buffer();
-          try
-          {
-        	  ByteBufUtils.writeItemStack(buffer, armor);
-        	  buffer.writeInt(armorslot);
-        	  BiblioCraft.ch_BiblioAStand.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAStand"), (EntityPlayerMP) player);
-          }
-          catch (Exception var6)
-          {
-              var6.printStackTrace();
-          }
-	}
-	
+
 	@Override
-	public boolean hasTileEntity(IBlockState state)
-	{
+	public boolean hasTileEntity(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
-	{
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityArmorStand();
 	}
 
 	@Override
-	public List<String> getModelParts(BiblioTileEntity tile)
-	{
+	public List<String> getModelParts(BiblioTileEntity tile) {
 		List<String> modelParts = new ArrayList<String>();
-		if (tile != null && tile instanceof TileEntityArmorStand)
-		{
-			TileEntityArmorStand te = (TileEntityArmorStand)tile;
-			if (te.getIsBottomStand())
-			{
+		if (tile != null && tile instanceof TileEntityArmorStand) {
+			TileEntityArmorStand te = (TileEntityArmorStand) tile;
+			if (te.getIsBottomStand()) {
 				modelParts.add("bottomStand");
 				modelParts.add("topStand");
 			}
@@ -229,92 +205,74 @@ public class BlockArmorStand extends BiblioWoodBlock
 	}
 
 	@Override
-	public void additionalPlacementCommands(BiblioTileEntity tile, EntityLivingBase player)
-	{
-		IBlockState state = tile.getWorld().getBlockState(tile.getPos()); // TODO changed this and it worked on the meta data
+	public void additionalPlacementCommands(BiblioTileEntity tile, EntityLivingBase player) {
+		IBlockState state = tile.getWorld().getBlockState(tile.getPos()); // TODO changed this and it worked on the meta
+																			// data
 		BlockPos pos = new BlockPos(tile.getPos().getX(), tile.getPos().getY() + 1, tile.getPos().getZ());
 		tile.getWorld().setBlockState(pos, state);
 		TileEntity te = tile.getWorld().getTileEntity(pos);
-		if (te != null && te instanceof TileEntityArmorStand)
-		{
-			TileEntityArmorStand stand = (TileEntityArmorStand)te;
+		if (te != null && te instanceof TileEntityArmorStand) {
+			TileEntityArmorStand stand = (TileEntityArmorStand) te;
 			stand.setCustomTexureString(tile.getCustomTextureString());
 			stand.setIsBottomStand(false);
 			stand.setAngle(tile.getAngle());
 		}
-		
+
 	}
-	
+
 	@Override
-	public TRSRTransformation getAdditionalTransforms(TRSRTransformation transform, BiblioTileEntity tile)
-	{
-		transform = transform.compose(new TRSRTransformation(new Vector3f(0.0f, 0.0f, 0.0f), 
-															   new Quat4f(0.0f, 0.0f, 0.0f, 1.0f), 
-															   new Vector3f(1.0f, 1.0f, 1.0f), 
-															   new Quat4f(0.0f, 0.0f, 0.0f, 1.0f)));
+	public TRSRTransformation getAdditionalTransforms(TRSRTransformation transform, BiblioTileEntity tile) {
+		transform = transform.compose(new TRSRTransformation(new Vector3f(0.0f, 0.0f, 0.0f),
+				new Quat4f(0.0f, 0.0f, 0.0f, 1.0f),
+				new Vector3f(1.0f, 1.0f, 1.0f),
+				new Quat4f(0.0f, 0.0f, 0.0f, 1.0f)));
 		return transform;
 	}
-	
-    @Override
-    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side)
-    {
-    	if (world.isAirBlock(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())))
-    	{
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
-    }
-    
+
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state)
-	{
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
+		if (world.isAirBlock(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		TileEntity t = world.getTileEntity(pos);
-		if (t != null && t instanceof TileEntityArmorStand)
-		{
-			TileEntityArmorStand tile = (TileEntityArmorStand)t;
+		if (t != null && t instanceof TileEntityArmorStand) {
+			TileEntityArmorStand tile = (TileEntityArmorStand) t;
 			BlockPos newPos;
-			if (tile.getIsBottomStand())
-			{
+			if (tile.getIsBottomStand()) {
 				newPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
-			}
-			else
-			{
+			} else {
 				newPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
-				BiblioTileEntity top = (BiblioTileEntity)t;
-				BiblioTileEntity bottom = (BiblioTileEntity)world.getTileEntity(newPos);
+				BiblioTileEntity top = (BiblioTileEntity) t;
+				BiblioTileEntity bottom = (BiblioTileEntity) world.getTileEntity(newPos);
 				top.setCustomTexureString(bottom.getCustomTextureString());
 			}
 			TileEntity sTile = world.getTileEntity(newPos);
-			if (sTile != null && sTile instanceof TileEntityArmorStand)
-			{
+			if (sTile != null && sTile instanceof TileEntityArmorStand) {
 
-				
 				dropItems(world, newPos);
 				world.setBlockToAir(newPos);
 			}
 		}
-		
+
 		dropItems(world, pos);
 		super.breakBlock(world, pos, state);
 	}
-	
+
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess blockAccess, BlockPos pos)
-	{
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
 		AxisAlignedBB output = this.getBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		TileEntity tile = blockAccess.getTileEntity(pos);
-		if (tile != null && tile instanceof BiblioTileEntity)
-		{
-			BiblioTileEntity caseTile = (BiblioTileEntity)tile;
-			if (caseTile.getAngle() == EnumFacing.SOUTH || caseTile.getAngle() == EnumFacing.NORTH)
-			{
+		if (tile != null && tile instanceof BiblioTileEntity) {
+			BiblioTileEntity caseTile = (BiblioTileEntity) tile;
+			if (caseTile.getAngle() == EnumFacing.SOUTH || caseTile.getAngle() == EnumFacing.NORTH) {
 				output = this.getBlockBounds(0.3F, 0.0F, 0.0F, 0.7F, 1.0F, 1.0F);
-			}
-			else
-			{
+			} else {
 				output = this.getBlockBounds(0.0F, 0.0F, 0.3F, 1.0F, 1.0F, 0.7F);
 			}
 		}

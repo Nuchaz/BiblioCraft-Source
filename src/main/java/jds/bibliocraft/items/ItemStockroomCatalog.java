@@ -10,6 +10,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.helpers.BiblioSortingHelper;
 import jds.bibliocraft.helpers.SortedListItem;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioStockLog;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -101,12 +103,13 @@ public class ItemStockroomCatalog extends Item
 				NBTTagCompound display = tags.getCompoundTag("display");
 				title = display.getString("Name");
 			}
-			ByteBuf buffer = Unpooled.buffer();
+			// ByteBuf buffer = Unpooled.buffer();
 			NBTTagCompound loadedTags = BiblioSortingHelper.getFullyLoadedSortedListsInNBTTags(player.getHeldItem(hand), world);
 			loadedTags.setTag("compasses", getCompassList(player));
 			loadedTags.setString("title", title);
-			ByteBufUtils.writeTag(buffer, loadedTags);
-			BiblioCraft.ch_BiblioStockCatalog.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioStockLog"), (EntityPlayerMP) player);
+			BiblioNetworking.INSTANCE.sendTo(new BiblioStockLog(loadedTags), (EntityPlayerMP) player);
+			// ByteBufUtils.writeTag(buffer, loadedTags);
+			// BiblioCraft.ch_BiblioStockCatalog.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioStockLog"), (EntityPlayerMP) player);
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
 	}

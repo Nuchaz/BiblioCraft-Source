@@ -16,6 +16,8 @@ import jds.bibliocraft.gui.GuiScreenBookDesk;
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.helpers.EnumRelativeLocation;
 import jds.bibliocraft.items.ItemRecipeBook;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioDeskOpenGui;
 import jds.bibliocraft.states.TextureState;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityDesk;
@@ -130,21 +132,21 @@ public class BlockDesk extends BiblioWoodBlock
 				{
 					if (isWritingBook(hitX, hitZ, side, angle) && desk.getStackInSlot(0) != ItemStack.EMPTY)
 					{
-						ByteBuf buffer = Unpooled.buffer();
-						buffer.writeInt(pos.getX());
-						buffer.writeInt(pos.getY());
-						buffer.writeInt(pos.getZ());
-						ByteBufUtils.writeItemStack(buffer, desk.getStackInSlot(0));
-						if (desk.getStackInSlot(0).getItem() == ItemRecipeBook.instance) // TODO added this if statment
-						{
-							buffer.writeBoolean(Config.enableRecipeBookCrafting);
-						}
-						else
-						{
-							buffer.writeBoolean(false);
-						}
-						
-						BiblioCraft.ch_BiblioDeskGUIS.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioDeskOpenGUI"), (EntityPlayerMP) player);
+						// ByteBuf buffer = Unpooled.buffer();
+						// buffer.writeInt(pos.getX());
+						// buffer.writeInt(pos.getY());
+						// buffer.writeInt(pos.getZ());
+						// ByteBufUtils.writeItemStack(buffer, desk.getStackInSlot(0));
+						// if (desk.getStackInSlot(0).getItem() == ItemRecipeBook.instance) // TODO added this if statment
+						// {
+						// 	buffer.writeBoolean(Config.enableRecipeBookCrafting);
+						// }
+						// else
+						// {
+						// 	buffer.writeBoolean(false);
+						// }
+						BiblioNetworking.INSTANCE.sendTo(new BiblioDeskOpenGui(pos, desk.getStackInSlot(0), desk.getStackInSlot(0).getItem() == ItemRecipeBook.instance ? Config.enableRecipeBookCrafting : false), (EntityPlayerMP) player);
+						// BiblioCraft.ch_BiblioDeskGUIS.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioDeskOpenGUI"), (EntityPlayerMP) player);
 					}
 					else
 					{

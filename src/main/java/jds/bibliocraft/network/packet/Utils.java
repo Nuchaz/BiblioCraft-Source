@@ -5,10 +5,22 @@ import java.util.ArrayList;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
+import jds.bibliocraft.gui.GuiAtlasMap;
+import jds.bibliocraft.gui.GuiAtlasWaypointTransfer;
+import jds.bibliocraft.gui.GuiBigBook;
+import jds.bibliocraft.gui.GuiClipboard;
+import jds.bibliocraft.gui.GuiRecipeBook;
+import jds.bibliocraft.gui.GuiScreenBookDesk;
+import jds.bibliocraft.gui.GuiStockCatalog;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.helpers.SortedListItem;
 import jds.bibliocraft.items.ItemRecipeBook;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioRecipeText;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
@@ -26,8 +38,39 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Utils {
+    @SideOnly(Side.CLIENT)
+    public static void openWritingGUI(EntityPlayer player, ItemStack book, int x, int y, int z, boolean signed) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiScreenBookDesk(player, book, signed, x, y, z));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void openClipboardGUI(ItemStack stack, boolean inInv, int x, int y, int z) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiClipboard(stack, inInv, x, y, z));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void openRecipeBookGUI(ItemStack stack, int x, int y, int z, int slot, boolean canCraft) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiRecipeBook(stack, true, x, y, z, slot, canCraft));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void openWaypointTransferGUI(World world, EntityPlayer player, ItemStack stack, TileEntityMapFrame tile) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiAtlasWaypointTransfer(world, player, stack, tile));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void openMapGUI(EntityPlayer player, ItemStack stack) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiAtlasMap(Minecraft.getMinecraft().world, player, stack));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void openBigBookGUI(ItemStack stack, int x, int y, int z, String author) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiBigBook(stack, false, x, y, z, author));
+    }
 
     public static boolean checkForValidRecipeIngredients(NonNullList<ItemStack> ingredients, EntityPlayerMP player,
             boolean remove) {
@@ -102,26 +145,35 @@ public class Utils {
         }
         return hasIngredients;
     }
-	public static boolean checkIfValidPacketItem(String input) {
-		// Make sure all this stuff can only open if in main hand. // TODO
-		String validPacketItems[] = { "item.AtlasBook", "item.BigBook", "item.RecipeBook", "item.BiblioClipboard",
-				"item.BiblioRedBook", "item.SlottedBook", "item.compass" };
-		for (int i = 0; i < validPacketItems.length; i++) {
-			if (validPacketItems[i].equals(input)) {
-				return true;
-			}
-		}
-		return false;
+
+    public static boolean checkIfValidPacketItem(String input) {
+        // Make sure all this stuff can only open if in main hand. // TODO
+        String validPacketItems[] = { "item.AtlasBook", "item.BigBook", "item.RecipeBook", "item.BiblioClipboard",
+                "item.BiblioRedBook", "item.SlottedBook", "item.compass" };
+        for (int i = 0; i < validPacketItems.length; i++) {
+            if (validPacketItems[i].equals(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+	@SideOnly(Side.CLIENT)
+	public static void openCatalogGUI(EntityPlayer player, ArrayList<SortedListItem> AlphaList,
+			ArrayList<SortedListItem> QuantaList, ItemStack[] stacks, int[] compasses, String title) {
+		Minecraft.getMinecraft()
+				.displayGuiScreen(new GuiStockCatalog(player, AlphaList, QuantaList, stacks, compasses, title));
+		// Minecraft.getMinecraft()AlphaList.
 	}
     public static void sendARecipeBookTextPacket(EntityPlayerMP player, String text, int slot) {
         ItemStack currentBook = player.inventory.getStackInSlot(slot);
         if (currentBook != ItemStack.EMPTY) {
             if (currentBook.getItem() instanceof ItemRecipeBook) {
-                ByteBuf buffer = Unpooled.buffer();
-                ByteBufUtils.writeUTF8String(buffer, text);
-                buffer.writeInt(slot);
-                BiblioCraft.ch_BiblioRecipeText.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRecipeText"),
-                        player);
+                BiblioNetworking.INSTANCE.sendTo(new BiblioRecipeText(text, slot), player);
+                // ByteBuf buffer = Unpooled.buffer();
+                // ByteBufUtils.writeUTF8String(buffer, text);
+                // buffer.writeInt(slot);
+                // BiblioCraft.ch_BiblioRecipeText.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRecipeText"),
+                //         player);
             }
         }
     }

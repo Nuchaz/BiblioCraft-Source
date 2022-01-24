@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.items.ItemAtlas;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.client.BiblioAtlasSWPClient;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -85,10 +87,11 @@ public class BiblioAtlas implements IMessage {
                                     message.slot);
                             player.closeScreen();
                             player.rotationPitch = 50.0f;
-                            ByteBuf buffer = Unpooled.buffer();
-                            ByteBufUtils.writeItemStack(buffer, player.getHeldItem(EnumHand.MAIN_HAND));
-                            BiblioCraft.ch_BiblioAtlasGUIswap
-                                    .sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasSWP"), player);
+                            BiblioNetworking.INSTANCE.sendTo(new BiblioAtlasSWPClient(player.getHeldItem(EnumHand.MAIN_HAND)), player);
+                            // ByteBuf buffer = Unpooled.buffer();
+                            // ByteBufUtils.writeItemStack(buffer, player.getHeldItem(EnumHand.MAIN_HAND));
+                            // BiblioCraft.ch_BiblioAtlasGUIswap
+                            //         .sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasSWP"), player);
                         }
                     }
                 });
