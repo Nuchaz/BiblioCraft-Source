@@ -10,6 +10,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import jds.bibliocraft.helpers.PaintingUtil;
 import jds.bibliocraft.items.ItemPaintingCanvas;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioPaintingC;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityPainting;
 import net.minecraft.block.state.IBlockState;
@@ -99,13 +101,14 @@ public abstract class BlockPainting extends BiblioWoodBlock
 									aspectX = roundNum(resx*1.0f / resy*1.0f);
 									aspectY = roundNum(resy*1.0f/resy*1.0f);
 								}
-								ByteBuf buffer = Unpooled.buffer();
-						    	buffer.writeInt(pos.getX());
-						    	buffer.writeInt(pos.getY());
-						    	buffer.writeInt(pos.getZ());
-						    	buffer.writeInt(aspectX);
-						    	buffer.writeInt(aspectY);
-								BiblioCraft.ch_BiblioPaintingC.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaintingC"));
+								BiblioNetworking.INSTANCE.sendToServer(new BiblioPaintingC(pos, aspectX, aspectY));
+								// ByteBuf buffer = Unpooled.buffer();
+						    	// buffer.writeInt(pos.getX());
+						    	// buffer.writeInt(pos.getY());
+						    	// buffer.writeInt(pos.getZ());
+						    	// buffer.writeInt(aspectX);
+						    	// buffer.writeInt(aspectY);
+								// BiblioCraft.ch_BiblioPaintingC.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaintingC"));
 							}
 						}
 					}

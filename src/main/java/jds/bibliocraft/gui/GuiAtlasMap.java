@@ -14,6 +14,8 @@ import org.lwjgl.opengl.GL11;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.items.ItemWaypointCompass;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -591,11 +593,13 @@ public class GuiAtlasMap extends GuiScreen
     	ByteBufUtils.writeItemStack(buffer, this.atlasStack);
     	if (swapGUI)
     	{
-    		BiblioCraft.ch_BiblioAtlasGUIswap.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasSWP"));
+    		BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(this.atlasStack, true));
+			// BiblioCraft.ch_BiblioAtlasGUIswap.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasSWP"));
     	}
     	else
     	{
-	    	BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(this.atlasStack, false));
+	    	//BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
     	}
     }
     

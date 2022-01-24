@@ -14,6 +14,7 @@ import jds.bibliocraft.containers.ContainerSlottedBook;
 import jds.bibliocraft.items.ItemSlottedBook;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -232,7 +233,8 @@ public class GuiSlottedBook extends GuiContainer
     	ByteBufUtils.writeItemStack(buffer, book);
     	if (inHand)
     	{
-    		BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(book, false));
+    		// BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
     	}
     	else
     	{

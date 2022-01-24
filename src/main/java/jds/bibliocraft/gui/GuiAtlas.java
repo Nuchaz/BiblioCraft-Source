@@ -11,6 +11,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerAtlas;
 import jds.bibliocraft.items.ItemAtlas;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioAtlas;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -178,13 +180,14 @@ public class GuiAtlas extends GuiContainer
     
     public void sendUpdatePacket()
     {
-    	ByteBuf buffer = Unpooled.buffer();
-    	buffer.writeBoolean(autoCenter);
-    	buffer.writeBoolean(autoCreate);
-    	buffer.writeInt(zoomLevel);
-    	buffer.writeInt(selectedSlot);
-    	buffer.writeBoolean(changeGui);
-    	BiblioCraft.ch_BiblioAtlas.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlas"));
+		BiblioNetworking.INSTANCE.sendToServer(new BiblioAtlas(autoCenter, autoCreate, zoomLevel, selectedSlot, changeGui));
+    	// ByteBuf buffer = Unpooled.buffer();
+    	// buffer.writeBoolean(autoCenter);
+    	// buffer.writeBoolean(autoCreate);
+    	// buffer.writeInt(zoomLevel);
+    	// buffer.writeInt(selectedSlot);
+    	// buffer.writeBoolean(changeGui);
+    	// BiblioCraft.ch_BiblioAtlas.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlas"));
     }
 	
     @Override

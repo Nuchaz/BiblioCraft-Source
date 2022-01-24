@@ -14,6 +14,8 @@ import org.lwjgl.opengl.GL11;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.items.ItemWaypointCompass;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -154,9 +156,10 @@ public class GuiWaypointCompass extends GuiScreen
     		{
 		        try
 		        {
-			        ByteBuf buffer = Unpooled.buffer();
-			        ByteBufUtils.writeItemStack(buffer, updatedCompass);
-			        BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+					BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(updatedCompass, false));
+			        // ByteBuf buffer = Unpooled.buffer();
+			        // ByteBufUtils.writeItemStack(buffer, updatedCompass);
+			        // BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
 		            return true;
 		        }
 		        catch (Exception ex)

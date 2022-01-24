@@ -12,12 +12,15 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMapPin;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -281,21 +284,22 @@ public class GuiMapWaypoint extends GuiScreen
     
     public void sendPacket(boolean removePin)
     {
-        ByteBuf buffer = Unpooled.buffer();
+        // ByteBuf buffer = Unpooled.buffer();
         try
         {
-        	buffer.writeInt(xcoord);
-        	buffer.writeInt(ycoord);
-        	buffer.writeInt(zcoord);
-        	buffer.writeFloat(xLoc);
-        	buffer.writeFloat(yLoc);
-        	ByteBufUtils.writeUTF8String(buffer, textField.getText());
-        	buffer.writeInt(colorState);
-        	buffer.writeInt(waypointNumber);
-        	buffer.writeBoolean(removePin);
-        	buffer.writeBoolean(editing);
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioMapPin(new BlockPos(xcoord, ycoord, zcoord), xLoc, yLoc, textField.getText(), colorState, waypointNumber, removePin, editing));
+        	// buffer.writeInt(xcoord);
+        	// buffer.writeInt(ycoord);
+        	// buffer.writeInt(zcoord);
+        	// buffer.writeFloat(xLoc);
+        	// buffer.writeFloat(yLoc);
+        	// ByteBufUtils.writeUTF8String(buffer, textField.getText());
+        	// buffer.writeInt(colorState);
+        	// buffer.writeInt(waypointNumber);
+        	// buffer.writeBoolean(removePin);
+        	// buffer.writeBoolean(editing);
         	
-        	BiblioCraft.ch_BiblioMapPin.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMapPin"));  
+        	// BiblioCraft.ch_BiblioMapPin.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMapPin"));  
         }
         catch (Exception ex)
         {

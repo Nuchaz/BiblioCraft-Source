@@ -7,6 +7,8 @@ import org.lwjgl.opengl.GL11;
 
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.gui.GuiButton;
@@ -127,9 +129,10 @@ public class GuiRedstoneBook extends GuiScreen
     
     public void sendPacket()
     {
-    	ByteBuf buffer = Unpooled.buffer();
-    	ByteBufUtils.writeItemStack(buffer, book);
-    	BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+		BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(book, false));
+    	// ByteBuf buffer = Unpooled.buffer();
+    	// ByteBufUtils.writeItemStack(buffer, book);
+    	// BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
     }
     
 	@Override

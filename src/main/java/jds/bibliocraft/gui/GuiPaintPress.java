@@ -14,6 +14,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerPaintPress;
 import jds.bibliocraft.helpers.BiblioEnums.EnumBiblioPaintings;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioPaintPress;
 import jds.bibliocraft.helpers.PaintingUtil;
 import jds.bibliocraft.tileentities.TileEntityPaintPress;
 import net.minecraft.client.Minecraft;
@@ -221,17 +223,18 @@ public class GuiPaintPress extends GuiContainer
     {
     	if (!applyToCanvas || (applyToCanvas && this.paintPress.getStackInSlot(0) != ItemStack.EMPTY))
     	{
-	    	ByteBuf buffer = Unpooled.buffer();
-	    	buffer.writeInt(this.paintPress.getPos().getX());
-	    	buffer.writeInt(this.paintPress.getPos().getY());
-	    	buffer.writeInt(this.paintPress.getPos().getZ());
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioPaintPress(this.paintPress.getPos(), this.selectedTypeArt, this.selectedArtTitle, applyToCanvas));
+	    	// ByteBuf buffer = Unpooled.buffer();
+	    	// buffer.writeInt(this.paintPress.getPos().getX());
+	    	// buffer.writeInt(this.paintPress.getPos().getY());
+	    	// buffer.writeInt(this.paintPress.getPos().getZ());
 	    	
-	    	buffer.writeInt(this.selectedTypeArt);
-	    	ByteBufUtils.writeUTF8String(buffer, this.selectedArtTitle);
+	    	// buffer.writeInt(this.selectedTypeArt);
+	    	// ByteBufUtils.writeUTF8String(buffer, this.selectedArtTitle);
 	    	
-	    	buffer.writeBoolean(applyToCanvas);
+	    	// buffer.writeBoolean(applyToCanvas);
 	    	
-	    	BiblioCraft.ch_BiblioPaintPress.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaintPress"));
+	    	// BiblioCraft.ch_BiblioPaintPress.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPaintPress"));
     	}
     }
     

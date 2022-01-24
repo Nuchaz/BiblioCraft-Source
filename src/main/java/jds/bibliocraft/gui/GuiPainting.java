@@ -11,6 +11,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerPainting;
 import jds.bibliocraft.helpers.BiblioEnums.EnumBiblioPaintings;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioPainting;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import jds.bibliocraft.helpers.PaintingUtil;
 import jds.bibliocraft.tileentities.TileEntityPainting;
@@ -238,23 +240,24 @@ public class GuiPainting extends GuiContainer
     
     public void sendPacket()
     {
-    	ByteBuf buffer = Unpooled.buffer();
-    	buffer.writeInt(this.painting.getPos().getX());
-    	buffer.writeInt(this.painting.getPos().getY());
-    	buffer.writeInt(this.painting.getPos().getZ());
+		BiblioNetworking.INSTANCE.sendToServer(new BiblioPainting(this.painting.getPos(), this.canvasCorner, this.canvasScale, this.canvasResolution, this.canvasSize, this.canvasRotation, this.customPaintingAspectX, this.customPaintingAspectY, this.hideFrame));
+    	// ByteBuf buffer = Unpooled.buffer();
+    	// buffer.writeInt(this.painting.getPos().getX());
+    	// buffer.writeInt(this.painting.getPos().getY());
+    	// buffer.writeInt(this.painting.getPos().getZ());
     	
-    	buffer.writeInt(this.canvasCorner);
-    	buffer.writeInt(this.canvasScale);
-    	buffer.writeInt(this.canvasResolution);
-    	buffer.writeInt(this.canvasSize);
+    	// buffer.writeInt(this.canvasCorner);
+    	// buffer.writeInt(this.canvasScale);
+    	// buffer.writeInt(this.canvasResolution);
+    	// buffer.writeInt(this.canvasSize);
     	
-    	buffer.writeInt(this.canvasRotation);
+    	// buffer.writeInt(this.canvasRotation);
     	
-    	buffer.writeInt(this.customPaintingAspectX);
-    	buffer.writeInt(this.customPaintingAspectY);
+    	// buffer.writeInt(this.customPaintingAspectX);
+    	// buffer.writeInt(this.customPaintingAspectY);
     	
-    	buffer.writeBoolean(this.hideFrame);
-    	BiblioCraft.ch_BiblioPainting.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPainting"));
+    	// buffer.writeBoolean(this.hideFrame);
+    	// BiblioCraft.ch_BiblioPainting.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioPainting"));
     }
     
     @Override

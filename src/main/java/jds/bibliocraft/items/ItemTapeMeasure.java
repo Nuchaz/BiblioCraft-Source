@@ -14,6 +14,8 @@ import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BlockMarkerPole;
 import jds.bibliocraft.events.GuiBiblioOverlay;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMeasure;
 import jds.bibliocraft.tileentities.TileEntityMarkerPole;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -157,15 +159,16 @@ public class ItemTapeMeasure extends Item
 	
 	public void sendPacket(boolean newOrOld, int i, int j, int k, EnumFacing direction)
 	{
-        ByteBuf buffer = Unpooled.buffer();
+        // ByteBuf buffer = Unpooled.buffer();
         try
         {
-        	buffer.writeInt(i);
-        	buffer.writeInt(j);
-        	buffer.writeInt(k);
-        	buffer.writeBoolean(newOrOld);
-        	buffer.writeInt(direction.getIndex());
-        	BiblioCraft.ch_BiblioMeasure.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMeasure"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioMeasure(new BlockPos(i, j, k), newOrOld, direction.getIndex()));
+        	// buffer.writeInt(i);
+        	// buffer.writeInt(j);
+        	// buffer.writeInt(k);
+        	// buffer.writeBoolean(newOrOld);
+        	// buffer.writeInt(direction.getIndex());
+        	// BiblioCraft.ch_BiblioMeasure.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMeasure"));
         }
         catch (Exception ex)
         {

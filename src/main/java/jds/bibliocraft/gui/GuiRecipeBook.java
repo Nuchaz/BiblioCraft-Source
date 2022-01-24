@@ -15,6 +15,7 @@ import jds.bibliocraft.items.ItemRecipeBook;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
 import jds.bibliocraft.network.packet.server.BiblioRecipeCraft;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -385,7 +386,8 @@ public class GuiRecipeBook extends GuiScreen
     	ByteBufUtils.writeItemStack(buffer, this.recipeBook);
     	if (!this.onDesk)
     	{
-	    	BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(this.recipeBook, false));
+	    	//BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
     	}
     	else
     	{

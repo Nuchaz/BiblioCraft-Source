@@ -30,6 +30,9 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerFancyWorkbench;
 import jds.bibliocraft.items.ItemRecipeBook;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioRBook;
+import jds.bibliocraft.network.packet.server.BiblioRBookLoad;
 import jds.bibliocraft.tileentities.TileEntityBookcase;
 import jds.bibliocraft.tileentities.TileEntityFancyWorkbench;
 
@@ -88,23 +91,25 @@ public class GuiFancyWorkbench extends GuiContainer
     	if (click.id == 0)
     	{
     		benchTile.setBookGrid(this.playerID);
-			ByteBuf buffer = Unpooled.buffer();
-			buffer.writeInt(this.benchTile.getPos().getX());
-			buffer.writeInt(this.benchTile.getPos().getY());
-			buffer.writeInt(this.benchTile.getPos().getZ());
-			buffer.writeInt(this.playerID);
-		    BiblioCraft.ch_BiblioTypeUpdate.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRBook"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioRBook(this.benchTile.getPos()));
+			// ByteBuf buffer = Unpooled.buffer();
+			// buffer.writeInt(this.benchTile.getPos().getX());
+			// buffer.writeInt(this.benchTile.getPos().getY());
+			// buffer.writeInt(this.benchTile.getPos().getZ());
+			// buffer.writeInt(this.playerID);
+		    //BiblioCraft.ch_BiblioTypeUpdate.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRBook"));
     	}
     	if (click.id == 1)
     	{
     		//System.out.println("sending ... : "+this.playerID);
     		benchTile.loadInvToGridForRecipe(this.playerID);
-    		ByteBuf buffer = Unpooled.buffer();
-			buffer.writeInt(this.benchTile.getPos().getX());
-			buffer.writeInt(this.benchTile.getPos().getY());
-			buffer.writeInt(this.benchTile.getPos().getZ());
-			buffer.writeInt(this.playerID);
-		    BiblioCraft.ch_BiblioTypeUpdate.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRBookLoad"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioRBookLoad(this.benchTile.getPos()));
+			// ByteBuf buffer = Unpooled.buffer();
+			// buffer.writeInt(this.benchTile.getPos().getX());
+			// buffer.writeInt(this.benchTile.getPos().getY());
+			// buffer.writeInt(this.benchTile.getPos().getZ());
+			// buffer.writeInt(this.playerID);
+		    // BiblioCraft.ch_BiblioTypeUpdate.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRBookLoad"));
     	}
     }
 

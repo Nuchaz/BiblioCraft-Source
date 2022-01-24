@@ -10,6 +10,8 @@ import org.lwjgl.opengl.GL11;
 
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioClock;
 import jds.bibliocraft.tileentities.TileEntityClock;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -420,22 +422,22 @@ public class GuiClock extends GuiScreen
     
     public void sendPacket()
     {
-    	ByteBuf buffer = Unpooled.buffer();
+    	// ByteBuf buffer = Unpooled.buffer();
     	NBTTagCompound tags = new NBTTagCompound();
     	tags.setIntArray("chimes", this.chimeSettings);
     	tags.setIntArray("redstone", this.redstoneSettings);
+    	BiblioNetworking.INSTANCE.sendToServer(new BiblioClock(tags, this.toggleTick, this.toggleChime, this.toggleRedstone, (this.pulse < 1) ? true : false, this.clock.getPos()));
+    	// ByteBufUtils.writeTag(buffer, tags);
     	
-    	ByteBufUtils.writeTag(buffer, tags);
+    	// buffer.writeBoolean(this.toggleTick);
+    	// buffer.writeBoolean(this.toggleChime);
+    	// buffer.writeBoolean(this.toggleRedstone);
+    	// buffer.writeBoolean((this.pulse < 1) ? true : false);
     	
-    	buffer.writeBoolean(this.toggleTick);
-    	buffer.writeBoolean(this.toggleChime);
-    	buffer.writeBoolean(this.toggleRedstone);
-    	buffer.writeBoolean((this.pulse < 1) ? true : false);
+    	// buffer.writeInt(this.clock.getPos().getX());
+    	// buffer.writeInt(this.clock.getPos().getY());
+    	// buffer.writeInt(this.clock.getPos().getZ());
     	
-    	buffer.writeInt(this.clock.getPos().getX());
-    	buffer.writeInt(this.clock.getPos().getY());
-    	buffer.writeInt(this.clock.getPos().getZ());
-    	
-    	BiblioCraft.ch_BiblioClock.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioClock"));
+    	// BiblioCraft.ch_BiblioClock.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioClock"));
     }
 }

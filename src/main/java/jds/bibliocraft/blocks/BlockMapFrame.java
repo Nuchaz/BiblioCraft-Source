@@ -14,6 +14,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.items.ItemDrill;
 import jds.bibliocraft.items.ItemWaypointCompass;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.block.Block;
@@ -141,7 +143,8 @@ public class BlockMapFrame extends BiblioWoodBlock
 							        {
 							        	ByteBuf buffer = Unpooled.buffer();
 							        	ByteBufUtils.writeItemStack(buffer, updatedCompass);
-							        	BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+										BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(updatedCompass, false));
+										// BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
 							        }
 							        catch (Exception ex)
 							        {

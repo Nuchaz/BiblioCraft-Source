@@ -7,6 +7,7 @@ import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 
 import java.io.IOException;
 
@@ -880,7 +881,8 @@ public class GuiBigBook extends GuiScreen
     	ByteBufUtils.writeItemStack(buffer, book);
     	if (isinhand)
     	{
-	    	BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(book, false));
+	    	//BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
     	}
     	else
     	{

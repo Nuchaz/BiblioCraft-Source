@@ -10,6 +10,7 @@ import java.io.IOException;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
+import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -514,14 +515,15 @@ public class GuiClipboard extends GuiScreen
     	//System.out.println("I can haz closed GUI?");
     	Keyboard.enableRepeatEvents(false);
     	saveNBT();
-        ByteBuf buffer = Unpooled.buffer();
+        // ByteBuf buffer = Unpooled.buffer();
         try
         {
-        	ByteBufUtils.writeItemStack(buffer, this.clipStack);
+        	//ByteBufUtils.writeItemStack(buffer, this.clipStack);
 
             if (inInv)
             {
-                BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
+				BiblioNetworking.INSTANCE.sendToServer(new BiblioUpdateInv(this.clipStack, false));
+                //BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioUpdateInv"));
             }
             else
             {

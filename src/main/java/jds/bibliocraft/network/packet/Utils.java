@@ -102,7 +102,17 @@ public class Utils {
         }
         return hasIngredients;
     }
-
+	public static boolean checkIfValidPacketItem(String input) {
+		// Make sure all this stuff can only open if in main hand. // TODO
+		String validPacketItems[] = { "item.AtlasBook", "item.BigBook", "item.RecipeBook", "item.BiblioClipboard",
+				"item.BiblioRedBook", "item.SlottedBook", "item.compass" };
+		for (int i = 0; i < validPacketItems.length; i++) {
+			if (validPacketItems[i].equals(input)) {
+				return true;
+			}
+		}
+		return false;
+	}
     public static void sendARecipeBookTextPacket(EntityPlayerMP player, String text, int slot) {
         ItemStack currentBook = player.inventory.getStackInSlot(slot);
         if (currentBook != ItemStack.EMPTY) {
