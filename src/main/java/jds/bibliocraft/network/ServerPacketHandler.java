@@ -142,66 +142,17 @@ public class ServerPacketHandler {
 			// if (packet.channel().equals("BiblioRecipeCraft")) {
 			// 	handleRecipeBookRecipeCraft(packet.payload(), player);
 			// }
-			if (packet.channel().equals("BiblioStockTitle")) {
-				// update the title of the stockroom catalog
-				handleStockroomCatalogTitle(packet.payload(), player);
-			}
-			if (packet.channel().equals("BiblioStockCompass")) {
-				// update the compass on the stockroom catalog
-				handleStockroomCatalogCompass(packet.payload(), player);
-			}
-			if (packet.channel().equals("BiblioClipboard")) {
-				handleClipboardBlockUpdate(packet.payload(), player);
-			}
-		}
-	}
-
-	private void handleClipboardBlockUpdate(ByteBuf packet, EntityPlayerMP player) {
-		int x = packet.readInt();
-		int y = packet.readInt();
-		int z = packet.readInt();
-		int updatePos = packet.readInt();
-		TileEntity tile = player.world.getTileEntity(new BlockPos(x, y, z));
-		if (tile != null && tile instanceof TileEntityClipboard) {
-			TileEntityClipboard clipboard = (TileEntityClipboard) tile;
-			clipboard.updateClipboardFromPlayerSelection(updatePos);
-		}
-	}
-
-	private void handleStockroomCatalogTitle(ByteBuf packet, EntityPlayerMP player) {
-		String title = ByteBufUtils.readUTF8String(packet);
-		ItemStack stockroomcatalog = player.getHeldItem(EnumHand.MAIN_HAND);
-		if (stockroomcatalog != ItemStack.EMPTY && stockroomcatalog.getItem() instanceof ItemStockroomCatalog) {
-			NBTTagCompound tags = stockroomcatalog.getTagCompound();
-			if (tags == null) {
-				tags = new NBTTagCompound();
-			}
-			NBTTagCompound display = new NBTTagCompound();
-			display.setString("Name", TextFormatting.WHITE + title);
-			tags.setTag("display", display);
-			stockroomcatalog.setTagCompound(tags);
-			player.inventory.setInventorySlotContents(player.inventory.currentItem, stockroomcatalog);
-		}
-	}
-
-	private void handleStockroomCatalogCompass(ByteBuf packet, EntityPlayerMP player) {
-		int slotNumber = packet.readInt();
-		String title = ByteBufUtils.readUTF8String(packet);
-		int x = packet.readInt();
-		int z = packet.readInt();
-		if (slotNumber < player.inventory.getSizeInventory()) {
-			ItemStack compass = player.inventory.getStackInSlot(slotNumber);
-			if (compass != ItemStack.EMPTY && compass.getItem() instanceof ItemWaypointCompass) {
-				NBTTagCompound tags = compass.getTagCompound();
-				if (tags == null) {
-					tags = new NBTTagCompound();
-				}
-				tags.setInteger("XCoord", x);
-				tags.setInteger("ZCoord", z);
-				tags.setString("WaypointName", title);
-				compass.setTagCompound(tags);
-				player.inventory.setInventorySlotContents(slotNumber, compass);
-			}
+			// if (packet.channel().equals("BiblioStockTitle")) {
+			// 	// update the title of the stockroom catalog
+			// 	handleStockroomCatalogTitle(packet.payload(), player);
+			// }
+			// if (packet.channel().equals("BiblioStockCompass")) {
+			// 	// update the compass on the stockroom catalog
+			// 	handleStockroomCatalogCompass(packet.payload(), player);
+			// }
+			// if (packet.channel().equals("BiblioClipboard")) {
+			// 	handleClipboardBlockUpdate(packet.payload(), player);
+			// }
 		}
 	}
 	private void handlePaintingCustomAspectsUpdate(ByteBuf packet, World world) {

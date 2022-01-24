@@ -11,6 +11,9 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.helpers.InventoryListItem;
 import jds.bibliocraft.helpers.SortedListItem;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioStockCompass;
+import jds.bibliocraft.network.packet.server.BiblioStockTitle;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -664,13 +667,13 @@ public class GuiStockCatalog extends GuiScreen
 	    		compTags.setInteger("ZCoord", z);
 	    		currentCompass.setTagCompound(compTags);
 	    		this.compassStacks[this.selectedCompass] = currentCompass;
-
-	        	ByteBuf buffer = Unpooled.buffer();
-	        	buffer.writeInt(slot);
-	        	ByteBufUtils.writeUTF8String(buffer, invName);
-	        	buffer.writeInt(x);
-	        	buffer.writeInt(z);
-	        	BiblioCraft.ch_BiblioStoCatCompass.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioStockCompass"));
+				BiblioNetworking.INSTANCE.sendToServer(new BiblioStockCompass(slot, invName, x, z));
+	        	// ByteBuf buffer = Unpooled.buffer();
+	        	// buffer.writeInt(slot);
+	        	// ByteBufUtils.writeUTF8String(buffer, invName);
+	        	// buffer.writeInt(x);
+	        	// buffer.writeInt(z);
+	        	// BiblioCraft.ch_BiblioStoCatCompass.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioStockCompass"));
     		}
 
     	}
@@ -846,9 +849,10 @@ public class GuiStockCatalog extends GuiScreen
     {
     	Keyboard.enableRepeatEvents(false);
     	String text = this.titleText.getText();
-    	ByteBuf buffer = Unpooled.buffer();
-    	ByteBufUtils.writeUTF8String(buffer, text);
-    	BiblioCraft.ch_BiblioStoCatTitle.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioStockTitle"));
+		BiblioNetworking.INSTANCE.sendToServer(new BiblioStockTitle(text));
+    	// ByteBuf buffer = Unpooled.buffer();
+    	// ByteBufUtils.writeUTF8String(buffer, text);
+    	// BiblioCraft.ch_BiblioStoCatTitle.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioStockTitle"));
     }
     
     @Override

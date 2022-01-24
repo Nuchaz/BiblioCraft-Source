@@ -10,6 +10,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioClipboard;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityClipboard;
 import net.minecraft.block.Block;
@@ -63,14 +65,14 @@ public class BlockClipboard extends BiblioBlock
 			TileEntity tile = world.getTileEntity(pos);
 			if (tile != null && tile instanceof TileEntityClipboard)
 			{
-				TileEntityClipboard clipboard = (TileEntityClipboard)tile;
 				int updatePos = getSelectionPointFromFace(face, hitX, hitY, hitZ);
-				ByteBuf buffer = Unpooled.buffer();
-				buffer.writeInt(pos.getX());
-				buffer.writeInt(pos.getY());
-				buffer.writeInt(pos.getZ());
-				buffer.writeInt(updatePos);
-				BiblioCraft.ch_BiblioClipboard.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioClipboard"));
+				BiblioNetworking.INSTANCE.sendToServer(new BiblioClipboard(pos, updatePos));
+				// ByteBuf buffer = Unpooled.buffer();
+				// buffer.writeInt(pos.getX());
+				// buffer.writeInt(pos.getY());
+				// buffer.writeInt(pos.getZ());
+				// buffer.writeInt(updatePos);
+				// BiblioCraft.ch_BiblioClipboard.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioClipboard"));
 				return true;
 			}
 		}

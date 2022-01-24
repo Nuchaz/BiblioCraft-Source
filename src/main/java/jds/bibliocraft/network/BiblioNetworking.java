@@ -2,10 +2,13 @@ package jds.bibliocraft.network;
 
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.network.packet.server.BiblioAtlasWPT;
+import jds.bibliocraft.network.packet.server.BiblioClipboard;
 import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
 import jds.bibliocraft.network.packet.server.BiblioMCBPage;
 import jds.bibliocraft.network.packet.server.BiblioPaneler;
 import jds.bibliocraft.network.packet.server.BiblioRecipeCraft;
+import jds.bibliocraft.network.packet.server.BiblioStockCompass;
+import jds.bibliocraft.network.packet.server.BiblioStockTitle;
 import jds.bibliocraft.network.packet.server.BiblioType;
 import jds.bibliocraft.network.packet.server.BiblioTypeDelete;
 import jds.bibliocraft.network.packet.server.BiblioTypeFlag;
@@ -29,5 +32,8 @@ public class BiblioNetworking {
         INSTANCE.registerMessage(BiblioMCBPage.Handler.class, BiblioMCBPage.class, packetID++, Side.SERVER);
         INSTANCE.registerMessage(BiblioPaneler.Handler.class, BiblioPaneler.class, packetID++, Side.SERVER);
         INSTANCE.registerMessage(BiblioRecipeCraft.Handler.class, BiblioRecipeCraft.class, packetID++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioStockTitle.Handler.class, BiblioStockTitle.class, packetID++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioStockCompass.Handler.class, BiblioStockCompass.class, packetID++, Side.SERVER);
+        INSTANCE.registerMessage(BiblioClipboard.Handler.class, BiblioClipboard.class, packetID++, Side.SERVER);
     }
 }
