@@ -8,6 +8,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import jds.bibliocraft.BiblioCraft;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -22,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
@@ -522,11 +525,12 @@ public class GuiClipboard extends GuiScreen
             }
             else
             {
-            	buffer.writeInt(tilex);
-            	buffer.writeInt(tiley);
-            	buffer.writeInt(tilez);
-            	buffer.writeInt(currentPage);
-            	BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
+				BiblioNetworking.INSTANCE.sendToServer(new BiblioMCBEdit(new BlockPos(tilex, tiley, tilez), currentPage, this.clipStack));
+            	// buffer.writeInt(tilex);
+            	// buffer.writeInt(tiley);
+            	// buffer.writeInt(tilez);
+            	// buffer.writeInt(currentPage);
+            	// BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
             }
         }
         catch (Exception ex)

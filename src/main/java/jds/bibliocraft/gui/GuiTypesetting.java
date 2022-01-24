@@ -9,6 +9,11 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.helpers.FileUtil;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioType;
+import jds.bibliocraft.network.packet.server.BiblioTypeDelete;
+import jds.bibliocraft.network.packet.server.BiblioTypeFlag;
+import jds.bibliocraft.network.packet.server.BiblioTypeUpdate;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -16,6 +21,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -348,12 +354,13 @@ public class GuiTypesetting extends GuiScreen //GuiContainer
 
     	if (click.id >= 1 && click.id <= 8)
     	{
-    		ByteBuf buffer = Unpooled.buffer();
-		    ByteBufUtils.writeUTF8String(buffer, bookName);
-		    buffer.writeInt(i);
-		    buffer.writeInt(j);
-		    buffer.writeInt(k);
-		    BiblioCraft.ch_BiblioType.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioType")); 
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioType(bookName, new BlockPos(i, j, k)));
+    		// ByteBuf buffer = Unpooled.buffer();
+		    // ByteBufUtils.writeUTF8String(buffer, bookName);
+		    // buffer.writeInt(i);
+		    // buffer.writeInt(j);
+		    // buffer.writeInt(k);
+		    // BiblioCraft.ch_BiblioType.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioType")); 
     	}
     	
     	if (setFlagUpdate)
@@ -361,25 +368,27 @@ public class GuiTypesetting extends GuiScreen //GuiContainer
     		if (authorList[flag].contains(playerName) || creativeMode)
     		{
     			//System.out.println("ready to update flag for book "+bookFlagTitle);
-    			ByteBuf buffer = Unpooled.buffer();
-    			ByteBufUtils.writeUTF8String(buffer, bookFlagTitle);
-    			buffer.writeBoolean(!(isPublic[flag]));
-    			buffer.writeBoolean(this.isServerSide);
+    			// ByteBuf buffer = Unpooled.buffer();
+    			// ByteBufUtils.writeUTF8String(buffer, bookFlagTitle);
+    			// buffer.writeBoolean(!(isPublic[flag]));
+    			// buffer.writeBoolean(this.isServerSide);
     			//buffer.writeInt(i);
     		    //buffer.writeInt(j);
     		    //buffer.writeInt(k);
-    		    BiblioCraft.ch_BiblioTypeFlag.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeFlag"));
+				BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeFlag(bookFlagTitle, !(isPublic[flag]), this.isServerSide));
+    		    // BiblioCraft.ch_BiblioTypeFlag.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeFlag"));
     		    isPublic[flag] = !isPublic[flag];
     		}
     	}
     	
     	if (setDelete)
     	{
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeDelete(deleteBookTitle, this.isServerSide));
     		//System.out.println("ready to delete book  "+deleteBookTitle);
-    		ByteBuf buffer = Unpooled.buffer();
-    		ByteBufUtils.writeUTF8String(buffer, deleteBookTitle);
-    		buffer.writeBoolean(this.isServerSide);
-		    BiblioCraft.ch_BiblioTypeDelete.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeDelete"));
+    		// ByteBuf buffer = Unpooled.buffer();
+    		// ByteBufUtils.writeUTF8String(buffer, deleteBookTitle);
+    		// buffer.writeBoolean(this.isServerSide);
+		    // BiblioCraft.ch_BiblioTypeDelete.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeDelete"));
 		    deleteBookFromLists(flag);
     	}
     	
@@ -453,11 +462,12 @@ public class GuiTypesetting extends GuiScreen //GuiContainer
     {
     	if (isServerSide)
     	{
-			ByteBuf buffer = Unpooled.buffer();
-			buffer.writeInt(this.i);
-			buffer.writeInt(this.j);
-			buffer.writeInt(this.k);
-		    BiblioCraft.ch_BiblioTypeUpdate.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeUpdate"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeUpdate(new BlockPos(this.i, this.j, this.k)));
+			// ByteBuf buffer = Unpooled.buffer();
+			// buffer.writeInt(this.i);
+			// buffer.writeInt(this.j);
+			// buffer.writeInt(this.k);
+		    // BiblioCraft.ch_BiblioTypeUpdate.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeUpdate"));
     	}
     }
 	

@@ -77,24 +77,24 @@ public class ServerPacketHandler {
 		FMLProxyPacket packet = event.getPacket();
 
 		if (packet != null) {
-			if (packet.channel().equals("BiblioType")) {
-				handleBookNameUpdate(packet.payload(), player);
-			}
-			if (packet.channel().equals("BiblioTypeFlag")) {
-				handleBookFlagUpdate(packet.payload());
-			}
-			if (packet.channel().equals("BiblioTypeDelete")) {
-				handleBookDeletion(packet.payload());
-			}
-			if (packet.channel().equals("BiblioTypeUpdate")) {
-				handleTypsetUpdate(packet.payload(), player.world);
-			}
-			if (packet.channel().equals("BiblioMCBEdit")) {
-				handleBookEdit(packet.payload(), player);
-			}
-			if (packet.channel().equals("BiblioMCBPage")) {
-				handleBookPageUpdate(packet.payload(), player);
-			}
+			// if (packet.channel().equals("BiblioType")) {
+			// 	handleBookNameUpdate(packet.payload(), player);
+			// }
+			// if (packet.channel().equals("BiblioTypeFlag")) {
+			// 	handleBookFlagUpdate(packet.payload());
+			// }
+			// if (packet.channel().equals("BiblioTypeDelete")) {
+			// 	handleBookDeletion(packet.payload());
+			// }
+			// if (packet.channel().equals("BiblioTypeUpdate")) {
+			// 	handleTypsetUpdate(packet.payload(), player.world);
+			// }
+			// if (packet.channel().equals("BiblioMCBEdit")) {
+			// 	handleBookEdit(packet.payload(), player);
+			// }
+			// if (packet.channel().equals("BiblioMCBPage")) {
+			// 	handleBookPageUpdate(packet.payload(), player);
+			// }
 			if (packet.channel().equals("BiblioUpdateInv")) {
 				handleInventoryStackUpdate(packet.payload(), player);
 			}
@@ -136,12 +136,12 @@ public class ServerPacketHandler {
 			// {
 			// handleAtlasTransferUpdate(packet.payload(), player);
 			// }
-			if (packet.channel().equals("BiblioPaneler")) {
-				handlePanelerTextureStringUpdate(packet.payload(), player.world);
-			}
-			if (packet.channel().equals("BiblioRecipeCraft")) {
-				handleRecipeBookRecipeCraft(packet.payload(), player);
-			}
+			// if (packet.channel().equals("BiblioPaneler")) {
+			// 	handlePanelerTextureStringUpdate(packet.payload(), player.world);
+			// }
+			// if (packet.channel().equals("BiblioRecipeCraft")) {
+			// 	handleRecipeBookRecipeCraft(packet.payload(), player);
+			// }
 			if (packet.channel().equals("BiblioStockTitle")) {
 				// update the title of the stockroom catalog
 				handleStockroomCatalogTitle(packet.payload(), player);
@@ -204,193 +204,6 @@ public class ServerPacketHandler {
 			}
 		}
 	}
-
-	private void handleRecipeBookRecipeCraft(ByteBuf packet, EntityPlayerMP player) {
-		ItemStack recipeBook = ByteBufUtils.readItemStack(packet);
-		int inventorySlot = packet.readInt();
-		if (Config.enableRecipeBookCrafting) {
-			if (recipeBook != ItemStack.EMPTY && recipeBook.getItem() instanceof ItemRecipeBook) {
-				NonNullList<ItemStack> bookGrid = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);// new
-																										// ItemStack[9];
-				ItemStack resultStack = ItemStack.EMPTY;
-				NBTTagCompound nbt = recipeBook.getTagCompound();
-				if (nbt != null) {
-					NBTTagList tagList = nbt.getTagList("grid", Constants.NBT.TAG_COMPOUND);
-					bookGrid = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
-					for (int i = 0; i < 9; i++) {
-						NBTTagCompound tag = (NBTTagCompound) tagList.getCompoundTagAt(i);
-						byte slot = tag.getByte("Slot");
-						if (slot >= 0 && slot < 9) {
-							ItemStack nbtStack = new ItemStack(tag);
-							if (nbtStack != ItemStack.EMPTY) {
-								bookGrid.set(slot, nbtStack);
-							}
-						}
-					}
-					NBTTagCompound resultTag = nbt.getCompoundTag("result");
-					if (resultTag != null) {
-						resultStack = new ItemStack(resultTag);
-					}
-				}
-
-				if (resultStack != ItemStack.EMPTY) {
-					if (checkForValidRecipeIngredients(bookGrid, player, false)) {
-						Container contained = new Container() {
-							@Override
-							public boolean canInteractWith(EntityPlayer p_75145_1_) {
-								return false;
-							}
-						};
-						InventoryCrafting playerCraftMatrix = new InventoryCrafting(contained, 3, 3);
-						for (int i = 0; i < bookGrid.size(); i++) {
-							playerCraftMatrix.setInventorySlotContents(i, bookGrid.get(i));
-						}
-
-						ItemStack result = CraftingManager.findMatchingResult(playerCraftMatrix, player.world);
-						if (result != ItemStack.EMPTY) {
-							if (checkForValidRecipeIngredients(bookGrid, player, true)) // remove valid ingredients from
-																						// inventory
-							{
-								if (!(player.inventory.addItemStackToInventory(result.copy()))) {
-									EntityItem entityItem = new EntityItem(player.world, player.posX, player.posY,
-											player.posZ,
-											new ItemStack(result.getItem(), result.getCount(), result.getItemDamage()));
-									if (result.hasTagCompound()) {
-										entityItem.getItem()
-												.setTagCompound((NBTTagCompound) result.getTagCompound().copy());
-									}
-									entityItem.motionX = 0;
-									entityItem.motionY = 0;
-									entityItem.motionZ = 0;
-									player.world.spawnEntity(entityItem);
-								}
-								sendARecipeBookTextPacket(player,
-										result.getDisplayName() + " " + I18n.translateToLocal("gui.recipe.crafted"),
-										inventorySlot);
-							} else {
-								sendARecipeBookTextPacket(player, I18n.translateToLocal("gui.recipe.failed"),
-										inventorySlot);
-							}
-							return;
-						} else {
-							sendARecipeBookTextPacket(player, I18n.translateToLocal("gui.recipe.invalid"),
-									inventorySlot);
-							return;
-						}
-					} else {
-						sendARecipeBookTextPacket(player, I18n.translateToLocal("gui.recipe.missing"), inventorySlot);
-						return;
-					}
-				} else {
-					sendARecipeBookTextPacket(player, I18n.translateToLocal("gui.recipe.invalid"), inventorySlot);
-					return;
-				}
-			}
-			sendARecipeBookTextPacket(player, I18n.translateToLocal("gui.recipe.wrong"), inventorySlot);
-		} else {
-			sendARecipeBookTextPacket(player, I18n.translateToLocal("gui.recipe.disabled"), inventorySlot);
-		}
-	}
-
-	private boolean checkForValidRecipeIngredients(NonNullList<ItemStack> ingredients, EntityPlayerMP player,
-			boolean remove) {
-		if (player.capabilities.isCreativeMode) {
-			remove = false;
-		}
-		boolean[] passed = { false, false, false,
-				false, false, false,
-				false, false, false };
-		NonNullList<ItemStack> inventory = player.inventory.mainInventory;
-		NonNullList<ItemStack> playerInventory = inventory;
-		NonNullList<ItemStack> playerIngredients = NonNullList.<ItemStack>withSize(ingredients.size(), ItemStack.EMPTY);
-		for (int i = 0; i < ingredients.size(); i++) {
-			playerIngredients.set(i, ingredients.get(i));
-		}
-		NonNullList<ItemStack> countedIngredients = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
-		for (int i = 0; i < playerIngredients.size(); i++) {
-			ItemStack thing = playerIngredients.get(i);
-			if (thing != ItemStack.EMPTY) {
-				int count = 0;
-				for (int n = 0; n < playerIngredients.size(); n++) {
-					ItemStack subThing = playerIngredients.get(n);
-					if (subThing.getUnlocalizedName().equals(thing.getUnlocalizedName())) {
-						count++;
-						playerIngredients.set(n, ItemStack.EMPTY);
-					}
-				}
-				thing.setCount(count);
-				countedIngredients.set(i, thing);
-			}
-		}
-		for (int i = 0; i < countedIngredients.size(); i++) {
-			ItemStack ingredientItem = countedIngredients.get(i);
-			if (ingredientItem != ItemStack.EMPTY
-					&& !ingredientItem.getUnlocalizedName().contentEquals(ItemStack.EMPTY.getUnlocalizedName())) {
-				for (int n = 0; n < playerInventory.size(); n++) {
-					ItemStack inventoryItem = playerInventory.get(n);
-					if (inventoryItem != ItemStack.EMPTY
-							&& inventoryItem.getUnlocalizedName().equals(ingredientItem.getUnlocalizedName())) {
-						if (inventoryItem.getCount() >= ingredientItem.getCount()) {
-							if (remove) {
-								inventoryItem.setCount(inventoryItem.getCount() - ingredientItem.getCount());
-								if (inventoryItem.getCount() <= 0) {
-									inventory.set(n, ItemStack.EMPTY);
-								} else {
-									inventory.set(n, inventoryItem);
-								}
-							}
-							passed[i] = true;
-							break;
-						} else {
-							inventoryItem.setCount(ingredientItem.getCount() - inventoryItem.getCount());
-							countedIngredients.set(i, ingredientItem);// [i] = ingredientItem;
-							if (remove) {
-								inventory.set(n, ItemStack.EMPTY);
-							}
-						}
-					}
-				}
-			} else {
-				passed[i] = true;
-			}
-		}
-		boolean hasIngredients = true;
-		for (int m = 0; m < passed.length; m++) {
-			if (!passed[m]) {
-				hasIngredients = false;
-			}
-		}
-		if (player.capabilities.isCreativeMode) {
-			hasIngredients = true;
-		}
-		return hasIngredients;
-	}
-
-	private void sendARecipeBookTextPacket(EntityPlayerMP player, String text, int slot) {
-		ItemStack currentBook = player.inventory.getStackInSlot(slot);
-		if (currentBook != ItemStack.EMPTY) {
-			if (currentBook.getItem() instanceof ItemRecipeBook) {
-				ByteBuf buffer = Unpooled.buffer();
-				ByteBufUtils.writeUTF8String(buffer, text);
-				buffer.writeInt(slot);
-				BiblioCraft.ch_BiblioRecipeText.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRecipeText"),
-						player);
-			}
-		}
-	}
-
-	private void handlePanelerTextureStringUpdate(ByteBuf packet, World world) {
-		String texName = ByteBufUtils.readUTF8String(packet);
-		int i = packet.readInt();
-		int j = packet.readInt();
-		int k = packet.readInt();
-		TileEntity tile = world.getTileEntity(new BlockPos(i, j, k));
-		if (tile != null && tile instanceof TileEntityFurniturePaneler) {
-			TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
-			paneler.setCustomCraftingTex(texName);
-		}
-	}
-
 	private void handlePaintingCustomAspectsUpdate(ByteBuf packet, World world) {
 		int x = packet.readInt();
 		int y = packet.readInt();
@@ -573,102 +386,6 @@ public class ServerPacketHandler {
 		if (tile != null && tile instanceof TileEntityFancyWorkbench) {
 			TileEntityFancyWorkbench bench = (TileEntityFancyWorkbench) tile;
 			bench.setBookGrid(id);
-		}
-	}
-
-	private void handleTypsetUpdate(ByteBuf packet, World world) {
-		int x = packet.readInt();
-		int y = packet.readInt();
-		int z = packet.readInt();
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if (tile != null && tile instanceof TileEntityTypeMachine) {
-			TileEntityTypeMachine typeTile = (TileEntityTypeMachine) tile;
-			typeTile.booklistset();
-		}
-	}
-
-	private void handleBookNameUpdate(ByteBuf packet, EntityPlayerMP player) {
-		String bookname;
-		int x, y, z;
-		bookname = ByteBufUtils.readUTF8String(packet);// inputStream.readUTF();
-		x = packet.readInt();
-		y = packet.readInt();
-		z = packet.readInt();
-		updateTypeMachine(x, y, z, bookname, player);
-	}
-
-	private void updateTypeMachine(int x, int y, int z, String book, EntityPlayerMP player) {
-		World world = player.world;
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if (tile != null) {
-			TileEntityTypeMachine typetile = (TileEntityTypeMachine) tile;
-			typetile.setBookname(book);
-		}
-	}
-
-	private void handleBookFlagUpdate(ByteBuf packet) {
-		String bookname = ByteBufUtils.readUTF8String(packet);
-		boolean newFlag = packet.readBoolean();
-		boolean isServer = packet.readBoolean();
-		FileUtil util = new FileUtil();
-		if (util.updatePublicFlag(!isServer, bookname, newFlag)) {
-			String fl = "private";
-			if (newFlag) {
-				fl = "public";
-			}
-			// FMLLog.info(bookname+" is now a "+fl+" book.");
-		} else {
-			FMLLog.warning("Updating book flag for " + bookname + " failed");
-		}
-	}
-
-	private void handleBookDeletion(ByteBuf packet) {
-		String bookname = ByteBufUtils.readUTF8String(packet);
-		boolean isServer = packet.readBoolean();
-		FileUtil util = new FileUtil();
-		if (util.deleteBook(!isServer, bookname)) {
-			FMLLog.info(bookname + " has been deleted Forever!");
-		} else {
-			FMLLog.warning("Deletion of " + bookname + " failed");
-			// FMLLog.warning
-		}
-	}
-
-	private void handleBookEdit(ByteBuf packet, EntityPlayerMP player) {
-		int x, y, z;
-		int currentPage;
-		ItemStack book;
-		book = ByteBufUtils.readItemStack(packet);// Packet.readItemStack(inputStream);
-
-		x = packet.readInt();
-		y = packet.readInt();
-		z = packet.readInt();
-		currentPage = packet.readInt();
-
-		if (book != ItemStack.EMPTY) {
-			if (Config.testBookValidity(book)) {
-				TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(new BlockPos(x, y, z));
-				if (deskTile != null) {
-					deskTile.overwriteWrittenBook(book);
-					deskTile.setCurrentPage(currentPage);
-				}
-			}
-		}
-	}
-
-	private void handleBookPageUpdate(ByteBuf packet, EntityPlayerMP player) {
-		// DataInputStream inputStream = new DataInputStream(new
-		// ByteArrayInputStream(packet.func_149558_e()));
-		int x, y, z;
-		int currentPage;
-		x = packet.readInt();
-		y = packet.readInt();
-		z = packet.readInt();
-		currentPage = packet.readInt();
-
-		TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(new BlockPos(x, y, z));
-		if (deskTile != null) {
-			deskTile.setCurrentPage(currentPage);
 		}
 	}
 

@@ -5,6 +5,9 @@ import java.util.function.BooleanSupplier;
 
 import com.google.gson.JsonObject;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.netty.channel.ChannelHandler;
 import jds.bibliocraft.blocks.BlockBell;
 import jds.bibliocraft.blocks.BlockBookcase;
@@ -95,7 +98,7 @@ public class BiblioCraft
 {
     public static final String MODID = "bibliocraft";
     public static final String VERSION = "2.4.6";
-
+	public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static FMLEventChannel ch_BiblioType;
     public static FMLEventChannel ch_BiblioTypeFlag;
     public static FMLEventChannel ch_BiblioTypeDelete;

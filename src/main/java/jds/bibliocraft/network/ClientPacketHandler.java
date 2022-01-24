@@ -21,6 +21,7 @@ import jds.bibliocraft.items.ItemClipboard;
 import jds.bibliocraft.items.ItemDrill;
 import jds.bibliocraft.items.ItemRecipeBook;
 import jds.bibliocraft.items.ItemSlottedBook;
+import jds.bibliocraft.network.packet.server.BiblioPaneler;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 /*
@@ -326,14 +327,14 @@ public class ClientPacketHandler
 			TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler)tile;
 			paneler.setCustomCraftingTex(panelTextureName);
 		}
-		
-		ByteBuf buffer = Unpooled.buffer();
-    	ByteBufUtils.writeUTF8String(buffer, panelTextureName);
-    	buffer.writeInt(x);
-    	buffer.writeInt(y);
-    	buffer.writeInt(z);
-    	PacketBuffer payload = new PacketBuffer(buffer);
-    	BiblioCraft.ch_BiblioPaneler.sendToServer(new FMLProxyPacket(payload, "BiblioPaneler"));
+		BiblioNetworking.INSTANCE.sendToServer(new BiblioPaneler(panelTextureName, new BlockPos(x, y, z)));
+		// ByteBuf buffer = Unpooled.buffer();
+    	// ByteBufUtils.writeUTF8String(buffer, panelTextureName);
+    	// buffer.writeInt(x);
+    	// buffer.writeInt(y);
+    	// buffer.writeInt(z);
+    	// PacketBuffer payload = new PacketBuffer(buffer);
+    	// BiblioCraft.ch_BiblioPaneler.sendToServer(new FMLProxyPacket(payload, "BiblioPaneler"));
 	}
 	/*
 	private void handlePanelerRecipePacket(ByteBuf packet, EntityPlayer player)

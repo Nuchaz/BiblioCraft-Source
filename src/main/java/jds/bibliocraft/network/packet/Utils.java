@@ -2,8 +2,14 @@ package jds.bibliocraft.network.packet;
 
 import java.util.ArrayList;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.items.ItemRecipeBook;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
+import jds.bibliocraft.tileentities.TileEntityTypeMachine;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
@@ -11,10 +17,105 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class Utils {
+
+    public static boolean checkForValidRecipeIngredients(NonNullList<ItemStack> ingredients, EntityPlayerMP player,
+            boolean remove) {
+        if (player.capabilities.isCreativeMode) {
+            remove = false;
+        }
+        boolean[] passed = { false, false, false,
+                false, false, false,
+                false, false, false };
+        NonNullList<ItemStack> inventory = player.inventory.mainInventory;
+        NonNullList<ItemStack> playerInventory = inventory;
+        NonNullList<ItemStack> playerIngredients = NonNullList.<ItemStack>withSize(ingredients.size(), ItemStack.EMPTY);
+        for (int i = 0; i < ingredients.size(); i++) {
+            playerIngredients.set(i, ingredients.get(i));
+        }
+        NonNullList<ItemStack> countedIngredients = NonNullList.<ItemStack>withSize(9, ItemStack.EMPTY);
+        for (int i = 0; i < playerIngredients.size(); i++) {
+            ItemStack thing = playerIngredients.get(i);
+            if (thing != ItemStack.EMPTY) {
+                int count = 0;
+                for (int n = 0; n < playerIngredients.size(); n++) {
+                    ItemStack subThing = playerIngredients.get(n);
+                    if (subThing.getUnlocalizedName().equals(thing.getUnlocalizedName())) {
+                        count++;
+                        playerIngredients.set(n, ItemStack.EMPTY);
+                    }
+                }
+                thing.setCount(count);
+                countedIngredients.set(i, thing);
+            }
+        }
+        for (int i = 0; i < countedIngredients.size(); i++) {
+            ItemStack ingredientItem = countedIngredients.get(i);
+            if (ingredientItem != ItemStack.EMPTY
+                    && !ingredientItem.getUnlocalizedName().contentEquals(ItemStack.EMPTY.getUnlocalizedName())) {
+                for (int n = 0; n < playerInventory.size(); n++) {
+                    ItemStack inventoryItem = playerInventory.get(n);
+                    if (inventoryItem != ItemStack.EMPTY
+                            && inventoryItem.getUnlocalizedName().equals(ingredientItem.getUnlocalizedName())) {
+                        if (inventoryItem.getCount() >= ingredientItem.getCount()) {
+                            if (remove) {
+                                inventoryItem.setCount(inventoryItem.getCount() - ingredientItem.getCount());
+                                if (inventoryItem.getCount() <= 0) {
+                                    inventory.set(n, ItemStack.EMPTY);
+                                } else {
+                                    inventory.set(n, inventoryItem);
+                                }
+                            }
+                            passed[i] = true;
+                            break;
+                        } else {
+                            inventoryItem.setCount(ingredientItem.getCount() - inventoryItem.getCount());
+                            countedIngredients.set(i, ingredientItem);// [i] = ingredientItem;
+                            if (remove) {
+                                inventory.set(n, ItemStack.EMPTY);
+                            }
+                        }
+                    }
+                }
+            } else {
+                passed[i] = true;
+            }
+        }
+        boolean hasIngredients = true;
+        for (int m = 0; m < passed.length; m++) {
+            if (!passed[m]) {
+                hasIngredients = false;
+            }
+        }
+        if (player.capabilities.isCreativeMode) {
+            hasIngredients = true;
+        }
+        return hasIngredients;
+    }
+
+    public static void sendARecipeBookTextPacket(EntityPlayerMP player, String text, int slot) {
+        ItemStack currentBook = player.inventory.getStackInSlot(slot);
+        if (currentBook != ItemStack.EMPTY) {
+            if (currentBook.getItem() instanceof ItemRecipeBook) {
+                ByteBuf buffer = Unpooled.buffer();
+                ByteBufUtils.writeUTF8String(buffer, text);
+                buffer.writeInt(slot);
+                BiblioCraft.ch_BiblioRecipeText.sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRecipeText"),
+                        player);
+            }
+        }
+    }
+
     public static ItemStack getCurrentMapStack(ItemStack stack) {
         InventoryBasic inv = getInventory(stack);
         NBTTagCompound atlasTags = stack.getTagCompound();
@@ -48,90 +149,91 @@ public class Utils {
             return null;
         }
     }
+
     public static NBTTagCompound getNewMapDataCompound(TileEntityMapFrame tile, String newMapName) {
-		int mapRotation = tile.getRotation();
-		NBTTagCompound newMapData = new NBTTagCompound();
-		newMapData.setString("mapName", newMapName);
-		newMapData.setInteger("xCenter", tile.mapXCenter);
-		newMapData.setInteger("zCenter", tile.mapZCenter);
-		newMapData.setInteger("mapScale", tile.mapScale);
-		EnumFacing angle = tile.getAngle();
-		EnumVertPosition vertAngle = tile.getVertPosition();
-		int rotations = 0;
-		switch (mapRotation) {
-			case 1: {
-				rotations = 3;
-				break;
-			}
-			case 2: {
-				rotations = 2;
-				break;
-			}
-			case 3: {
-				rotations = 1;
-				break;
-			}
-		}
-		ArrayList<Float> xPins = new ArrayList<>();
-		xPins = (ArrayList<Float>) tile.xPin.clone();
-		ArrayList<Float> yPins = new ArrayList<>();
-		yPins = (ArrayList) tile.yPin.clone();
+        int mapRotation = tile.getRotation();
+        NBTTagCompound newMapData = new NBTTagCompound();
+        newMapData.setString("mapName", newMapName);
+        newMapData.setInteger("xCenter", tile.mapXCenter);
+        newMapData.setInteger("zCenter", tile.mapZCenter);
+        newMapData.setInteger("mapScale", tile.mapScale);
+        EnumFacing angle = tile.getAngle();
+        EnumVertPosition vertAngle = tile.getVertPosition();
+        int rotations = 0;
+        switch (mapRotation) {
+            case 1: {
+                rotations = 3;
+                break;
+            }
+            case 2: {
+                rotations = 2;
+                break;
+            }
+            case 3: {
+                rotations = 1;
+                break;
+            }
+        }
+        ArrayList<Float> xPins = new ArrayList<>();
+        xPins = (ArrayList<Float>) tile.xPin.clone();
+        ArrayList<Float> yPins = new ArrayList<>();
+        yPins = (ArrayList) tile.yPin.clone();
 
-		for (int i = 0; i < rotations; i++) {
-			ArrayList<Float> xCurrent = xPins;
-			ArrayList<Float> yCurrent = yPins;
-			if (((angle == EnumFacing.SOUTH || angle == EnumFacing.EAST) && vertAngle == EnumVertPosition.WALL)
-					|| vertAngle == EnumVertPosition.CEILING) {
-				xPins = yCurrent;
-				yPins = xCurrent;
-				yCurrent = yPins;
-				for (int n = 0; n < xCurrent.size(); n++) {
-					yPins.set(n, 1 - (Float) yCurrent.get(n));
-				}
-			} else {
-				xPins = yCurrent;
-				yPins = xCurrent;
-				xCurrent = xPins;
-				for (int n = 0; n < xCurrent.size(); n++) {
-					xPins.set(n, 1 - (Float) xCurrent.get(n));
-				}
-			}
-		}
+        for (int i = 0; i < rotations; i++) {
+            ArrayList<Float> xCurrent = xPins;
+            ArrayList<Float> yCurrent = yPins;
+            if (((angle == EnumFacing.SOUTH || angle == EnumFacing.EAST) && vertAngle == EnumVertPosition.WALL)
+                    || vertAngle == EnumVertPosition.CEILING) {
+                xPins = yCurrent;
+                yPins = xCurrent;
+                yCurrent = yPins;
+                for (int n = 0; n < xCurrent.size(); n++) {
+                    yPins.set(n, 1 - (Float) yCurrent.get(n));
+                }
+            } else {
+                xPins = yCurrent;
+                yPins = xCurrent;
+                xCurrent = xPins;
+                for (int n = 0; n < xCurrent.size(); n++) {
+                    xPins.set(n, 1 - (Float) xCurrent.get(n));
+                }
+            }
+        }
 
-		NBTTagList mapXPins = new NBTTagList();
-		for (int i = 0; i < xPins.size(); i++) {
-			float xpin = (Float) xPins.get(i);
-			if (tile.getVertPosition() == EnumVertPosition.WALL
-					&& (tile.getAngle() == EnumFacing.WEST || tile.getAngle() == EnumFacing.NORTH)) {
-				xpin = 1.0f - xpin;
-			}
+        NBTTagList mapXPins = new NBTTagList();
+        for (int i = 0; i < xPins.size(); i++) {
+            float xpin = (Float) xPins.get(i);
+            if (tile.getVertPosition() == EnumVertPosition.WALL
+                    && (tile.getAngle() == EnumFacing.WEST || tile.getAngle() == EnumFacing.NORTH)) {
+                xpin = 1.0f - xpin;
+            }
 
-			mapXPins.appendTag(new NBTTagFloat(xpin));
-		}
-		newMapData.setTag("xMapWaypoints", mapXPins);
+            mapXPins.appendTag(new NBTTagFloat(xpin));
+        }
+        newMapData.setTag("xMapWaypoints", mapXPins);
 
-		NBTTagList mapYPins = new NBTTagList();
-		for (int i = 0; i < yPins.size(); i++) {
-			float ypin = (Float) yPins.get(i);
-			if (tile.getVertPosition() == EnumVertPosition.CEILING || tile.getVertPosition() == EnumVertPosition.WALL) {
-				// ceiling
-				ypin = 1.0f - ypin;
-			}
-			mapYPins.appendTag(new NBTTagFloat(ypin));
-		}
-		newMapData.setTag("yMapWaypoints", mapYPins);
+        NBTTagList mapYPins = new NBTTagList();
+        for (int i = 0; i < yPins.size(); i++) {
+            float ypin = (Float) yPins.get(i);
+            if (tile.getVertPosition() == EnumVertPosition.CEILING || tile.getVertPosition() == EnumVertPosition.WALL) {
+                // ceiling
+                ypin = 1.0f - ypin;
+            }
+            mapYPins.appendTag(new NBTTagFloat(ypin));
+        }
+        newMapData.setTag("yMapWaypoints", mapYPins);
 
-		NBTTagList mapPinNames = new NBTTagList();
-		for (int i = 0; i < tile.pinStrings.size(); i++) {
-			mapPinNames.appendTag(new NBTTagString((String) tile.pinStrings.get(i)));
-		}
-		newMapData.setTag("MapWaypointNames", mapPinNames);
+        NBTTagList mapPinNames = new NBTTagList();
+        for (int i = 0; i < tile.pinStrings.size(); i++) {
+            mapPinNames.appendTag(new NBTTagString((String) tile.pinStrings.get(i)));
+        }
+        newMapData.setTag("MapWaypointNames", mapPinNames);
 
-		NBTTagList mapPinColors = new NBTTagList();
-		for (int i = 0; i < tile.pinColors.size(); i++) {
-			mapPinColors.appendTag(new NBTTagFloat((Float) tile.pinColors.get(i)));
-		}
-		newMapData.setTag("MapWaypointColors", mapPinColors);
-		return newMapData;
-	}
+        NBTTagList mapPinColors = new NBTTagList();
+        for (int i = 0; i < tile.pinColors.size(); i++) {
+            mapPinColors.appendTag(new NBTTagFloat((Float) tile.pinColors.get(i)));
+        }
+        newMapData.setTag("MapWaypointColors", mapPinColors);
+        return newMapData;
+    }
 }

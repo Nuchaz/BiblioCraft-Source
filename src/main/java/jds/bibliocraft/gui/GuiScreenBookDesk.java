@@ -11,6 +11,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import jds.bibliocraft.BiblioCraft;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
+import jds.bibliocraft.network.packet.server.BiblioMCBPage;
 import jds.bibliocraft.tileentities.TileEntityDesk;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -216,16 +219,17 @@ public class GuiScreenBookDesk extends GuiScreen
                     //this.bookObj.setItem(Items.WRITTEN_BOOK); // TODO removed this line, verrify this latter
                 }
 
-                ByteBuf buffer = Unpooled.buffer();
+                // ByteBuf buffer = Unpooled.buffer();
 
                 try
                 {
-                	ByteBufUtils.writeItemStack(buffer, this.bookObj);
-                	buffer.writeInt(i);
-                	buffer.writeInt(j);
-                	buffer.writeInt(k);
-                	buffer.writeInt(currPage);
-                	BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
+                    BiblioNetworking.INSTANCE.sendToServer(new BiblioMCBEdit(new BlockPos(i, j, k), currPage, this.bookObj));
+                	// ByteBufUtils.writeItemStack(buffer, this.bookObj);
+                	// buffer.writeInt(i);
+                	// buffer.writeInt(j);
+                	// buffer.writeInt(k);
+                	// buffer.writeInt(currPage);
+                	// BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
                 }
                 catch (Exception exception)
                 {
@@ -289,14 +293,14 @@ public class GuiScreenBookDesk extends GuiScreen
             
             if (this.deskTile != null)
             {
-                ByteBuf buffer = Unpooled.buffer();
                 try
                 {
-                	buffer.writeInt(i);
-                	buffer.writeInt(j);
-                	buffer.writeInt(k);
-                	buffer.writeInt(currPage);
-                	BiblioCraft.ch_BiblioMCBPage.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBPage"));
+                	BiblioNetworking.INSTANCE.sendToServer(new BiblioMCBPage(new BlockPos(i, j, k), currPage));
+                    // buffer.writeInt(i);
+                	// buffer.writeInt(j);
+                	// buffer.writeInt(k);
+                	// buffer.writeInt(currPage);
+                	// BiblioCraft.ch_BiblioMCBPage.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBPage"));
                 }
                 catch (Exception var6)
                 {

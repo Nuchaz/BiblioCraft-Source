@@ -1,7 +1,8 @@
-package jds.bibliocraft.network.packet;
+package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
 import jds.bibliocraft.items.ItemAtlas;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryBasic;
@@ -44,7 +45,7 @@ public class BiblioAtlasWPT implements IMessage {
         ByteBufUtils.writeItemStack(buf, this.atlasStack);
     }
 
-    public static class BiblioAtlasWPTHandler implements IMessageHandler<BiblioAtlasWPT, IMessage> {
+    public static class Handler implements IMessageHandler<BiblioAtlasWPT, IMessage> {
 
         @Override
         public IMessage onMessage(BiblioAtlasWPT message, MessageContext ctx) {

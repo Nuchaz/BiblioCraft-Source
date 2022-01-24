@@ -5,6 +5,8 @@ import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
 
 import java.io.IOException;
 
@@ -21,6 +23,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.PacketBuffer;
 //import net.minecraft.util.TextFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
@@ -881,11 +884,12 @@ public class GuiBigBook extends GuiScreen
     	}
     	else
     	{
-        	buffer.writeInt(tilex);
-        	buffer.writeInt(tiley);
-        	buffer.writeInt(tilez);
-        	buffer.writeInt(this.currentPage);
-        	BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioMCBEdit(new BlockPos(tilex, tiley, tilez), this.currentPage, book));
+        	// buffer.writeInt(tilex);
+        	// buffer.writeInt(tiley);
+        	// buffer.writeInt(tilez);
+        	// buffer.writeInt(this.currentPage);
+        	// BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
     	}
     }
     

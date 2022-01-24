@@ -12,6 +12,8 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerSlottedBook;
 import jds.bibliocraft.items.ItemSlottedBook;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +24,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -233,10 +236,12 @@ public class GuiSlottedBook extends GuiContainer
     	}
     	else
     	{
-    		buffer.writeInt(tilex);
-        	buffer.writeInt(tiley);
-        	buffer.writeInt(tilez);
-        	BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
+			// TODO: no `currentPage` is specified? 
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioMCBEdit(new BlockPos(tilex, tiley, tilez), 0, book));
+    		// buffer.writeInt(tilex);
+        	// buffer.writeInt(tiley);
+        	// buffer.writeInt(tilez);
+        	// BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
     	}
     }
     

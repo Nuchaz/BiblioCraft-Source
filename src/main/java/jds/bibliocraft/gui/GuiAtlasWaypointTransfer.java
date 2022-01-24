@@ -9,7 +9,7 @@ import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.network.BiblioNetworking;
-import jds.bibliocraft.network.packet.BiblioAtlasWPT;
+import jds.bibliocraft.network.packet.server.BiblioAtlasWPT;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

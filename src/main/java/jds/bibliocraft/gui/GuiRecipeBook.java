@@ -12,6 +12,9 @@ import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.items.ItemRecipeBook;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
+import jds.bibliocraft.network.packet.server.BiblioRecipeCraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -22,6 +25,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -355,12 +359,13 @@ public class GuiRecipeBook extends GuiScreen
     
     private void sendRecipeCraftRecipe()
     {
-    	ByteBuf buffer = Unpooled.buffer();
-    	ByteBufUtils.writeItemStack(buffer, this.recipeBook);
-    	buffer.writeInt(this.inventorySlot);
+    	// ByteBuf buffer = Unpooled.buffer();
+    	// ByteBufUtils.writeItemStack(buffer, this.recipeBook);
+    	// buffer.writeInt(this.inventorySlot);
     	if (!this.onDesk)
     	{
-	    	BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRecipeCraft"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioRecipeCraft(this.recipeBook, this.inventorySlot));
+	    	// BiblioCraft.ch_BiblioInvStack.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioRecipeCraft"));
     	}
     }
     
@@ -384,11 +389,12 @@ public class GuiRecipeBook extends GuiScreen
     	}
     	else
     	{
-        	buffer.writeInt(this.xcoord);
-        	buffer.writeInt(this.ycoord);
-        	buffer.writeInt(this.zcoord);
-        	buffer.writeInt(0);
-        	BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioMCBEdit(new BlockPos(this.xcoord, this.ycoord, this.zcoord), 0, this.recipeBook));
+        	// buffer.writeInt(this.xcoord);
+        	// buffer.writeInt(this.ycoord);
+        	// buffer.writeInt(this.zcoord);
+        	// buffer.writeInt(0);
+        	// BiblioCraft.ch_BiblioMCBEdit.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioMCBEdit"));
     	}
     }
     
