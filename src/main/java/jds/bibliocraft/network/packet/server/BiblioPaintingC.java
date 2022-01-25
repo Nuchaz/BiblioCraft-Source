@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityPainting;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -41,11 +42,13 @@ public class BiblioPaintingC implements IMessage {
         public IMessage onMessage(BiblioPaintingC message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                World world = player.world;
-                TileEntity tile = world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityPainting) {
-                    TileEntityPainting painting = (TileEntityPainting) tile;
-                    painting.setPacketAspectsUpdate(message.aspectX, message.aspectY);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    World world = player.world;
+                    TileEntity tile = world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityPainting) {
+                        TileEntityPainting painting = (TileEntityPainting) tile;
+                        painting.setPacketAspectsUpdate(message.aspectX, message.aspectY);
+                    }   
                 }
             });
             return null;

@@ -3,6 +3,7 @@ package jds.bibliocraft.network.packet.server;
 import io.netty.buffer.ByteBuf;
 import jds.bibliocraft.blocks.BlockMarkerPole;
 import jds.bibliocraft.helpers.EnumVertPosition;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityMarkerPole;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -76,50 +77,53 @@ public class BiblioMeasure implements IMessage {
                         iadj = 1;
                         break;
                 }
-    
-                BlockPos pos = new BlockPos(message.pos.getX() + iadj, message.pos.getY() + jadj, message.pos.getZ() + kadj);
-                if (message.newTest) {
-                    if (world.isAirBlock(pos)) {
-                        IBlockState st = BlockMarkerPole.instance.getDefaultState();
-                        world.setBlockState(pos, st);
-                        TileEntityMarkerPole poleTile = (TileEntityMarkerPole) world.getTileEntity(pos);
-                        if (poleTile != null) {
-                            poleTile.setAngle(EnumFacing.NORTH);
-                            if (facing == EnumFacing.UP) {
-                                poleTile.setVertPosition(EnumVertPosition.FLOOR);
-                            } else if (facing == EnumFacing.DOWN) {
-                                poleTile.setVertPosition(EnumVertPosition.CEILING);
-                            } else {
-                                switch (facing) {
-                                    case NORTH: {
-                                        facing = EnumFacing.WEST;
-                                        break;
+
+                BlockPos pos = new BlockPos(message.pos.getX() + iadj, message.pos.getY() + jadj,
+                        message.pos.getZ() + kadj);
+                if (Utils.hasPointLoaded(player, pos)) {
+                    if (message.newTest) {
+                        if (world.isAirBlock(pos)) {
+                            IBlockState st = BlockMarkerPole.instance.getDefaultState();
+                            world.setBlockState(pos, st);
+                            TileEntityMarkerPole poleTile = (TileEntityMarkerPole) world.getTileEntity(pos);
+                            if (poleTile != null) {
+                                poleTile.setAngle(EnumFacing.NORTH);
+                                if (facing == EnumFacing.UP) {
+                                    poleTile.setVertPosition(EnumVertPosition.FLOOR);
+                                } else if (facing == EnumFacing.DOWN) {
+                                    poleTile.setVertPosition(EnumVertPosition.CEILING);
+                                } else {
+                                    switch (facing) {
+                                        case NORTH: {
+                                            facing = EnumFacing.WEST;
+                                            break;
+                                        }
+                                        case WEST: {
+                                            facing = EnumFacing.SOUTH;
+                                            break;
+                                        }
+                                        case SOUTH: {
+                                            facing = EnumFacing.EAST;
+                                            break;
+                                        }
+                                        case EAST: {
+                                            facing = EnumFacing.NORTH;
+                                            break;
+                                        }
+                                        default:
+                                            break;
                                     }
-                                    case WEST: {
-                                        facing = EnumFacing.SOUTH;
-                                        break;
-                                    }
-                                    case SOUTH: {
-                                        facing = EnumFacing.EAST;
-                                        break;
-                                    }
-                                    case EAST: {
-                                        facing = EnumFacing.NORTH;
-                                        break;
-                                    }
-                                    default:
-                                        break;
+                                    poleTile.setAngle(facing);
+                                    poleTile.setVertPosition(EnumVertPosition.WALL);
                                 }
-                                poleTile.setAngle(facing);
-                                poleTile.setVertPosition(EnumVertPosition.WALL);
+                                world.markBlockRangeForRenderUpdate(pos, pos);
                             }
-                            world.markBlockRangeForRenderUpdate(pos, pos);
                         }
-                    }
-                } else {
-                    // destroy block
-                    if (world.getBlockState(pos).getBlock() == BlockMarkerPole.instance) {
-                        world.destroyBlock(pos, false);
+                    } else {
+                        // destroy block
+                        if (world.getBlockState(pos).getBlock() == BlockMarkerPole.instance) {
+                            world.destroyBlock(pos, false);
+                        }
                     }
                 }
             });

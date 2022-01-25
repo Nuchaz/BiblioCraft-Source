@@ -1,6 +1,8 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.BiblioCraft;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -60,6 +62,7 @@ public class BiblioSign implements IMessage {
 		s1y = buf.readInt();
 		s2x = buf.readInt();
 		s2y = buf.readInt();
+        pos = BlockPos.fromLong(buf.readLong());
     }
 
     @Override
@@ -77,6 +80,7 @@ public class BiblioSign implements IMessage {
         buf.writeInt(s1y);
         buf.writeInt(s2x);
         buf.writeInt(s2y);
+        buf.writeLong(this.pos.toLong());
     }
     public static class Handler implements IMessageHandler<BiblioSign, IMessage> {
 
@@ -84,13 +88,15 @@ public class BiblioSign implements IMessage {
         public IMessage onMessage(BiblioSign message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                World world = player.world;
-                TileEntity tile = world.getTileEntity(message.pos);
-                if (tile != null) {
-                    if (tile instanceof TileEntityFancySign) {
-                        TileEntityFancySign sign = (TileEntityFancySign) tile;
-                        sign.updateFromPacket(message.text, message.textScales, message.numOfLines, message.s1Scale, message.s1Rot, message.s1x, message.s1y, message.s2Scale, message.s2Rot, message.s2x, message.s2y);
-                    }
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    World world = player.world;
+                    TileEntity tile = world.getTileEntity(message.pos);
+                    if (tile != null) {
+                        if (tile instanceof TileEntityFancySign) {
+                            TileEntityFancySign sign = (TileEntityFancySign) tile;
+                            sign.updateFromPacket(message.text, message.textScales, message.numOfLines, message.s1Scale, message.s1Rot, message.s1x, message.s1y, message.s2Scale, message.s2Rot, message.s2x, message.s2y);
+                        }
+                    }   
                 }
             });
             return null;

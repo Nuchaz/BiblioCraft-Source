@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -62,19 +63,21 @@ public class BiblioMapPin implements IMessage {
         public IMessage onMessage(BiblioMapPin message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                World world = player.world;
-                TileEntity tile = world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityMapFrame) {
-                    TileEntityMapFrame mapFrame = (TileEntityMapFrame) tile;
-                    if (!message.remove) {
-                        if (!message.edit) {
-                            mapFrame.addPinCoords(message.xPin, message.yPin, message.name, message.colour);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    World world = player.world;
+                    TileEntity tile = world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityMapFrame) {
+                        TileEntityMapFrame mapFrame = (TileEntityMapFrame) tile;
+                        if (!message.remove) {
+                            if (!message.edit) {
+                                mapFrame.addPinCoords(message.xPin, message.yPin, message.name, message.colour);
+                            } else {
+                                mapFrame.editPinData(message.name, message.colour, message.pinNum);
+                            }
                         } else {
-                            mapFrame.editPinData(message.name, message.colour, message.pinNum);
+                            mapFrame.removePin(message.pinNum);
                         }
-                    } else {
-                        mapFrame.removePin(message.pinNum);
-                    }
+                    }   
                 }
             });
             return null;

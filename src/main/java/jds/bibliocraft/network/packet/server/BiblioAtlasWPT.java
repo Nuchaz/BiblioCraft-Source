@@ -22,15 +22,18 @@ public class BiblioAtlasWPT implements IMessage {
     boolean toMapFrame;
     BlockPos pos;
     ItemStack atlasStack;
+
     // dummy constructor for FML
     public BiblioAtlasWPT() {
 
     }
+
     public BiblioAtlasWPT(boolean toMapFrame, BlockPos pos, ItemStack atlasStack) {
         this.toMapFrame = toMapFrame;
         this.pos = pos;
         this.atlasStack = atlasStack;
     }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         this.toMapFrame = buf.readBoolean();
@@ -51,22 +54,26 @@ public class BiblioAtlasWPT implements IMessage {
         public IMessage onMessage(BiblioAtlasWPT message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                TileEntity tile = player.world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityMapFrame && message.atlasStack != ItemStack.EMPTY && message.atlasStack.getItem() instanceof ItemAtlas) {
-                    TileEntityMapFrame frameTile = (TileEntityMapFrame) tile;
-                    if (message.toMapFrame) {
-                        transferWaypointsToMapFrame(frameTile, message.atlasStack);
-                        // player.worldObj.markBlockForUpdate(frameTile.getPos());
-                        frameTile.getWorld().notifyBlockUpdate(frameTile.getPos(),
-                                frameTile.getWorld().getBlockState(frameTile.getPos()),
-                                frameTile.getWorld().getBlockState(frameTile.getPos()), 3);
-                    } else {
-                        transferWaypointsToAtlas(frameTile, message.atlasStack, player);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    TileEntity tile = player.world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityMapFrame && message.atlasStack != ItemStack.EMPTY
+                            && message.atlasStack.getItem() instanceof ItemAtlas) {
+                        TileEntityMapFrame frameTile = (TileEntityMapFrame) tile;
+                        if (message.toMapFrame) {
+                            transferWaypointsToMapFrame(frameTile, message.atlasStack);
+                            // player.worldObj.markBlockForUpdate(frameTile.getPos());
+                            frameTile.getWorld().notifyBlockUpdate(frameTile.getPos(),
+                                    frameTile.getWorld().getBlockState(frameTile.getPos()),
+                                    frameTile.getWorld().getBlockState(frameTile.getPos()), 3);
+                        } else {
+                            transferWaypointsToAtlas(frameTile, message.atlasStack, player);
+                        }
                     }
                 }
             });
             return null;
         }
+
         private void transferWaypointsToMapFrame(TileEntityMapFrame frameTile, ItemStack atlasStack) {
             InventoryBasic inv = Utils.getInventory(atlasStack);
             NBTTagCompound atlasTags = atlasStack.getTagCompound();

@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityDesk;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
@@ -39,9 +40,11 @@ public class BiblioMCBPage implements IMessage {
         public IMessage onMessage(BiblioMCBPage message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
-                if (deskTile != null) {
-                    deskTile.setCurrentPage(message.currentPage);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
+                    if (deskTile != null) {
+                        deskTile.setCurrentPage(message.currentPage);
+                    }
                 }
             });
             return null;

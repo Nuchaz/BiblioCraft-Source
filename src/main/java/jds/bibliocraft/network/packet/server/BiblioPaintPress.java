@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityPaintPress;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -49,14 +50,16 @@ public class BiblioPaintPress implements IMessage {
         @Override
         public IMessage onMessage(BiblioPaintPress message, MessageContext ctx) {
             EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityPaintPress) {
-                TileEntityPaintPress press = (TileEntityPaintPress) tile;
-                press.setSelectedPainting(message.artType, message.artName);
-                if (message.applyToCanvas) {
-                    press.setCycle(true);
-                }
+            if (Utils.hasPointLoaded(player, message.pos)) {
+                World world = player.world;
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityPaintPress) {
+                    TileEntityPaintPress press = (TileEntityPaintPress) tile;
+                    press.setSelectedPainting(message.artType, message.artName);
+                    if (message.applyToCanvas) {
+                        press.setCycle(true);
+                    }
+                }   
             }
             return null;
         }

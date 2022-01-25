@@ -2,6 +2,7 @@ package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
 import jds.bibliocraft.Config;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityDesk;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -49,10 +50,12 @@ public class BiblioMCBEdit implements IMessage {
                 if (message.book != ItemStack.EMPTY) {
                     if (Config.testBookValidity(message.book)) {
                         // TODO: distance from player to position
-                        TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
-                        if (deskTile != null) {
-                            deskTile.overwriteWrittenBook(message.book);
-                            deskTile.setCurrentPage(message.currentPage);
+                        if (Utils.hasPointLoaded(player, message.pos)) {
+                            TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
+                            if (deskTile != null) {
+                                deskTile.overwriteWrittenBook(message.book);
+                                deskTile.setCurrentPage(message.currentPage);
+                            }   
                         }
                     }
                 }

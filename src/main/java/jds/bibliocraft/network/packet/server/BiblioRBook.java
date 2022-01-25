@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityFancyWorkbench;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -39,12 +40,14 @@ public class BiblioRBook implements IMessage {
         public IMessage onMessage(BiblioRBook message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                World world = player.world;
-                // TODO: check pos range to plr
-                TileEntity tile = world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityFancyWorkbench) {
-                    TileEntityFancyWorkbench bench = (TileEntityFancyWorkbench) tile;
-                    bench.setBookGrid(player.getEntityId());
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    World world = player.world;
+                    // TODO: check pos range to plr
+                    TileEntity tile = world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityFancyWorkbench) {
+                        TileEntityFancyWorkbench bench = (TileEntityFancyWorkbench) tile;
+                        bench.setBookGrid(player.getEntityId());
+                    }   
                 }
             });
             return null;

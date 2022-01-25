@@ -1,6 +1,8 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -36,11 +38,13 @@ public class BiblioTypeUpdate implements IMessage {
         public IMessage onMessage(BiblioTypeUpdate message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                // TODO: Check distance between block and player
-                TileEntity tile = player.world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityTypeMachine) {
-                    TileEntityTypeMachine typeTile = (TileEntityTypeMachine) tile;
-                    typeTile.booklistset();
+                // TODO: Check reach distance between block and player
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    TileEntity tile = player.world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityTypeMachine) {
+                        TileEntityTypeMachine typeTile = (TileEntityTypeMachine) tile;
+                        typeTile.booklistset();
+                    }
                 }
             });
             return null;

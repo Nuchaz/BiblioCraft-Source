@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -37,10 +38,12 @@ public class BiblioPaneler implements IMessage {
         public IMessage onMessage(BiblioPaneler message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                TileEntity tile = player.world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityFurniturePaneler) {
-                    TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
-                    paneler.setCustomCraftingTex(message.texName);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    TileEntity tile = player.world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityFurniturePaneler) {
+                        TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
+                        paneler.setCustomCraftingTex(message.texName);
+                    }   
                 }
             });
             return null;

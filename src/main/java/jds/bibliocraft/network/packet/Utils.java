@@ -30,11 +30,15 @@ import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.server.management.PlayerChunkMap;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
@@ -156,6 +160,14 @@ public class Utils {
             }
         }
         return false;
+    }
+    public static boolean hasPointLoaded(EntityPlayerMP player, BlockPos pos) {
+        if (pos == null) {
+            BiblioCraft.LOGGER.error("Null position passed to load check by " + player.getDisplayNameString());
+        }
+        WorldServer sworld = player.getServerWorld();
+        PlayerChunkMap chunkMap = sworld.getPlayerChunkMap();
+        return chunkMap.isPlayerWatchingChunk(player, pos.getX() >> 4, pos.getZ() >> 4);
     }
 	@SideOnly(Side.CLIENT)
 	public static void openCatalogGUI(EntityPlayer player, ArrayList<SortedListItem> AlphaList,

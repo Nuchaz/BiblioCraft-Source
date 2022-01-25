@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityClipboard;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -40,10 +41,12 @@ public class BiblioClipboard implements IMessage {
         public IMessage onMessage(BiblioClipboard message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                TileEntity tile = player.world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityClipboard) {
-                    TileEntityClipboard clipboard = (TileEntityClipboard) tile;
-                    clipboard.updateClipboardFromPlayerSelection(message.updatePos);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    TileEntity tile = player.world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityClipboard) {
+                        TileEntityClipboard clipboard = (TileEntityClipboard) tile;
+                        clipboard.updateClipboardFromPlayerSelection(message.updatePos);
+                    }
                 }
             });
             return null;

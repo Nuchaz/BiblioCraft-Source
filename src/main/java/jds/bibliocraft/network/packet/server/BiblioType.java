@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
@@ -40,11 +41,13 @@ public class BiblioType implements IMessage {
         public IMessage onMessage(BiblioType message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                World world = player.world;
-                TileEntity tile = world.getTileEntity(message.pos);
-                if (tile != null) {
-                    TileEntityTypeMachine typetile = (TileEntityTypeMachine) tile;
-                    typetile.setBookname(message.bookName);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    World world = player.world;
+                    TileEntity tile = world.getTileEntity(message.pos);
+                    if (tile != null) {
+                        TileEntityTypeMachine typetile = (TileEntityTypeMachine) tile;
+                        typetile.setBookname(message.bookName);
+                    }   
                 }
             });
             return null;

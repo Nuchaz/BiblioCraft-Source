@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityClock;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -59,14 +60,17 @@ public class BiblioClock implements IMessage {
         public IMessage onMessage(BiblioClock message, MessageContext ctx) {
             ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
                 EntityPlayerMP player = ctx.getServerHandler().player;
-                World world = player.world;
-                int[] chimes = message.tag.getIntArray("chimes");
-                int[] redstone = message.tag.getIntArray("redstone");
-    
-                TileEntity tile = world.getTileEntity(message.pos);
-                if (tile != null && tile instanceof TileEntityClock) {
-                    TileEntityClock clock = (TileEntityClock) tile;
-                    clock.setSettingFromGui(chimes, redstone, message.tick, message.chime, message.rsout, message.rspulse);
+                if (Utils.hasPointLoaded(player, message.pos)) {
+                    World world = player.world;
+                    int[] chimes = message.tag.getIntArray("chimes");
+                    int[] redstone = message.tag.getIntArray("redstone");
+
+                    TileEntity tile = world.getTileEntity(message.pos);
+                    if (tile != null && tile instanceof TileEntityClock) {
+                        TileEntityClock clock = (TileEntityClock) tile;
+                        clock.setSettingFromGui(chimes, redstone, message.tick, message.chime, message.rsout,
+                                message.rspulse);
+                    }
                 }
             });
             return null;
