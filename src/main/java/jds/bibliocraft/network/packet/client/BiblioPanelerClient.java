@@ -44,18 +44,20 @@ public class BiblioPanelerClient implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioPanelerClient message, MessageContext ctx) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            String panelTextureName = "none";
-            if (message.panels != ItemStack.EMPTY) {
-                panelTextureName = BiblioRenderHelper.getBlockTextureString(message.panels);
-            }
-
-            TileEntity tile = player.world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityFurniturePaneler) {
-                TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
-                paneler.setCustomCraftingTex(panelTextureName);
-            }
-            BiblioNetworking.INSTANCE.sendToServer(new BiblioPaneler(panelTextureName, message.pos));
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                String panelTextureName = "none";
+                if (message.panels != ItemStack.EMPTY) {
+                    panelTextureName = BiblioRenderHelper.getBlockTextureString(message.panels);
+                }
+    
+                TileEntity tile = player.world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityFurniturePaneler) {
+                    TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
+                    paneler.setCustomCraftingTex(panelTextureName);
+                }
+                BiblioNetworking.INSTANCE.sendToServer(new BiblioPaneler(panelTextureName, message.pos)); 
+            });
             return null;
         }
 

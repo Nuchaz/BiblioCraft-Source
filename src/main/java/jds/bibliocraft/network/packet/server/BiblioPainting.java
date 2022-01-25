@@ -63,15 +63,17 @@ public class BiblioPainting implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioPainting message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityPainting) {
-                TileEntityPainting painting = (TileEntityPainting) tile;
-                painting.setHideFrame(message.hideFrame);
-                painting.setPacketUpdate(message.corner, message.scale, message.res, message.aspect, message.rotation, message.customAspectX, message.customAspectY);
-    
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                World world = player.world;
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityPainting) {
+                    TileEntityPainting painting = (TileEntityPainting) tile;
+                    painting.setHideFrame(message.hideFrame);
+                    painting.setPacketUpdate(message.corner, message.scale, message.res, message.aspect, message.rotation, message.customAspectX, message.customAspectY);
+        
+                }
+            });
             return null;
         }
         

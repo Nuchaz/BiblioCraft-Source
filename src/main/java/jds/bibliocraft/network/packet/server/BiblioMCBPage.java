@@ -37,11 +37,13 @@ public class BiblioMCBPage implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioMCBPage message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
-            if (deskTile != null) {
-                deskTile.setCurrentPage(message.currentPage);
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
+                if (deskTile != null) {
+                    deskTile.setCurrentPage(message.currentPage);
+                }
+            });
             return null;
         }
 

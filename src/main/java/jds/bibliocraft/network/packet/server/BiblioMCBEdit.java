@@ -44,17 +44,19 @@ public class BiblioMCBEdit implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioMCBEdit message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            if (message.book != ItemStack.EMPTY) {
-                if (Config.testBookValidity(message.book)) {
-                    // TODO: distance from player to position
-                    TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
-                    if (deskTile != null) {
-                        deskTile.overwriteWrittenBook(message.book);
-                        deskTile.setCurrentPage(message.currentPage);
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                if (message.book != ItemStack.EMPTY) {
+                    if (Config.testBookValidity(message.book)) {
+                        // TODO: distance from player to position
+                        TileEntityDesk deskTile = (TileEntityDesk) player.world.getTileEntity(message.pos);
+                        if (deskTile != null) {
+                            deskTile.overwriteWrittenBook(message.book);
+                            deskTile.setCurrentPage(message.currentPage);
+                        }
                     }
                 }
-            }
+            });
             return null;
         }
 

@@ -48,21 +48,23 @@ public class BiblioStockCompass implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioStockCompass message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            if (message.slotNumber < player.inventory.getSizeInventory()) {
-                ItemStack compass = player.inventory.getStackInSlot(message.slotNumber);
-                if (compass != ItemStack.EMPTY && compass.getItem() instanceof ItemWaypointCompass) {
-                    NBTTagCompound tags = compass.getTagCompound();
-                    if (tags == null) {
-                        tags = new NBTTagCompound();
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                if (message.slotNumber < player.inventory.getSizeInventory()) {
+                    ItemStack compass = player.inventory.getStackInSlot(message.slotNumber);
+                    if (compass != ItemStack.EMPTY && compass.getItem() instanceof ItemWaypointCompass) {
+                        NBTTagCompound tags = compass.getTagCompound();
+                        if (tags == null) {
+                            tags = new NBTTagCompound();
+                        }
+                        tags.setInteger("XCoord", message.x);
+                        tags.setInteger("ZCoord", message.z);
+                        tags.setString("WaypointName", message.title);
+                        compass.setTagCompound(tags);
+                        player.inventory.setInventorySlotContents(message.slotNumber, compass);
                     }
-                    tags.setInteger("XCoord", message.x);
-                    tags.setInteger("ZCoord", message.z);
-                    tags.setString("WaypointName", message.title);
-                    compass.setTagCompound(tags);
-                    player.inventory.setInventorySlotContents(message.slotNumber, compass);
                 }
-            }
+            });
             return null;
         }
 

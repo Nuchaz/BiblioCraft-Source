@@ -38,13 +38,15 @@ public class BiblioType implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioType message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null) {
-                TileEntityTypeMachine typetile = (TileEntityTypeMachine) tile;
-                typetile.setBookname(message.bookName);
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                World world = player.world;
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null) {
+                    TileEntityTypeMachine typetile = (TileEntityTypeMachine) tile;
+                    typetile.setBookname(message.bookName);
+                }
+            });
             return null;
         }
         

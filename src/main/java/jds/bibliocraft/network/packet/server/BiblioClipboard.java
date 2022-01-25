@@ -38,12 +38,14 @@ public class BiblioClipboard implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioClipboard message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            TileEntity tile = player.world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityClipboard) {
-                TileEntityClipboard clipboard = (TileEntityClipboard) tile;
-                clipboard.updateClipboardFromPlayerSelection(message.updatePos);
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                TileEntity tile = player.world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityClipboard) {
+                    TileEntityClipboard clipboard = (TileEntityClipboard) tile;
+                    clipboard.updateClipboardFromPlayerSelection(message.updatePos);
+                }
+            });
             return null;
         }
 

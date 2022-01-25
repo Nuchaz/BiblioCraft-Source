@@ -30,9 +30,11 @@ public class BiblioAtlasClient implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioAtlasClient message, MessageContext ctx) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            // TODO: current item might have changed before we set it? not sure.
-            player.inventory.setInventorySlotContents(player.inventory.currentItem, message.atlas);
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                // TODO: current item might have changed (on server) before we set it? not sure.
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, message.atlas);
+            });
             return null;
         }
         

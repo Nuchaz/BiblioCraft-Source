@@ -19,10 +19,12 @@ public class BiblioAtlasTGUI implements IMessage {
     public BiblioAtlasTGUI() {
 
     }
+
     public BiblioAtlasTGUI(ItemStack atlas, BlockPos pos) {
         this.atlas = atlas;
         this.pos = pos;
     }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         this.atlas = ByteBufUtils.readItemStack(buf);
@@ -39,19 +41,16 @@ public class BiblioAtlasTGUI implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioAtlasTGUI message, MessageContext ctx) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            final TileEntityMapFrame tile = (TileEntityMapFrame) player.world.getTileEntity(message.pos);
-            if (tile != null) {
-                Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-                    @Override
-                    public void run() {
-                        Utils.openWaypointTransferGUI(Minecraft.getMinecraft().world, Minecraft.getMinecraft().player,
-                                message.atlas,
-                                tile);
-                    }
-                });
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                final TileEntityMapFrame tile = (TileEntityMapFrame) player.world.getTileEntity(message.pos); //
+                if (tile != null) {
+                    Utils.openWaypointTransferGUI(Minecraft.getMinecraft().world, Minecraft.getMinecraft().player,
+                            message.atlas,
+                            tile);
 
-            }
+                }
+            });
             return null;
         }
 

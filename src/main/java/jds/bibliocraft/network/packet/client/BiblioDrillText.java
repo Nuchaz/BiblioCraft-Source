@@ -32,13 +32,15 @@ public class BiblioDrillText implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioDrillText message, MessageContext ctx) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            ItemStack playerhand = player.getHeldItem(EnumHand.MAIN_HAND);
-            if (playerhand != ItemStack.EMPTY && playerhand.getItem() instanceof ItemDrill)
-            {
-                ItemDrill drill = (ItemDrill)playerhand.getItem();
-                drill.updateFromPacket(message.displayText); 
-            }
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                ItemStack playerhand = player.getHeldItem(EnumHand.MAIN_HAND);
+                if (playerhand != ItemStack.EMPTY && playerhand.getItem() instanceof ItemDrill)
+                {
+                    ItemDrill drill = (ItemDrill)playerhand.getItem();
+                    drill.updateFromPacket(message.displayText); 
+                }
+            });
             return null;
         }
         

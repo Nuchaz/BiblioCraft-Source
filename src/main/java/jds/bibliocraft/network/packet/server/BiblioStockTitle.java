@@ -37,19 +37,21 @@ public class BiblioStockTitle implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioStockTitle message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            ItemStack stockroomcatalog = player.getHeldItem(EnumHand.MAIN_HAND);
-            if (stockroomcatalog != ItemStack.EMPTY && stockroomcatalog.getItem() instanceof ItemStockroomCatalog) {
-                NBTTagCompound tags = stockroomcatalog.getTagCompound();
-                if (tags == null) {
-                    tags = new NBTTagCompound();
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                ItemStack stockroomcatalog = player.getHeldItem(EnumHand.MAIN_HAND);
+                if (stockroomcatalog != ItemStack.EMPTY && stockroomcatalog.getItem() instanceof ItemStockroomCatalog) {
+                    NBTTagCompound tags = stockroomcatalog.getTagCompound();
+                    if (tags == null) {
+                        tags = new NBTTagCompound();
+                    }
+                    NBTTagCompound display = new NBTTagCompound();
+                    display.setString("Name", TextFormatting.WHITE + message.title);
+                    tags.setTag("display", display);
+                    stockroomcatalog.setTagCompound(tags);
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, stockroomcatalog);
                 }
-                NBTTagCompound display = new NBTTagCompound();
-                display.setString("Name", TextFormatting.WHITE + message.title);
-                tags.setTag("display", display);
-                stockroomcatalog.setTagCompound(tags);
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, stockroomcatalog);
-            }
+            });
             return null;
         }
 

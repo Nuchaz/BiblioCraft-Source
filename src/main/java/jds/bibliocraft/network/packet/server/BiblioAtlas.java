@@ -59,44 +59,50 @@ public class BiblioAtlas implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioAtlas message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            EntityPlayerMP playermp = player;
-            ItemStack atlas = playermp.getHeldItem(EnumHand.MAIN_HAND); // I have to get the item and update it since
-                                                                        // the
-            // container also does an update.
-            if (atlas != ItemStack.EMPTY && atlas.getItem() instanceof ItemAtlas) {
-                FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(new Runnable() {
-                    @Override
-                    public void run() {
-                        ItemStack atlas = player.getHeldItem(EnumHand.MAIN_HAND);
-                        NBTTagCompound tags = atlas.getTagCompound();
-                        if (tags != null) {
-                            // int oldSlot = tags.getInteger("mapSlot");
-                            tags.setBoolean("autoCenter", message.autoCenter);
-                            tags.setBoolean("autoCreate", message.autoCreate);
-                            tags.setInteger("zoomLevel", message.zoomLevel);
-                            tags.setInteger("mapSlot", message.slot);
-                            tags.setInteger("lastGUImode", 0);
-                            atlas.setTagCompound(tags);
-                            atlas.setItemDamage(ItemAtlas.setAtlasDamage(atlas, message.slot));
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, atlas);
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                EntityPlayerMP playermp = player;
+                ItemStack atlas = playermp.getHeldItem(EnumHand.MAIN_HAND); // I have to get the item and update it
+                                                                            // since
+                                                                            // the
+                // container also does an update.
+                if (atlas != ItemStack.EMPTY && atlas.getItem() instanceof ItemAtlas) {
+                    FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(new Runnable() {
+                        @Override
+                        public void run() {
+                            ItemStack atlas = player.getHeldItem(EnumHand.MAIN_HAND);
+                            NBTTagCompound tags = atlas.getTagCompound();
+                            if (tags != null) {
+                                // int oldSlot = tags.getInteger("mapSlot");
+                                tags.setBoolean("autoCenter", message.autoCenter);
+                                tags.setBoolean("autoCreate", message.autoCreate);
+                                tags.setInteger("zoomLevel", message.zoomLevel);
+                                tags.setInteger("mapSlot", message.slot);
+                                tags.setInteger("lastGUImode", 0);
+                                atlas.setTagCompound(tags);
+                                atlas.setItemDamage(ItemAtlas.setAtlasDamage(atlas, message.slot));
+                                player.inventory.setInventorySlotContents(player.inventory.currentItem, atlas);
+                            }
+                            if (message.changeGUI) {
+                                ItemAtlas realAtlas = (ItemAtlas) atlas.getItem();
+                                realAtlas.getAtlasInventory(atlas, player.world, player, message.autoCreate,
+                                        message.autoCenter, message.zoomLevel,
+                                        message.slot);
+                                player.closeScreen();
+                                player.rotationPitch = 50.0f;
+                                BiblioNetworking.INSTANCE.sendTo(
+                                        new BiblioAtlasSWPClient(player.getHeldItem(EnumHand.MAIN_HAND)), player);
+                                // ByteBuf buffer = Unpooled.buffer();
+                                // ByteBufUtils.writeItemStack(buffer, player.getHeldItem(EnumHand.MAIN_HAND));
+                                // BiblioCraft.ch_BiblioAtlasGUIswap
+                                // .sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasSWP"),
+                                // player);
+                            }
                         }
-                        if (message.changeGUI) {
-                            ItemAtlas realAtlas = (ItemAtlas) atlas.getItem();
-                            realAtlas.getAtlasInventory(atlas, player.world, player, message.autoCreate, message.autoCenter, message.zoomLevel,
-                                    message.slot);
-                            player.closeScreen();
-                            player.rotationPitch = 50.0f;
-                            BiblioNetworking.INSTANCE.sendTo(new BiblioAtlasSWPClient(player.getHeldItem(EnumHand.MAIN_HAND)), player);
-                            // ByteBuf buffer = Unpooled.buffer();
-                            // ByteBufUtils.writeItemStack(buffer, player.getHeldItem(EnumHand.MAIN_HAND));
-                            // BiblioCraft.ch_BiblioAtlasGUIswap
-                            //         .sendTo(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioAtlasSWP"), player);
-                        }
-                    }
-                });
+                    });
 
-            }
+                }
+            });
             return null;
         }
 

@@ -60,21 +60,23 @@ public class BiblioMapPin implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioMapPin message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityMapFrame) {
-                TileEntityMapFrame mapFrame = (TileEntityMapFrame) tile;
-                if (!message.remove) {
-                    if (!message.edit) {
-                        mapFrame.addPinCoords(message.xPin, message.yPin, message.name, message.colour);
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                World world = player.world;
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityMapFrame) {
+                    TileEntityMapFrame mapFrame = (TileEntityMapFrame) tile;
+                    if (!message.remove) {
+                        if (!message.edit) {
+                            mapFrame.addPinCoords(message.xPin, message.yPin, message.name, message.colour);
+                        } else {
+                            mapFrame.editPinData(message.name, message.colour, message.pinNum);
+                        }
                     } else {
-                        mapFrame.editPinData(message.name, message.colour, message.pinNum);
+                        mapFrame.removePin(message.pinNum);
                     }
-                } else {
-                    mapFrame.removePin(message.pinNum);
                 }
-            }
+            });
             return null;
         }
         

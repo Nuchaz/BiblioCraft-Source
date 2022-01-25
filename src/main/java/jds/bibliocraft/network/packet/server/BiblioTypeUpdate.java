@@ -34,13 +34,15 @@ public class BiblioTypeUpdate implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioTypeUpdate message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            // TODO: Check distance between block and player
-            TileEntity tile = player.world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityTypeMachine) {
-                TileEntityTypeMachine typeTile = (TileEntityTypeMachine) tile;
-                typeTile.booklistset();
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                // TODO: Check distance between block and player
+                TileEntity tile = player.world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityTypeMachine) {
+                    TileEntityTypeMachine typeTile = (TileEntityTypeMachine) tile;
+                    typeTile.booklistset();
+                }
+            });
             return null;
         }
 

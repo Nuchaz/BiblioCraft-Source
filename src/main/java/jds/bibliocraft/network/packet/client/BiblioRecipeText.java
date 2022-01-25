@@ -35,14 +35,16 @@ public class BiblioRecipeText implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioRecipeText message, MessageContext ctx) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            ItemStack currentBook = player.inventory.getStackInSlot(message.currentSlot);
-            if (currentBook != ItemStack.EMPTY) {
-                if (currentBook.getItem() instanceof ItemRecipeBook) {
-                    ItemRecipeBook book = (ItemRecipeBook) currentBook.getItem();
-                    book.updateFromPacket(message.text);
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                ItemStack currentBook = player.inventory.getStackInSlot(message.currentSlot);
+                if (currentBook != ItemStack.EMPTY) {
+                    if (currentBook.getItem() instanceof ItemRecipeBook) {
+                        ItemRecipeBook book = (ItemRecipeBook) currentBook.getItem();
+                        book.updateFromPacket(message.text);
+                    }
                 }
-            }
+            });
             return null;
         }
         

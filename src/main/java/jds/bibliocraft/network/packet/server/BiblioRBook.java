@@ -37,14 +37,16 @@ public class BiblioRBook implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioRBook message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            // TODO: check pos range to plr
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityFancyWorkbench) {
-                TileEntityFancyWorkbench bench = (TileEntityFancyWorkbench) tile;
-                bench.setBookGrid(player.getEntityId());
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                World world = player.world;
+                // TODO: check pos range to plr
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityFancyWorkbench) {
+                    TileEntityFancyWorkbench bench = (TileEntityFancyWorkbench) tile;
+                    bench.setBookGrid(player.getEntityId());
+                }
+            });
             return null;
         }
 

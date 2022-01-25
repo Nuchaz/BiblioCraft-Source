@@ -46,81 +46,83 @@ public class BiblioMeasure implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioMeasure message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            EnumFacing facing = EnumFacing.getFront(message.direction);
-            World world = player.world;
-            int iadj = 0;
-            int jadj = 0;
-            int kadj = 0;
-            switch (message.direction) {
-                case 0:
-                    jadj = -1;
-                    break;
-                case 1:
-                    jadj = 1;
-                    break;
-                case 2:
-                    kadj = -1;
-                    break;
-                case 3:
-                    kadj = 1;
-                    break;
-                case 4:
-                    iadj = -1;
-                    break;
-                case 5:
-                    iadj = 1;
-                    break;
-                default:
-                    iadj = 1;
-                    break;
-            }
-
-            BlockPos pos = new BlockPos(message.pos.getX() + iadj, message.pos.getY() + jadj, message.pos.getZ() + kadj);
-            if (message.newTest) {
-                if (world.isAirBlock(pos)) {
-                    IBlockState st = BlockMarkerPole.instance.getDefaultState();
-                    world.setBlockState(pos, st);
-                    TileEntityMarkerPole poleTile = (TileEntityMarkerPole) world.getTileEntity(pos);
-                    if (poleTile != null) {
-                        poleTile.setAngle(EnumFacing.NORTH);
-                        if (facing == EnumFacing.UP) {
-                            poleTile.setVertPosition(EnumVertPosition.FLOOR);
-                        } else if (facing == EnumFacing.DOWN) {
-                            poleTile.setVertPosition(EnumVertPosition.CEILING);
-                        } else {
-                            switch (facing) {
-                                case NORTH: {
-                                    facing = EnumFacing.WEST;
-                                    break;
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                EnumFacing facing = EnumFacing.getFront(message.direction);
+                World world = player.world;
+                int iadj = 0;
+                int jadj = 0;
+                int kadj = 0;
+                switch (message.direction) {
+                    case 0:
+                        jadj = -1;
+                        break;
+                    case 1:
+                        jadj = 1;
+                        break;
+                    case 2:
+                        kadj = -1;
+                        break;
+                    case 3:
+                        kadj = 1;
+                        break;
+                    case 4:
+                        iadj = -1;
+                        break;
+                    case 5:
+                        iadj = 1;
+                        break;
+                    default:
+                        iadj = 1;
+                        break;
+                }
+    
+                BlockPos pos = new BlockPos(message.pos.getX() + iadj, message.pos.getY() + jadj, message.pos.getZ() + kadj);
+                if (message.newTest) {
+                    if (world.isAirBlock(pos)) {
+                        IBlockState st = BlockMarkerPole.instance.getDefaultState();
+                        world.setBlockState(pos, st);
+                        TileEntityMarkerPole poleTile = (TileEntityMarkerPole) world.getTileEntity(pos);
+                        if (poleTile != null) {
+                            poleTile.setAngle(EnumFacing.NORTH);
+                            if (facing == EnumFacing.UP) {
+                                poleTile.setVertPosition(EnumVertPosition.FLOOR);
+                            } else if (facing == EnumFacing.DOWN) {
+                                poleTile.setVertPosition(EnumVertPosition.CEILING);
+                            } else {
+                                switch (facing) {
+                                    case NORTH: {
+                                        facing = EnumFacing.WEST;
+                                        break;
+                                    }
+                                    case WEST: {
+                                        facing = EnumFacing.SOUTH;
+                                        break;
+                                    }
+                                    case SOUTH: {
+                                        facing = EnumFacing.EAST;
+                                        break;
+                                    }
+                                    case EAST: {
+                                        facing = EnumFacing.NORTH;
+                                        break;
+                                    }
+                                    default:
+                                        break;
                                 }
-                                case WEST: {
-                                    facing = EnumFacing.SOUTH;
-                                    break;
-                                }
-                                case SOUTH: {
-                                    facing = EnumFacing.EAST;
-                                    break;
-                                }
-                                case EAST: {
-                                    facing = EnumFacing.NORTH;
-                                    break;
-                                }
-                                default:
-                                    break;
+                                poleTile.setAngle(facing);
+                                poleTile.setVertPosition(EnumVertPosition.WALL);
                             }
-                            poleTile.setAngle(facing);
-                            poleTile.setVertPosition(EnumVertPosition.WALL);
+                            world.markBlockRangeForRenderUpdate(pos, pos);
                         }
-                        world.markBlockRangeForRenderUpdate(pos, pos);
+                    }
+                } else {
+                    // destroy block
+                    if (world.getBlockState(pos).getBlock() == BlockMarkerPole.instance) {
+                        world.destroyBlock(pos, false);
                     }
                 }
-            } else {
-                // destroy block
-                if (world.getBlockState(pos).getBlock() == BlockMarkerPole.instance) {
-                    world.destroyBlock(pos, false);
-                }
-            }
+            });
             return null;
         }
 

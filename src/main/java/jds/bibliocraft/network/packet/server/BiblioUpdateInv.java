@@ -40,49 +40,51 @@ public class BiblioUpdateInv implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioUpdateInv message, MessageContext ctx) {
-            EntityPlayer player = ctx.getServerHandler().player;
-            ItemStack stackostuff = message.stackostuff;
-            if (stackostuff != ItemStack.EMPTY) {
-                boolean safe = true;
-                // Attempted fix for exploit based on what the GT:NH developers did
-                try {
-                    NBTTagList list = stackostuff.getTagCompound().getTagList("Inventory", 10);
-                    for (int i = 0; i <= list.tagCount(); i++) {
-                        if (!(new ItemStack(list.getCompoundTagAt(i)).getItem() instanceof ItemMap)) {
-                            safe = false;
-                            break;
-                        }
-                    }
-                } catch (NullPointerException e) {
-                    // lazy :D
-                }
-                if (safe) {
-                    ItemStack currentPlayerSlot = player.getHeldItem(EnumHand.MAIN_HAND);
-                    if (currentPlayerSlot != ItemStack.EMPTY) {
-                        if (currentPlayerSlot.getUnlocalizedName().equals(stackostuff.getUnlocalizedName())
-                                && Utils.checkIfValidPacketItem(currentPlayerSlot.getUnlocalizedName())) {
-                            NBTTagCompound currentTags = currentPlayerSlot.getTagCompound();
-                            NBTTagCompound newTags = stackostuff.getTagCompound();
-                            if (!currentPlayerSlot.getUnlocalizedName().contains("item.AtlasBook")) {
-                                if (currentTags != null && currentTags.hasKey("Inventory") && newTags != null) {
-                                    NBTTagList tagList = currentTags.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
-                                    newTags.setTag("Inventory", tagList);
-                                    stackostuff.setTagCompound(newTags);
-                                }
-                            } else if (currentTags.hasKey("atlasID") && newTags.hasKey("atlasID")
-                                    && currentTags.getInteger("atlasID") != newTags.getInteger("atlasID")) {
-                                return null;
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayer player = ctx.getServerHandler().player;
+                ItemStack stackostuff = message.stackostuff;
+                if (stackostuff != ItemStack.EMPTY) {
+                    boolean safe = true;
+                    // Attempted fix for exploit based on what the GT:NH developers did
+                    try {
+                        NBTTagList list = stackostuff.getTagCompound().getTagList("Inventory", 10);
+                        for (int i = 0; i <= list.tagCount(); i++) {
+                            if (!(new ItemStack(list.getCompoundTagAt(i)).getItem() instanceof ItemMap)) {
+                                safe = false;
+                                break;
                             }
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, stackostuff);
+                        }
+                    } catch (NullPointerException e) {
+                        // lazy :D
+                    }
+                    if (safe) {
+                        ItemStack currentPlayerSlot = player.getHeldItem(EnumHand.MAIN_HAND);
+                        if (currentPlayerSlot != ItemStack.EMPTY) {
+                            if (currentPlayerSlot.getUnlocalizedName().equals(stackostuff.getUnlocalizedName())
+                                    && Utils.checkIfValidPacketItem(currentPlayerSlot.getUnlocalizedName())) {
+                                NBTTagCompound currentTags = currentPlayerSlot.getTagCompound();
+                                NBTTagCompound newTags = stackostuff.getTagCompound();
+                                if (!currentPlayerSlot.getUnlocalizedName().contains("item.AtlasBook")) {
+                                    if (currentTags != null && currentTags.hasKey("Inventory") && newTags != null) {
+                                        NBTTagList tagList = currentTags.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+                                        newTags.setTag("Inventory", tagList);
+                                        stackostuff.setTagCompound(newTags);
+                                    }
+                                } else if (currentTags.hasKey("atlasID") && newTags.hasKey("atlasID")
+                                        && currentTags.getInteger("atlasID") != newTags.getInteger("atlasID")) {
+                                    return;
+                                }
+                                player.inventory.setInventorySlotContents(player.inventory.currentItem, stackostuff);
+                            }
                         }
                     }
                 }
-            }
-            if (message.isSWP) {
-                player.closeScreen();
-                player.openGui(BiblioCraft.instance, 100, player.world, (int) player.posX, (int) player.posY,
-                        (int) player.posZ);
-            }
+                if (message.isSWP) {
+                    player.closeScreen();
+                    player.openGui(BiblioCraft.instance, 100, player.world, (int) player.posX, (int) player.posY,
+                            (int) player.posZ);
+                }
+            });
             return null;
         }
         

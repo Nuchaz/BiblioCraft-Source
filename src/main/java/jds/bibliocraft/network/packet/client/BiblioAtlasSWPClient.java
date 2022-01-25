@@ -35,13 +35,10 @@ public class BiblioAtlasSWPClient implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioAtlasSWPClient message, MessageContext ctx) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            player.rotationPitch = 50.0f;
-            Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-                @Override
-                public void run() {
-                    Utils.openMapGUI(Minecraft.getMinecraft().player, message.atlas);
-                }
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                player.rotationPitch = 50.0f;
+                Utils.openMapGUI(Minecraft.getMinecraft().player, message.atlas);
             });
             return null;
         }

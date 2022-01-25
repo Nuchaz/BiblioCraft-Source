@@ -82,15 +82,17 @@ public class BiblioSign implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioSign message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null) {
-                if (tile instanceof TileEntityFancySign) {
-                    TileEntityFancySign sign = (TileEntityFancySign) tile;
-                    sign.updateFromPacket(message.text, message.textScales, message.numOfLines, message.s1Scale, message.s1Rot, message.s1x, message.s1y, message.s2Scale, message.s2Rot, message.s2x, message.s2y);
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                World world = player.world;
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null) {
+                    if (tile instanceof TileEntityFancySign) {
+                        TileEntityFancySign sign = (TileEntityFancySign) tile;
+                        sign.updateFromPacket(message.text, message.textScales, message.numOfLines, message.s1Scale, message.s1Rot, message.s1x, message.s1y, message.s2Scale, message.s2Rot, message.s2x, message.s2y);
+                    }
                 }
-            }
+            });
             return null;
         }
         

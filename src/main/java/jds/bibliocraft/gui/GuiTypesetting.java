@@ -375,7 +375,8 @@ public class GuiTypesetting extends GuiScreen //GuiContainer
     			//buffer.writeInt(i);
     		    //buffer.writeInt(j);
     		    //buffer.writeInt(k);
-				BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeFlag(bookFlagTitle, !(isPublic[flag]), this.isServerSide));
+				BiblioCraft.LOGGER.info("Sent");
+				BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeFlag(bookFlagTitle, !(isPublic[flag])));
     		    // BiblioCraft.ch_BiblioTypeFlag.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeFlag"));
     		    isPublic[flag] = !isPublic[flag];
     		}
@@ -383,7 +384,7 @@ public class GuiTypesetting extends GuiScreen //GuiContainer
     	
     	if (setDelete)
     	{
-			BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeDelete(deleteBookTitle, this.isServerSide));
+			BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeDelete(deleteBookTitle));
     		//System.out.println("ready to delete book  "+deleteBookTitle);
     		// ByteBuf buffer = Unpooled.buffer();
     		// ByteBufUtils.writeUTF8String(buffer, deleteBookTitle);

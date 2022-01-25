@@ -39,13 +39,15 @@ public class BiblioPaintingC implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioPaintingC message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            World world = player.world;
-            TileEntity tile = world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityPainting) {
-                TileEntityPainting painting = (TileEntityPainting) tile;
-                painting.setPacketAspectsUpdate(message.aspectX, message.aspectY);
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                World world = player.world;
+                TileEntity tile = world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityPainting) {
+                    TileEntityPainting painting = (TileEntityPainting) tile;
+                    painting.setPacketAspectsUpdate(message.aspectX, message.aspectY);
+                }
+            });
             return null;
         }
         

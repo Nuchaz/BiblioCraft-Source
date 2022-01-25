@@ -35,12 +35,14 @@ public class BiblioPaneler implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioPaneler message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            TileEntity tile = player.world.getTileEntity(message.pos);
-            if (tile != null && tile instanceof TileEntityFurniturePaneler) {
-                TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
-                paneler.setCustomCraftingTex(message.texName);
-            }
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                TileEntity tile = player.world.getTileEntity(message.pos);
+                if (tile != null && tile instanceof TileEntityFurniturePaneler) {
+                    TileEntityFurniturePaneler paneler = (TileEntityFurniturePaneler) tile;
+                    paneler.setCustomCraftingTex(message.texName);
+                }
+            });
             return null;
         }
         
