@@ -1,6 +1,7 @@
 package jds.bibliocraft.network.packet.client;
 
 import io.netty.buffer.ByteBuf;
+import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.items.ItemBigBook;
 import jds.bibliocraft.items.ItemClipboard;
 import jds.bibliocraft.items.ItemRecipeBook;

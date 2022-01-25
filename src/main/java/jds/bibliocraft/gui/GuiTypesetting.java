@@ -375,7 +375,6 @@ public class GuiTypesetting extends GuiScreen //GuiContainer
     			//buffer.writeInt(i);
     		    //buffer.writeInt(j);
     		    //buffer.writeInt(k);
-				BiblioCraft.LOGGER.info("Sent");
 				BiblioNetworking.INSTANCE.sendToServer(new BiblioTypeFlag(bookFlagTitle, !(isPublic[flag])));
     		    // BiblioCraft.ch_BiblioTypeFlag.sendToServer(new FMLProxyPacket(new PacketBuffer(buffer), "BiblioTypeFlag"));
     		    isPublic[flag] = !isPublic[flag];
