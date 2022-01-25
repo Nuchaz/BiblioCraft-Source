@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-// TODO: input might need sanitization?
 public class BiblioStockCompass implements IMessage {
     int slotNumber;
     String title;
