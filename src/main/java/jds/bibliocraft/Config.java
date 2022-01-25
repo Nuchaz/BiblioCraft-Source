@@ -244,6 +244,13 @@ public class Config
 	
 	public static boolean testBookValidity(ItemStack stack)
 	{
+		// Current fix. Player can name any ItemStack `book` and have it accepted.
+		ItemStack clone = stack.copy();
+		String nameBefore = clone.getDisplayName();
+		clone.clearCustomName();
+		if (!nameBefore.equals(clone.getDisplayName())) {
+			return false;
+		}
 		boolean haveMatch = false;
 		if (stack != ItemStack.EMPTY)
 		{
