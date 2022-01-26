@@ -3,7 +3,6 @@ package jds.bibliocraft.slots;
 import jds.bibliocraft.containers.ContainerFurniturePaneler;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 

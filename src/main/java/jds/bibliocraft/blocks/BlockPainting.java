@@ -1,11 +1,5 @@
 package jds.bibliocraft.blocks;
 
-import java.util.List;
-
-import com.google.common.collect.Lists;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import jds.bibliocraft.helpers.PaintingUtil;
@@ -15,23 +9,17 @@ import jds.bibliocraft.network.packet.server.BiblioPaintingC;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityPainting;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockPainting extends BiblioWoodBlock
 {

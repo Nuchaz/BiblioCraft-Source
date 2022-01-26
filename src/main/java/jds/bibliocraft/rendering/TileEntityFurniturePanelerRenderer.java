@@ -1,13 +1,11 @@
 package jds.bibliocraft.rendering;
 
-import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 

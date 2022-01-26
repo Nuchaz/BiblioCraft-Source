@@ -6,8 +6,8 @@ import java.util.List;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import jds.bibliocraft.blocks.BlockSeat;
 import jds.bibliocraft.blocks.BiblioWoodBlock.EnumWoodType;
+import jds.bibliocraft.blocks.BlockSeat;
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.states.TextureState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

@@ -1,7 +1,6 @@
 package jds.bibliocraft.entity;
 
 import java.util.UUID;
-import java.util.jar.Attributes.Name;
 
 import com.mojang.authlib.GameProfile;
 

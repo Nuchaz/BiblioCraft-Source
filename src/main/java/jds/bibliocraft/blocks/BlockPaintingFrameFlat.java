@@ -3,8 +3,6 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityPainting;
@@ -12,7 +10,6 @@ import jds.bibliocraft.tileentities.TileEntityPaintingFlat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class BlockPaintingFrameFlat extends BlockPainting
 {

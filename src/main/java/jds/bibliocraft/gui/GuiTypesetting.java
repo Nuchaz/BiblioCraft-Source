@@ -3,11 +3,7 @@ package jds.bibliocraft.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.Config;
 import jds.bibliocraft.helpers.FileUtil;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioType;
@@ -15,18 +11,13 @@ import jds.bibliocraft.network.packet.server.BiblioTypeDelete;
 import jds.bibliocraft.network.packet.server.BiblioTypeFlag;
 import jds.bibliocraft.network.packet.server.BiblioTypeUpdate;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiTypesetting extends GuiScreen //GuiContainer
 {

@@ -2,7 +2,6 @@ package jds.bibliocraft.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerFramedChest;
 import jds.bibliocraft.tileentities.TileEntityFramedChest;
 import net.minecraft.client.gui.inventory.GuiContainer;

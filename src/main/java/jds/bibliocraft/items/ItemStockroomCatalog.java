@@ -1,18 +1,9 @@
 package jds.bibliocraft.items;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.helpers.BiblioSortingHelper;
-import jds.bibliocraft.helpers.SortedListItem;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.client.BiblioStockLog;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
@@ -20,18 +11,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class ItemStockroomCatalog extends Item
 {

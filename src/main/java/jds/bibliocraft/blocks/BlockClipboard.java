@@ -3,36 +3,25 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import jds.bibliocraft.BiblioCraft;
-import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioClipboard;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityClipboard;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class BlockClipboard extends BiblioBlock
 {

@@ -7,7 +7,6 @@ import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 import jds.bibliocraft.blocks.BlockTable;
-import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.states.TextureState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.common.model.TRSRTransformation;

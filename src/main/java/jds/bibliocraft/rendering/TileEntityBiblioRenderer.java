@@ -1,14 +1,12 @@
 package jds.bibliocraft.rendering;
 
-import java.io.IOException;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 
-import jds.bibliocraft.Config;
+import org.lwjgl.opengl.GL11;
+
 import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.items.ItemClipboard;
@@ -16,10 +14,10 @@ import jds.bibliocraft.tileentities.BiblioTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 //import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -28,15 +26,11 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.model.Attributes;
 //import net.minecraftforge.client.model.IBakedModel;

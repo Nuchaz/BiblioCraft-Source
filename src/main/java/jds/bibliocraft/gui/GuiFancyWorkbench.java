@@ -3,30 +3,8 @@ package jds.bibliocraft.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL43;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBook;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerFancyWorkbench;
 import jds.bibliocraft.items.ItemRecipeBook;
@@ -35,6 +13,17 @@ import jds.bibliocraft.network.packet.server.BiblioRBook;
 import jds.bibliocraft.network.packet.server.BiblioRBookLoad;
 import jds.bibliocraft.tileentities.TileEntityBookcase;
 import jds.bibliocraft.tileentities.TileEntityFancyWorkbench;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 
 public class GuiFancyWorkbench extends GuiContainer
 {

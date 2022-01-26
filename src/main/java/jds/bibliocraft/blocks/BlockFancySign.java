@@ -6,27 +6,23 @@ import java.util.List;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.helpers.CustomBlockItemDataPack;
 import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.helpers.EnumVertPosition;
-import jds.bibliocraft.states.TextureState;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class BlockFancySign extends BiblioWoodBlock
 {

@@ -3,16 +3,8 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.Config;
-import jds.bibliocraft.gui.GuiBigBook;
-import jds.bibliocraft.gui.GuiClipboard;
-import jds.bibliocraft.gui.GuiRecipeBook;
-import jds.bibliocraft.gui.GuiScreenBookDesk;
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.helpers.EnumRelativeLocation;
 import jds.bibliocraft.items.ItemRecipeBook;
@@ -24,25 +16,18 @@ import jds.bibliocraft.tileentities.TileEntityDesk;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockDesk extends BiblioWoodBlock
 {

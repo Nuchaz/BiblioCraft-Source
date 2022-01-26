@@ -7,7 +7,6 @@ import jds.bibliocraft.containers.ContainerFurniturePaneler;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.text.translation.I18n;
 
 public class GuiFurniturePaneler extends GuiContainer
 {

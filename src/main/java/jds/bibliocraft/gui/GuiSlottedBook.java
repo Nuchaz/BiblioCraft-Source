@@ -1,14 +1,12 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.BiblioCraft;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerSlottedBook;
 import jds.bibliocraft.items.ItemSlottedBook;
@@ -21,15 +19,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiSlottedBook extends GuiContainer
 {

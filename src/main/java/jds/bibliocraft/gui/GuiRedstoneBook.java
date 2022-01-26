@@ -5,22 +5,15 @@ import java.io.IOException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.BiblioCraft;
-import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiRedstoneBook extends GuiScreen
 {

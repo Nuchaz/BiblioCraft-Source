@@ -2,11 +2,6 @@ package jds.bibliocraft.rendering;
 
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityClipboard;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 
 public class TileEntityClipboardRenderer extends TileEntityBiblioRenderer
 {

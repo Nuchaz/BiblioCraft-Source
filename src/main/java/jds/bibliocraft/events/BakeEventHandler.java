@@ -1,17 +1,7 @@
 package jds.bibliocraft.events;
 
-import java.io.IOException;
-
-import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.Config;
-import jds.bibliocraft.blocks.BlockBookcase;
-import jds.bibliocraft.blocks.BlockBookcaseCreative;
-import jds.bibliocraft.blocks.BlockShelf;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
-import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.models.ModelArmorStand;
 import jds.bibliocraft.models.ModelAtlas;
 import jds.bibliocraft.models.ModelBell;
@@ -52,22 +42,8 @@ import jds.bibliocraft.models.ModelTable;
 import jds.bibliocraft.models.ModelToolRack;
 import jds.bibliocraft.models.ModelTypesettingTable;
 import jds.bibliocraft.models.ModelTypewriter;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.client.model.obj.OBJModel.MaterialLibrary;
-import net.minecraftforge.client.model.obj.OBJModel.OBJBakedModel;
-import net.minecraftforge.client.model.obj.OBJModel.OBJState;
-import net.minecraftforge.common.property.ExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BakeEventHandler 

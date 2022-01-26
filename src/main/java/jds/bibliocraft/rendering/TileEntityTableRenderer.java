@@ -1,19 +1,9 @@
 package jds.bibliocraft.rendering;
 
-import org.lwjgl.opengl.GL11;
-
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityTable;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.MapData;
 
 public class TileEntityTableRenderer extends TileEntityBiblioRenderer
 {

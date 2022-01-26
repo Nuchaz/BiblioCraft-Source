@@ -1,23 +1,16 @@
 package jds.bibliocraft.tileentities;
 
-import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.blocks.BlockClock;
 import jds.bibliocraft.helpers.EnumVertPosition;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 
 public class TileEntityClock extends BiblioTileEntity implements ITickable 
 {

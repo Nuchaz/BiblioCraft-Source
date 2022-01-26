@@ -1,7 +1,5 @@
 package jds.bibliocraft.blocks.blockitems;
 
-import java.util.List;
-
 import jds.bibliocraft.blocks.BlockBookcase;
 import net.minecraft.block.Block;
 

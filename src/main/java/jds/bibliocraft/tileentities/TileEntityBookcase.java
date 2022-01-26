@@ -2,7 +2,6 @@ package jds.bibliocraft.tileentities;
 
 import java.util.Random;
 
-import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BlockBookcase;
 import jds.bibliocraft.items.ItemRedstoneBook;

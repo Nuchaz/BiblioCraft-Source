@@ -1,7 +1,6 @@
 package jds.bibliocraft.models;
 
 import jds.bibliocraft.items.ItemDeathCompass;
-import jds.bibliocraft.items.ItemWaypointCompass;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 

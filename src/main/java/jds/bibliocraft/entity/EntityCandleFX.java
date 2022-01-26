@@ -1,7 +1,6 @@
 package jds.bibliocraft.entity;
 
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;

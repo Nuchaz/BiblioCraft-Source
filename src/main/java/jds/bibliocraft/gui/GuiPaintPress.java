@@ -1,35 +1,23 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.CodeSource;
-import java.util.List;
+
 import org.lwjgl.opengl.GL11;
-import jds.bibliocraft.BiblioCraft;
+
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerPaintPress;
 import jds.bibliocraft.helpers.BiblioEnums.EnumBiblioPaintings;
+import jds.bibliocraft.helpers.PaintingUtil;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioPaintPress;
-import jds.bibliocraft.helpers.PaintingUtil;
 import jds.bibliocraft.tileentities.TileEntityPaintPress;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.item.EntityPainting.EnumArt;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiPaintPress extends GuiContainer
 {

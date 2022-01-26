@@ -1,19 +1,8 @@
 package jds.bibliocraft.tileentities;
 
-import java.util.Random;
-
-import jds.bibliocraft.BlockLoader;
-import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BlockShelf;
-import jds.bibliocraft.storygen.BookGenUtil;
-import jds.bibliocraft.storygen.BookGenWordLists;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 

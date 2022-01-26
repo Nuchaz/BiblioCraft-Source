@@ -10,14 +10,9 @@ import com.google.common.collect.Lists;
 import jds.bibliocraft.blocks.BlockSwordPedestal;
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.helpers.EnumMetalType;
-import jds.bibliocraft.tileentities.TileEntitySwordPedestal;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 public class ModelSwordPedestal extends BiblioModelColor
 {

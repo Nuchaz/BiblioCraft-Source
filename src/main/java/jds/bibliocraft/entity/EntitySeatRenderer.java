@@ -4,7 +4,6 @@ import jds.bibliocraft.CommonProxy;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
 
 public class EntitySeatRenderer extends Render<EntitySeat>

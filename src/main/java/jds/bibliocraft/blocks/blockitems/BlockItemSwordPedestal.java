@@ -6,7 +6,6 @@ import jds.bibliocraft.blocks.BlockSwordPedestal;
 import jds.bibliocraft.helpers.EnumColor;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;

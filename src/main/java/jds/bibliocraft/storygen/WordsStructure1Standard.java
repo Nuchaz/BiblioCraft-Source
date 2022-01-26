@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.Language;
-import net.minecraft.util.text.translation.I18n;
-
 public class WordsStructure1Standard
 {
 	// paragraph 1 - stasis

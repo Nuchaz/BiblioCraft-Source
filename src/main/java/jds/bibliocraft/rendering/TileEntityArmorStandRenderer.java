@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.entity.AbtractSteve;
 import jds.bibliocraft.entity.ModelDummy;
-import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;

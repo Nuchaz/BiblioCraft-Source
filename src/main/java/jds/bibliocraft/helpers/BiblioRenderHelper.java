@@ -1,7 +1,6 @@
 package jds.bibliocraft.helpers;
 
 
-import jds.bibliocraft.CommonProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

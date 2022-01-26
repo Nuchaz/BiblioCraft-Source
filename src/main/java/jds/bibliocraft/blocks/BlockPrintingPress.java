@@ -3,8 +3,6 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemAtlasPlate;
@@ -12,7 +10,6 @@ import jds.bibliocraft.items.ItemEnchantedPlate;
 import jds.bibliocraft.items.ItemPlate;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityPrintPress;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -23,15 +20,14 @@ import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlockPrintingPress extends BiblioSimpleBlock
 {

@@ -1,6 +1,5 @@
 package jds.bibliocraft.models;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,42 +8,29 @@ import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
-import jds.bibliocraft.blocks.BiblioLightBlock;
-import jds.bibliocraft.blocks.BlockLampGold;
-import jds.bibliocraft.blocks.BlockLampIron;
-import jds.bibliocraft.blocks.BlockLanternGold;
-import jds.bibliocraft.blocks.BlockLanternIron;
-import jds.bibliocraft.helpers.EnumColor;
-import jds.bibliocraft.helpers.EnumMetalType;
+import org.apache.commons.lang3.tuple.Pair;
+
 import jds.bibliocraft.helpers.ModelCache;
-import jds.bibliocraft.states.MetalTypeProperty;
-import jds.bibliocraft.states.MetalTypeState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
-//import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.Attributes;
 //import net.minecraftforge.client.model.IBakedModel;
 import net.minecraftforge.client.model.IModel;
 //import net.minecraftforge.client.model.ISmartBlockModel;

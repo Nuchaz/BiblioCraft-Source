@@ -1,6 +1,5 @@
 package jds.bibliocraft.events;
 
-import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.helpers.PaintingUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;

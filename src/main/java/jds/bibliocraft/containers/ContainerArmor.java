@@ -1,7 +1,11 @@
 package jds.bibliocraft.containers;
 
+import jds.bibliocraft.slots.SlotArmorBoots;
+import jds.bibliocraft.slots.SlotArmorCuirass;
+import jds.bibliocraft.slots.SlotArmorGreaves;
+import jds.bibliocraft.slots.SlotArmorHelm;
+import jds.bibliocraft.tileentities.TileEntityArmorStand;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPumpkin;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
@@ -12,11 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
-import jds.bibliocraft.slots.SlotArmorBoots;
-import jds.bibliocraft.slots.SlotArmorCuirass;
-import jds.bibliocraft.slots.SlotArmorGreaves;
-import jds.bibliocraft.slots.SlotArmorHelm;
-import jds.bibliocraft.tileentities.TileEntityArmorStand;
 
 public class ContainerArmor extends Container
 {

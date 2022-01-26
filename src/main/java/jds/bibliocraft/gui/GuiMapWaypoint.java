@@ -1,30 +1,20 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.handler.codec.string.StringEncoder;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import jds.bibliocraft.BiblioCraft;
+
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMapPin;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiMapWaypoint extends GuiScreen
 {

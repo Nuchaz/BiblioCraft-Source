@@ -7,8 +7,8 @@ import com.google.common.collect.Maps;
 import jds.bibliocraft.blocks.BlockMarkerPole;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 
 public class MarkerPoleStateMapper extends DefaultStateMapper
 {

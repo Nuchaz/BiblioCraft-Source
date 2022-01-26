@@ -3,10 +3,8 @@ package jds.bibliocraft.tileentities;
 import java.util.List;
 
 import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BlockTypeWriter;
 import jds.bibliocraft.storygen.BookGenUtil;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -20,27 +18,20 @@ import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.common.util.Constants;
 
 public class TileEntityTypewriter extends BiblioTileEntity implements ITickable 
 {

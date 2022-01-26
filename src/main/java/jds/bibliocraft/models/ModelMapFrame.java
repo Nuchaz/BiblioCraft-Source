@@ -1,8 +1,5 @@
 package jds.bibliocraft.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 

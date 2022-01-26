@@ -1,15 +1,14 @@
 package jds.bibliocraft.containers;
 
+import jds.bibliocraft.Config;
+import jds.bibliocraft.slots.SlotBook;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import jds.bibliocraft.Config;
-import jds.bibliocraft.slots.SlotBook;
 
 public class ContainerBookcase extends Container 
 {

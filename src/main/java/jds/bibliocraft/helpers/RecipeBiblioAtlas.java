@@ -3,18 +3,12 @@ package jds.bibliocraft.helpers;
 import java.util.HashMap;
 
 import jds.bibliocraft.BiblioCraft;
-import jds.bibliocraft.Config;
-import jds.bibliocraft.ItemLoader;
 import jds.bibliocraft.enchantments.EnchantmentDeathCompass;
 import jds.bibliocraft.items.ItemAtlas;
-
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;

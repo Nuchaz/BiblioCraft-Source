@@ -2,10 +2,6 @@ package jds.bibliocraft.events;
 
 import java.util.ArrayList;
 
-import org.lwjgl.opengl.GL11;
-
-import com.sun.jna.platform.unix.X11.Display;
-
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.blocks.BiblioBlock;
 import jds.bibliocraft.blocks.BlockBookcase;
@@ -14,12 +10,10 @@ import jds.bibliocraft.blocks.BlockFurniturePaneler;
 import jds.bibliocraft.blocks.BlockPotionShelf;
 import jds.bibliocraft.blocks.BlockPrintingPress;
 import jds.bibliocraft.blocks.BlockTypesettingTable;
-import jds.bibliocraft.enchantments.EnchantmentReading;
 import jds.bibliocraft.entity.EntityCatalogFX;
 import jds.bibliocraft.helpers.BiblioSortingHelper;
 import jds.bibliocraft.items.ItemReadingGlasses;
 import jds.bibliocraft.items.ItemStockroomCatalog;
-import jds.bibliocraft.models.ModelDinnerPlate;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
 import jds.bibliocraft.tileentities.TileEntityBookcase;
@@ -40,8 +34,6 @@ import jds.bibliocraft.tileentities.TileEntityToolRack;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import jds.bibliocraft.tileentities.TileEntityTypewriter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemRecord;
@@ -50,12 +42,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.common.util.Constants;

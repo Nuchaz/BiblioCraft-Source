@@ -1,20 +1,5 @@
 package jds.bibliocraft;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import jds.bibliocraft.*;
 import jds.bibliocraft.blocks.BlockArmorStand;
 import jds.bibliocraft.blocks.BlockBell;
 import jds.bibliocraft.blocks.BlockBookcase;
@@ -78,11 +63,11 @@ import jds.bibliocraft.blocks.blockitems.BlockItemSwordPedestal;
 import jds.bibliocraft.blocks.blockitems.BlockItemTable;
 import jds.bibliocraft.blocks.blockitems.BlockItemToolRack;
 import jds.bibliocraft.blocks.blockitems.BlockItemTypewriter;
-import jds.bibliocraft.items.ItemChase;
-import jds.bibliocraft.items.ItemFramingBoard;
-import jds.bibliocraft.items.ItemFramingSaw;
-import jds.bibliocraft.items.ItemFramingSheet;
-import jds.bibliocraft.items.ItemPaintingCanvas;
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraftforge.event.RegistryEvent;
 
 public class BlockLoader 
 {	

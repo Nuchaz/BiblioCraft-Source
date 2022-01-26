@@ -3,8 +3,6 @@ package jds.bibliocraft.items;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.CommonProxy;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 
 public class ItemHandDrill extends ItemDrill
 {

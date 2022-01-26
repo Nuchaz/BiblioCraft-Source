@@ -1,10 +1,5 @@
 package jds.bibliocraft;
 
-import java.util.Map;
-
-import jds.bibliocraft.blocks.BlockLabel;
-import jds.bibliocraft.enchantments.EnchantmentDeathCompass;
-import jds.bibliocraft.enchantments.EnchantmentReading;
 import jds.bibliocraft.helpers.RecipeBiblioAtlas;
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemAtlasPlate;
@@ -35,28 +30,15 @@ import jds.bibliocraft.items.ItemSeatBack5;
 import jds.bibliocraft.items.ItemSlottedBook;
 import jds.bibliocraft.items.ItemStockroomCatalog;
 import jds.bibliocraft.items.ItemTape;
-import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.items.ItemTapeMeasure;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.init.Blocks;
+import jds.bibliocraft.items.ItemWaypointCompass;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 
 public class ItemLoader 

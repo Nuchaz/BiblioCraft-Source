@@ -1,12 +1,5 @@
 package jds.bibliocraft.items;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.blocks.BiblioBlock;
@@ -16,10 +9,30 @@ import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.client.BiblioDrillText;
-import jds.bibliocraft.tileentities.*;
+import jds.bibliocraft.tileentities.BiblioLightTileEntity;
+import jds.bibliocraft.tileentities.BiblioTileEntity;
+import jds.bibliocraft.tileentities.TileEntityArmorStand;
+import jds.bibliocraft.tileentities.TileEntityBookcase;
+import jds.bibliocraft.tileentities.TileEntityCase;
+import jds.bibliocraft.tileentities.TileEntityClock;
+import jds.bibliocraft.tileentities.TileEntityDesk;
+import jds.bibliocraft.tileentities.TileEntityDinnerPlate;
+import jds.bibliocraft.tileentities.TileEntityDiscRack;
+import jds.bibliocraft.tileentities.TileEntityFancySign;
+import jds.bibliocraft.tileentities.TileEntityFancyWorkbench;
+import jds.bibliocraft.tileentities.TileEntityFramedChest;
+import jds.bibliocraft.tileentities.TileEntityMapFrame;
+import jds.bibliocraft.tileentities.TileEntityPainting;
+import jds.bibliocraft.tileentities.TileEntityPotionShelf;
+import jds.bibliocraft.tileentities.TileEntityPrintPress;
+import jds.bibliocraft.tileentities.TileEntitySeat;
+import jds.bibliocraft.tileentities.TileEntityShelf;
+import jds.bibliocraft.tileentities.TileEntitySwordPedestal;
+import jds.bibliocraft.tileentities.TileEntityTable;
+import jds.bibliocraft.tileentities.TileEntityToolRack;
+import jds.bibliocraft.tileentities.TileEntityTypeMachine;
+import jds.bibliocraft.tileentities.TileEntityTypewriter;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -28,30 +41,19 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityComparator;
 import net.minecraft.tileentity.TileEntityDispenser;
-import net.minecraft.tileentity.TileEntityDropper;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntityPiston;
-import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDrill extends Item
 {

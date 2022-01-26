@@ -1,10 +1,8 @@
 package jds.bibliocraft.helpers;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -22,7 +20,6 @@ import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.compress.compressors.FileNameUtil;
 import org.apache.commons.io.FilenameUtils;
 
 import jds.bibliocraft.BiblioCraft;

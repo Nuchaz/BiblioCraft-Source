@@ -1,12 +1,7 @@
 package jds.bibliocraft.entity;
 
-import javax.annotation.Nullable;
-
 import jds.bibliocraft.tileentities.TileEntitySeat;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

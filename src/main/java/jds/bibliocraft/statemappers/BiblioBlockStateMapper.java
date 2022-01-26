@@ -66,7 +66,6 @@ import jds.bibliocraft.models.ModelTypewriter;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 public class BiblioBlockStateMapper extends DefaultStateMapper
 {

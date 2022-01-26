@@ -2,7 +2,6 @@ package jds.bibliocraft.helpers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
 
 public enum EnumColor implements IStringSerializable
 {

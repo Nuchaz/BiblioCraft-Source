@@ -1,6 +1,5 @@
 package jds.bibliocraft.containers;
 
-import jds.bibliocraft.Config;
 import jds.bibliocraft.tileentities.TileEntityFramedChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

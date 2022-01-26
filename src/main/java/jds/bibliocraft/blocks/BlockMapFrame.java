@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.items.ItemDrill;
 import jds.bibliocraft.items.ItemWaypointCompass;
@@ -24,20 +23,18 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class BlockMapFrame extends BiblioWoodBlock
 {

@@ -1,7 +1,6 @@
 package jds.bibliocraft.helpers;
 
 import jds.bibliocraft.blocks.BlockMapFrame;
-import net.minecraft.item.ItemStack;
 
 public class WoodRegistryEntry 
 {

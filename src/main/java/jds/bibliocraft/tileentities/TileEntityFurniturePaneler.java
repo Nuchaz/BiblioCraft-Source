@@ -1,16 +1,8 @@
 package jds.bibliocraft.tileentities;
 
-import java.util.List;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import scala.xml.persistent.SetStorage;
-import jds.bibliocraft.BiblioCraft;
-import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.blocks.BlockFurniturePaneler;
 import jds.bibliocraft.blocks.BiblioWoodBlock.EnumWoodType;
+import jds.bibliocraft.blocks.BlockFurniturePaneler;
 import jds.bibliocraft.blocks.blockitems.BiblioWoodBlockItem;
-import jds.bibliocraft.blocks.blockitems.BlockItemBookcaseCreative;
 /*
 import jds.bibliocraft.blocks.BlockItemBookcaseMaster;
 import jds.bibliocraft.blocks.BlockItemClock;
@@ -35,7 +27,6 @@ import jds.bibliocraft.blocks.BlockItemWeaponRackMaster;
 import jds.bibliocraft.blocks.BlockItemWritingDesk;
 */
 import jds.bibliocraft.containers.ContainerFurniturePaneler;
-import jds.bibliocraft.helpers.BiblioRenderHelper;
 import jds.bibliocraft.items.ItemSeatBack;
 import jds.bibliocraft.items.ItemSeatBack2;
 import jds.bibliocraft.items.ItemSeatBack3;
@@ -43,26 +34,12 @@ import jds.bibliocraft.items.ItemSeatBack4;
 import jds.bibliocraft.items.ItemSeatBack5;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.client.BiblioPanelerClient;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class TileEntityFurniturePaneler extends BiblioTileEntity
 {

@@ -3,8 +3,6 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityFramedChest;
@@ -12,13 +10,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class BlockFramedChest extends BiblioWoodBlock
 {

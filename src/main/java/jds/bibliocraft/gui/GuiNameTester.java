@@ -4,22 +4,17 @@ import org.lwjgl.opengl.GL11;
 
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerNameTester;
-import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemNameTester;
 import jds.bibliocraft.items.ItemSlottedBook;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 
 public class GuiNameTester extends GuiContainer

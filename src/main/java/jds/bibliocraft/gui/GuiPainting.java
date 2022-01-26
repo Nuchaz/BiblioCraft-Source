@@ -1,30 +1,24 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerPainting;
 import jds.bibliocraft.helpers.BiblioEnums.EnumBiblioPaintings;
-import jds.bibliocraft.network.BiblioNetworking;
-import jds.bibliocraft.network.packet.server.BiblioPainting;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import jds.bibliocraft.helpers.PaintingUtil;
+import jds.bibliocraft.network.BiblioNetworking;
+import jds.bibliocraft.network.packet.server.BiblioPainting;
 import jds.bibliocraft.tileentities.TileEntityPainting;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.item.EntityPainting.EnumArt;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiPainting extends GuiContainer
 {

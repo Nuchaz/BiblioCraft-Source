@@ -1,28 +1,23 @@
 package jds.bibliocraft.rendering;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 
+import org.lwjgl.opengl.GL11;
+
 import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;

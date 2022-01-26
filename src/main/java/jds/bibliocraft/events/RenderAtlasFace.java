@@ -3,26 +3,21 @@ package jds.bibliocraft.events;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 
+import org.lwjgl.opengl.GL11;
+
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
-import jds.bibliocraft.helpers.ModelCache;
 import jds.bibliocraft.items.ItemAtlas;
-import jds.bibliocraft.items.ItemClipboard;
-import jds.bibliocraft.models.ModelAtlas;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
@@ -31,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.MapData;
@@ -42,7 +36,6 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.LightUtil;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class RenderAtlasFace 

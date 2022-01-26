@@ -1,10 +1,6 @@
 package jds.bibliocraft.tileentities;
 
-import jds.bibliocraft.BlockLoader;
-import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
-import jds.bibliocraft.ItemLoader;
-import jds.bibliocraft.blocks.BlockPainting;
 import jds.bibliocraft.blocks.BlockPaintingFrameBorderless;
 import jds.bibliocraft.blocks.BlockPaintingFrameFancy;
 import jds.bibliocraft.blocks.BlockPaintingFrameFlat;
@@ -12,24 +8,15 @@ import jds.bibliocraft.blocks.BlockPaintingFrameMiddle;
 import jds.bibliocraft.blocks.BlockPaintingFrameSimple;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import jds.bibliocraft.items.ItemPaintingCanvas;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

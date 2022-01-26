@@ -8,16 +8,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.items.ItemBigBook;
 import jds.bibliocraft.items.ItemRecipeBook;
 import jds.bibliocraft.items.ItemStockroomCatalog;
-
-import scala.Array;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagByte;
@@ -28,7 +24,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
 
 public class FileUtil {
 	private final String savePath = "books_bibliocraft";

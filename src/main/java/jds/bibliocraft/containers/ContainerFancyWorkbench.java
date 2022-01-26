@@ -7,7 +7,6 @@ import jds.bibliocraft.tileentities.TileEntityBookcase;
 import jds.bibliocraft.tileentities.TileEntityFancyWorkbench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
@@ -18,11 +17,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 
 public class ContainerFancyWorkbench extends Container
 {

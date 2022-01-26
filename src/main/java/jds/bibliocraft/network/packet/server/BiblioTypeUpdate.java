@@ -1,7 +1,6 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
-import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import net.minecraft.entity.player.EntityPlayerMP;

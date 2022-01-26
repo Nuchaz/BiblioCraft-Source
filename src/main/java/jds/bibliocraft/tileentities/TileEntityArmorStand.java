@@ -1,25 +1,13 @@
 package jds.bibliocraft.tileentities;
 
 import jds.bibliocraft.blocks.BlockArmorStand;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-//import net.minecraft.network.INetworkManager;
-//import net.minecraft.network.packet.Packet;
-//import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.common.util.Constants;
 
 public class TileEntityArmorStand extends BiblioTileEntity
 {

@@ -1,44 +1,28 @@
 package jds.bibliocraft.items;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.util.List;
-
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.Config;
 import jds.bibliocraft.blocks.BlockMarkerPole;
-import jds.bibliocraft.events.GuiBiblioOverlay;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMeasure;
 import jds.bibliocraft.tileentities.TileEntityMarkerPole;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityFireworkRocket;
-import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 //import net.minecraft.network.packet.Packet;
 //import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
 //import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -56,7 +40,6 @@ public class ItemTapeMeasure extends Item
 	private int oldz = 0;
 	private EnumFacing oldface = EnumFacing.NORTH;
 	
-	private boolean markerPlaced = false;
 	private int mode = 1;
 	
 	private int ticktime = 0;

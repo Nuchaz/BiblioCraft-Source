@@ -2,8 +2,6 @@ package jds.bibliocraft.network.packet;
 
 import java.util.ArrayList;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.gui.GuiAtlasMap;
 import jds.bibliocraft.gui.GuiAtlasWaypointTransfer;
@@ -18,7 +16,6 @@ import jds.bibliocraft.items.ItemRecipeBook;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.client.BiblioRecipeText;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
-import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -29,19 +26,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.management.PlayerChunkMap;
-import net.minecraft.server.management.PlayerChunkMapEntry;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

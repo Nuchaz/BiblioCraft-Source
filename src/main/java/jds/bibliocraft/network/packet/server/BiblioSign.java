@@ -1,7 +1,6 @@
 package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
 import net.minecraft.entity.player.EntityPlayerMP;

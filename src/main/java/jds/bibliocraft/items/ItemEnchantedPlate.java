@@ -2,18 +2,16 @@ package jds.bibliocraft.items;
 
 import java.util.List;
 
+import jds.bibliocraft.BlockLoader;
+import jds.bibliocraft.Config;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import jds.bibliocraft.BlockLoader;
-import jds.bibliocraft.Config;
 
 public class ItemEnchantedPlate extends Item
 {

@@ -1,13 +1,12 @@
 package jds.bibliocraft.rendering;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
+
+import org.lwjgl.opengl.GL11;
 
 import jds.bibliocraft.blocks.BiblioWoodBlock.EnumWoodType;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
@@ -15,16 +14,13 @@ import jds.bibliocraft.tileentities.TileEntityFramedChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.pipeline.LightUtil;

@@ -1,42 +1,27 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-//import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.containers.ContainerFancySign;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioSign;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 public class GuiFancySign extends GuiContainer {
 	private TileEntityFancySign signTile;

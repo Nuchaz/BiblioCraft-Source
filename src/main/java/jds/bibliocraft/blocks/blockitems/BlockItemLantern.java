@@ -2,13 +2,10 @@ package jds.bibliocraft.blocks.blockitems;
 
 import java.util.List;
 
-import jds.bibliocraft.blocks.BlockLampGold;
-import jds.bibliocraft.blocks.BlockLampIron;
 import jds.bibliocraft.blocks.BlockLanternGold;
 import jds.bibliocraft.blocks.BlockLanternIron;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

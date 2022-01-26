@@ -1,8 +1,5 @@
 package jds.bibliocraft.containers;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.items.ItemNameTester;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.client.BiblioAtlasClient;
@@ -18,12 +15,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class ContainerNameTester extends Container
 {

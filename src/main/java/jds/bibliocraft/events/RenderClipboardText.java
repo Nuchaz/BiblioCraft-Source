@@ -1,18 +1,8 @@
 package jds.bibliocraft.events;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.Config;
 import jds.bibliocraft.items.ItemClipboard;
-import jds.bibliocraft.tileentities.BiblioTileEntity;
-import jds.bibliocraft.tileentities.TileEntityClipboard;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

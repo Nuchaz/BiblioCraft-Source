@@ -3,8 +3,6 @@ package jds.bibliocraft.containers;
 
 import java.util.ArrayList;
 
-import scala.Array;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.network.BiblioNetworking;
@@ -12,9 +10,6 @@ import jds.bibliocraft.network.packet.client.BiblioAtlasClient;
 import jds.bibliocraft.slots.SlotAtlas;
 import jds.bibliocraft.slots.SlotAtlasMap;
 import jds.bibliocraft.slots.SlotLocked;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -22,7 +17,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -30,14 +24,11 @@ import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class ContainerAtlas extends Container
 {

@@ -6,26 +6,21 @@ import java.util.List;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.BiblioCraft;
-import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityCookieJar;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class BlockCookieJar extends BiblioSimpleBlock
 {

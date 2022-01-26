@@ -3,10 +3,6 @@ package jds.bibliocraft.blocks;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityBookcase;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 
 public class BlockBookcaseCreative extends BlockBookcase
 {

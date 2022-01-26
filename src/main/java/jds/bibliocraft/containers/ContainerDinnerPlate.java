@@ -1,13 +1,13 @@
 package jds.bibliocraft.containers;
 
+import jds.bibliocraft.slots.SlotFood;
+import jds.bibliocraft.tileentities.TileEntityDinnerPlate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import jds.bibliocraft.slots.SlotFood;
-import jds.bibliocraft.tileentities.TileEntityDinnerPlate;
 
 public class ContainerDinnerPlate extends Container
 {

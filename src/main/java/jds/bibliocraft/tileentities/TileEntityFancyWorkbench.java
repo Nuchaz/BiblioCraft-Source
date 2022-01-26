@@ -1,27 +1,17 @@
 package jds.bibliocraft.tileentities;
 
-import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.ItemLoader;
 import jds.bibliocraft.blocks.BlockFancyWorkbench;
 import jds.bibliocraft.containers.ContainerFancyWorkbench;
 import jds.bibliocraft.items.ItemRecipeBook;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.Constants;
 

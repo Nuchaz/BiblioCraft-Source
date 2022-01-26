@@ -1,21 +1,11 @@
 package jds.bibliocraft.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.blocks.BlockArmorStand;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class ModelArmorStand extends BiblioModelWood
 {

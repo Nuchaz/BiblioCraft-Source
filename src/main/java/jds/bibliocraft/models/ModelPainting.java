@@ -6,8 +6,6 @@ import java.util.List;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.blocks.BlockPaintingFrameBorderless;
 import jds.bibliocraft.blocks.BlockPaintingFrameFancy;
 import jds.bibliocraft.blocks.BlockPaintingFrameFlat;
@@ -16,7 +14,6 @@ import jds.bibliocraft.blocks.BlockPaintingFrameSimple;
 import jds.bibliocraft.helpers.EnumPaintingFrame;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class ModelPainting extends BiblioModelWood
 {

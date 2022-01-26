@@ -1,9 +1,8 @@
 package jds.bibliocraft.gui;
 
-import jds.bibliocraft.CommonProxy;
-
 import org.lwjgl.opengl.GL11;
 
+import jds.bibliocraft.CommonProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 

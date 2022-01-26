@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioAtlasWPT;
@@ -14,20 +11,9 @@ import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiAtlasWaypointTransfer extends GuiScreen
 {

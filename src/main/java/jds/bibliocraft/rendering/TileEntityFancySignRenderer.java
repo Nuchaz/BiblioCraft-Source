@@ -1,15 +1,11 @@
 package jds.bibliocraft.rendering;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
 import jds.bibliocraft.Config;
 import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.model.TRSRTransformation;
 
 public class TileEntityFancySignRenderer extends TileEntityBiblioRenderer
 {

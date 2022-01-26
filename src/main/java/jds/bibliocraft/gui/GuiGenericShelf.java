@@ -1,10 +1,9 @@
 package jds.bibliocraft.gui;
 
-import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.tileentities.TileEntityShelf;
-
 import org.lwjgl.opengl.GL11;
 
+import jds.bibliocraft.CommonProxy;
+import jds.bibliocraft.tileentities.TileEntityShelf;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.text.translation.I18n;

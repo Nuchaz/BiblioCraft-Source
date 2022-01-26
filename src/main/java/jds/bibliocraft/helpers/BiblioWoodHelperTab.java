@@ -1,6 +1,5 @@
 package jds.bibliocraft.helpers;
 
-import jds.bibliocraft.blocks.BlockBookcase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

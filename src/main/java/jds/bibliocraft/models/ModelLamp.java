@@ -10,11 +10,7 @@ import jds.bibliocraft.blocks.BlockLampGold;
 import jds.bibliocraft.blocks.BlockLampIron;
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.helpers.EnumMetalType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 public class ModelLamp extends BiblioModelColor

@@ -1,7 +1,5 @@
 package jds.bibliocraft;
 
-import java.util.ArrayList;
-
 import jds.bibliocraft.containers.ContainerArmor;
 import jds.bibliocraft.containers.ContainerAtlas;
 import jds.bibliocraft.containers.ContainerBookcase;
@@ -39,15 +37,11 @@ import jds.bibliocraft.gui.GuiNameTester;
 import jds.bibliocraft.gui.GuiPaintPress;
 import jds.bibliocraft.gui.GuiPainting;
 import jds.bibliocraft.gui.GuiPotionShelf;
-import jds.bibliocraft.gui.GuiScreenBookDesk;
 import jds.bibliocraft.gui.GuiSlottedBook;
-import jds.bibliocraft.gui.GuiStockCatalog;
 import jds.bibliocraft.gui.GuiTable;
 import jds.bibliocraft.gui.GuiWeaponCase;
 import jds.bibliocraft.gui.GuiWeaponRack;
 import jds.bibliocraft.gui.GuiWritingDesk;
-import jds.bibliocraft.helpers.BiblioSortingHelper;
-import jds.bibliocraft.helpers.SortedListItem;
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.items.ItemSlottedBook;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
@@ -76,7 +70,9 @@ import jds.bibliocraft.items.ContainerSlottedBook;
 import jds.bibliocraft.items.ItemLoader;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;*/
 import jds.bibliocraft.tileentities.TileEntityBookcase;
+import jds.bibliocraft.tileentities.TileEntityCase;
 import jds.bibliocraft.tileentities.TileEntityCookieJar;
+import jds.bibliocraft.tileentities.TileEntityDesk;
 import jds.bibliocraft.tileentities.TileEntityDinnerPlate;
 import jds.bibliocraft.tileentities.TileEntityDiscRack;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
@@ -90,10 +86,7 @@ import jds.bibliocraft.tileentities.TileEntityPotionShelf;
 import jds.bibliocraft.tileentities.TileEntityPrintPress;
 import jds.bibliocraft.tileentities.TileEntityShelf;
 import jds.bibliocraft.tileentities.TileEntityTable;
-import jds.bibliocraft.tileentities.TileEntityCase;
 import jds.bibliocraft.tileentities.TileEntityToolRack;
-import jds.bibliocraft.tileentities.TileEntityDesk;
-import net.minecraft.client.Minecraft;
 /*
 import jds.bibliocraft.tileentities.TileEntityCookieJar;
 import jds.bibliocraft.tileentities.TileEntityDinnerPlate;
@@ -115,15 +108,11 @@ import jds.bibliocraft.tileentities.TileEntityWritingDesk;
 */
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 //@EventHandler

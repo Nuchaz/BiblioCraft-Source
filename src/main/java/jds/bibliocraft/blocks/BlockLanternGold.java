@@ -6,18 +6,15 @@ import java.util.Random;
 
 import jds.bibliocraft.entity.EntityCandleFX;
 import jds.bibliocraft.helpers.EnumMetalType;
-import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.tileentities.BiblioLightTileEntity;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

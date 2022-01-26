@@ -1,8 +1,5 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.BiblioCraft;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioMCBEdit;
 import jds.bibliocraft.network.packet.server.BiblioMCBPage;
@@ -20,19 +16,15 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.ResourceLocation;
 //import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.ChatAllowedCharacters;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

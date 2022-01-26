@@ -1,7 +1,6 @@
 package jds.bibliocraft.tileentities;
 
 import jds.bibliocraft.Config;
-import jds.bibliocraft.ItemLoader;
 import jds.bibliocraft.blocks.BlockPrintingPress;
 import jds.bibliocraft.helpers.FileUtil;
 import jds.bibliocraft.items.ItemAtlas;
@@ -12,26 +11,18 @@ import jds.bibliocraft.items.ItemPlate;
 import jds.bibliocraft.items.ItemRecipeBook;
 import jds.bibliocraft.items.ItemStockroomCatalog;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.oredict.OreDictionary;
 
 

@@ -2,13 +2,9 @@ package jds.bibliocraft.tileentities;
 
 import java.util.List;
 
-import jds.bibliocraft.BlockLoader;
-import jds.bibliocraft.CommonProxy;
-import jds.bibliocraft.Config;
-import jds.bibliocraft.blocks.BlockSeat;
 import jds.bibliocraft.blocks.BiblioWoodBlock.EnumWoodType;
+import jds.bibliocraft.blocks.BlockSeat;
 import jds.bibliocraft.entity.EntitySeat;
-import jds.bibliocraft.helpers.BiblioRenderHelper;
 import jds.bibliocraft.helpers.EnumColor;
 import jds.bibliocraft.items.ItemSeatBack;
 import jds.bibliocraft.items.ItemSeatBack2;
@@ -49,27 +45,14 @@ import jds.bibliowood.tfcwood.items.ItemSeatBackT5;
 */
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 
 public class TileEntitySeat extends BiblioTileEntity implements ITickable
 {

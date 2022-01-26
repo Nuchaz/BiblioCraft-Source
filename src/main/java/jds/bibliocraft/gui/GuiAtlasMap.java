@@ -1,8 +1,5 @@
 package jds.bibliocraft.gui;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,38 +8,30 @@ import java.util.Random;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import jds.bibliocraft.BiblioCraft;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.MapData;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiAtlasMap extends GuiScreen
 {

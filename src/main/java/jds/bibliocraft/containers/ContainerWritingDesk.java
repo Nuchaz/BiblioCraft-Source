@@ -1,14 +1,13 @@
 package jds.bibliocraft.containers;
 
+import jds.bibliocraft.Config;
+import jds.bibliocraft.slots.SlotWritingDeskBooks;
+import jds.bibliocraft.tileentities.TileEntityDesk;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import jds.bibliocraft.Config;
-import jds.bibliocraft.slots.SlotWritingDeskBooks;
-import jds.bibliocraft.tileentities.TileEntityDesk;
 
 public class ContainerWritingDesk extends Container
 {

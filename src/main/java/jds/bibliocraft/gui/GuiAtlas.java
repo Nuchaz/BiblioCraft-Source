@@ -3,37 +3,28 @@ package jds.bibliocraft.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import jds.bibliocraft.BiblioCraft;
+
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.containers.ContainerAtlas;
 import jds.bibliocraft.items.ItemAtlas;
 import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.server.BiblioAtlas;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.MapData;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class GuiAtlas extends GuiContainer
 {

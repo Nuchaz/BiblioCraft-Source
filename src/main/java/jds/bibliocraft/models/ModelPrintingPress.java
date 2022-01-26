@@ -6,14 +6,11 @@ import java.util.List;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.blocks.BiblioLightBlock;
 import jds.bibliocraft.blocks.BlockPrintingPress;
 import jds.bibliocraft.helpers.EnumColor;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 public class ModelPrintingPress extends BiblioModelSimple

@@ -3,11 +3,6 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
-import com.google.common.collect.Lists;
-
 import jds.bibliocraft.helpers.EnumMetalType;
 import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.tileentities.BiblioLightTileEntity;
@@ -17,8 +12,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.client.model.obj.OBJModel;
 
 public class BlockLampGold extends BiblioLightBlock
 {

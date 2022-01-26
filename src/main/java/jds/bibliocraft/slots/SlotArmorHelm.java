@@ -2,14 +2,12 @@ package jds.bibliocraft.slots;
 
 import jds.bibliocraft.containers.ContainerArmor;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPumpkin;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 

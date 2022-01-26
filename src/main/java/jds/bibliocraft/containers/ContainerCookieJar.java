@@ -1,13 +1,12 @@
 package jds.bibliocraft.containers;
 
+import jds.bibliocraft.slots.SlotCookie;
+import jds.bibliocraft.tileentities.TileEntityCookieJar;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import jds.bibliocraft.slots.SlotCookie;
-import jds.bibliocraft.tileentities.TileEntityCookieJar;
 
 public class ContainerCookieJar extends Container
 {
