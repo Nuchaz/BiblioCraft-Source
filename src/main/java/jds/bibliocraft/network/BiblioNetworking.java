@@ -42,10 +42,12 @@ import net.minecraftforge.fml.relauncher.Side;
  * 
  * @author Exopteron
  */
-public class BiblioNetworking {
+public class BiblioNetworking 
+{
     public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(BiblioCraft.MODID);
     private static int packetId = 0;
-    public static void setup() {
+    public static void setup() 
+    {
         INSTANCE.registerMessage(BiblioAtlasWPT.Handler.class, BiblioAtlasWPT.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(BiblioType.Handler.class, BiblioType.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(BiblioTypeFlag.Handler.class, BiblioTypeFlag.class, packetId++, Side.SERVER);
@@ -69,7 +71,10 @@ public class BiblioNetworking {
         INSTANCE.registerMessage(BiblioPaintPress.Handler.class, BiblioPaintPress.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(BiblioPainting.Handler.class, BiblioPainting.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(BiblioPaintingC.Handler.class, BiblioPaintingC.class, packetId++, Side.SERVER);
-
+    }
+    
+    public static void setupClient()
+    {
         INSTANCE.registerMessage(BiblioDrillText.Handler.class, BiblioDrillText.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioOpenBook.Handler.class, BiblioOpenBook.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioDeskOpenGui.Handler.class, BiblioDeskOpenGui.class, packetId++, Side.CLIENT);

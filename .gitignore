@@ -8,3 +8,24 @@
 /gradle.properties
 /.vscode
 /bin
+.classpath
+
+.project
+
+changelog.txt
+
+CREDITS.txt
+
+LICENSE-Paulscode IBXM Library.txt
+
+LICENSE-Paulscode SoundSystem CodecIBXM.txt
+
+LICENSE.txt
+
+README.txt
+
+runClient.launch
+
+runServer.launch
+
+.settings/
