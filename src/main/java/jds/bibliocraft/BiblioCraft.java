@@ -200,12 +200,6 @@ public class BiblioCraft
 		BiblioNetworking.setup();
 	}
 	
-	@Mod.EventHandler 
-	@SideOnly(Side.CLIENT)
-	public void clientLoad(FMLInitializationEvent event) 
-	{
-		BiblioNetworking.setupClient();
-	}
 
 	@Mod.EventHandler
 	@SideOnly(Side.CLIENT)

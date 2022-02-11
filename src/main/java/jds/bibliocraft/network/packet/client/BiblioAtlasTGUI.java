@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BiblioAtlasTGUI implements IMessage {
     ItemStack atlas;
@@ -41,18 +43,23 @@ public class BiblioAtlasTGUI implements IMessage {
 
         @Override
         public IMessage onMessage(BiblioAtlasTGUI message, MessageContext ctx) {
-            Minecraft.getMinecraft().addScheduledTask(() -> {
-                EntityPlayerSP player = Minecraft.getMinecraft().player;
-                final TileEntityMapFrame tile = (TileEntityMapFrame) player.world.getTileEntity(message.pos); //
-                if (tile != null) {
-                    Utils.openWaypointTransferGUI(Minecraft.getMinecraft().world, Minecraft.getMinecraft().player,
-                            message.atlas,
-                            tile);
-
-                }
+            Minecraft.getMinecraft().addScheduledTask(() -> 
+            {
+            	handleAtlas(message.atlas, message.pos);
             });
             return null;
         }
 
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static void handleAtlas(ItemStack atlas, BlockPos pos)
+    {
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        final TileEntityMapFrame tile = (TileEntityMapFrame) player.world.getTileEntity(pos); 
+        if (tile != null) 
+        {
+            Utils.openWaypointTransferGUI(Minecraft.getMinecraft().world, Minecraft.getMinecraft().player, atlas, tile);
+        }
     }
 }

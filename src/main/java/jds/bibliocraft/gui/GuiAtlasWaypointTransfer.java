@@ -73,6 +73,7 @@ public class GuiAtlasWaypointTransfer extends GuiScreen
     private void sendTransferPacket(boolean toMapFrame)
     {
 		System.out.println("balls");
+		// something here isn't working right. 
     	// ByteBuf buffer = Unpooled.buffer();
     	// buffer.writeBoolean(toMapFrame);
     	// buffer.writeInt(frameTile.getPos().getX());

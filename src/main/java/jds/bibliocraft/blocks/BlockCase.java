@@ -3,6 +3,7 @@ package jds.bibliocraft.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
@@ -25,6 +26,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -56,7 +58,8 @@ public class BlockCase extends BiblioWoodBlock
 					tile.setOpenLid(!tile.getOpenLid());
 					if (tile.getOpenLid())
 					{
-						world.playSound(null, pos, CommonProxy.SOUND_CASE_OPEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+						// this works in singleplayer, but not on a server. I think we will have to send packets.
+						world.playSound(null, pos, CommonProxy.SOUND_CASE_OPEN, SoundCategory.BLOCKS, 1.0F, 1.0F); 
 					}
 					else
 					{

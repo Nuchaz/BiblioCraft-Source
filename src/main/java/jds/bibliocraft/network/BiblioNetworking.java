@@ -71,18 +71,16 @@ public class BiblioNetworking
         INSTANCE.registerMessage(BiblioPaintPress.Handler.class, BiblioPaintPress.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(BiblioPainting.Handler.class, BiblioPainting.class, packetId++, Side.SERVER);
         INSTANCE.registerMessage(BiblioPaintingC.Handler.class, BiblioPaintingC.class, packetId++, Side.SERVER);
-    }
-    
-    public static void setupClient()
-    {
+        
         INSTANCE.registerMessage(BiblioDrillText.Handler.class, BiblioDrillText.class, packetId++, Side.CLIENT);
-        INSTANCE.registerMessage(BiblioOpenBook.Handler.class, BiblioOpenBook.class, packetId++, Side.CLIENT);
-        INSTANCE.registerMessage(BiblioDeskOpenGui.Handler.class, BiblioDeskOpenGui.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioAtlasClient.Handler.class, BiblioAtlasClient.class, packetId++, Side.CLIENT);
-        INSTANCE.registerMessage(BiblioAtlasSWPClient.Handler.class, BiblioAtlasSWPClient.class, packetId++, Side.CLIENT);
-        INSTANCE.registerMessage(BiblioAtlasTGUI.Handler.class, BiblioAtlasTGUI.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioPanelerClient.Handler.class, BiblioPanelerClient.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioRecipeText.Handler.class, BiblioRecipeText.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioStockLog.Handler.class, BiblioStockLog.class, packetId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioOpenBook.Handler.class, BiblioOpenBook.class, packetId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioDeskOpenGui.Handler.class, BiblioDeskOpenGui.class, packetId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioAtlasSWPClient.Handler.class, BiblioAtlasSWPClient.class, packetId++, Side.CLIENT);
+        INSTANCE.registerMessage(BiblioAtlasTGUI.Handler.class, BiblioAtlasTGUI.class, packetId++, Side.CLIENT);
     }
+
 }

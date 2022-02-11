@@ -33,6 +33,8 @@ public class BlockBell extends BiblioSimpleBlock
 	@Override
 	public boolean onBlockActivatedCustomCommands(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
+		System.out.println("remote? " + world.isRemote);
+		// this doesn't run client side at all anymore. hmmm.
 		if (!world.isRemote)
 		{
 			world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), CommonProxy.SOUND_DING, SoundCategory.BLOCKS, 1.0F, 1.0F);

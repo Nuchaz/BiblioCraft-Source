@@ -18,6 +18,8 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BiblioDeskOpenGui implements IMessage {
     BlockPos pos;
@@ -60,41 +62,48 @@ public class BiblioDeskOpenGui implements IMessage {
             if (book != ItemStack.EMPTY) {
                 final Item signedtest = book.getItem();
                 Minecraft.getMinecraft().addScheduledTask(() -> {
-                    EntityPlayer player = Minecraft.getMinecraft().player;
-                    if (signedtest instanceof ItemWrittenBook) {
-                        Utils.openWritingGUI(player, book, x, y, z, false);
-                        // signedtest.onItemRightClick(book, world, player);
-                    }
-                    if (signedtest instanceof ItemWritableBook) {
-                        Utils.openWritingGUI(player, book, x, y, z, true);
-                    }
-                    if (signedtest instanceof ItemClipboard) {
-                        Utils.openClipboardGUI(book, false, x, y, z);
-                    }
-                    if (signedtest instanceof ItemBigBook) {
-                        Utils.openBigBookGUI(book, x, y, z, player.getDisplayNameString());
-                    }
-                    if (signedtest instanceof ItemRecipeBook) {
-                        Utils.openRecipeBookGUI(book, x, y, z, -1, canCraft);
-                    }
-                    if (Loader.isModLoaded("thaumcraft") && book.toString().contains("thaumonomicon")) {
-                        signedtest.onItemRightClick(player.getEntityWorld(), player, EnumHand.MAIN_HAND);
-                    }
-                    if (Loader.isModLoaded("tailcraft") && book.toString().contains("railcraft.routing.table")) {
-                        signedtest.onItemRightClick(player.getEntityWorld(), player, EnumHand.MAIN_HAND);
-                    }
-                    if (Loader.isModLoaded("craftguide") && book.toString().contains("craftguide")) {
-                        signedtest.onItemRightClick(player.getEntityWorld(), player, EnumHand.MAIN_HAND);
-                    }
-                    if (Loader.isModLoaded("botania") && book.getUnlocalizedName().contentEquals("item.lexicon")) {
-                        // System.out.println(book.getUnlocalizedName());
-                        // signedtest.onItemRightClick(book, world, player);
-                        // doesnt work
-                    }
+                	
+                	handleBook(book, x, y, z, signedtest, canCraft);
+
                 });
             }
             return null;
         }
-
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public static void handleBook(ItemStack book, int x, int y, int z, Item signedtest, boolean canCraft)
+    {
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        if (signedtest instanceof ItemWrittenBook) {
+            Utils.openWritingGUI(player, book, x, y, z, false);
+            // signedtest.onItemRightClick(book, world, player);
+        }
+        if (signedtest instanceof ItemWritableBook) {
+            Utils.openWritingGUI(player, book, x, y, z, true);
+        }
+        if (signedtest instanceof ItemClipboard) {
+            Utils.openClipboardGUI(book, false, x, y, z);
+        }
+        if (signedtest instanceof ItemBigBook) {
+            Utils.openBigBookGUI(book, x, y, z, player.getDisplayNameString());
+        }
+        if (signedtest instanceof ItemRecipeBook) {
+            Utils.openRecipeBookGUI(book, x, y, z, -1, canCraft);
+        }
+        if (Loader.isModLoaded("thaumcraft") && book.toString().contains("thaumonomicon")) {
+            signedtest.onItemRightClick(player.getEntityWorld(), player, EnumHand.MAIN_HAND);
+        }
+        if (Loader.isModLoaded("tailcraft") && book.toString().contains("railcraft.routing.table")) {
+            signedtest.onItemRightClick(player.getEntityWorld(), player, EnumHand.MAIN_HAND);
+        }
+        if (Loader.isModLoaded("craftguide") && book.toString().contains("craftguide")) {
+            signedtest.onItemRightClick(player.getEntityWorld(), player, EnumHand.MAIN_HAND);
+        }
+        if (Loader.isModLoaded("botania") && book.getUnlocalizedName().contentEquals("item.lexicon")) {
+            // System.out.println(book.getUnlocalizedName());
+            // signedtest.onItemRightClick(book, world, player);
+            // doesnt work
+        }
     }
 }
