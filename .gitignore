@@ -1,11 +1,6 @@
 /.gradle
 /build
 /run
-/gradle
-/build.gradle
-/gradlew
-/gradlew.bat
-/gradle.properties
 /.vscode
 /bin
 .classpath
