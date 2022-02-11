@@ -2,8 +2,12 @@ package jds.bibliocraft.network.packet.server;
 
 import io.netty.buffer.ByteBuf;
 import jds.bibliocraft.BiblioCraft;
+import jds.bibliocraft.items.ItemAtlas;
+import jds.bibliocraft.items.ItemWaypointCompass;
 import jds.bibliocraft.network.packet.Utils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemEmptyMap;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,42 +40,62 @@ public class BiblioUpdateInv implements IMessage {
         ByteBufUtils.writeItemStack(buf, this.stackostuff);
         buf.writeBoolean(this.isSWP);
     }
-    public static class Handler implements IMessageHandler<BiblioUpdateInv, IMessage> {
+    public static class Handler implements IMessageHandler<BiblioUpdateInv, IMessage> 
+    {
 
         @Override
-        public IMessage onMessage(BiblioUpdateInv message, MessageContext ctx) {
-            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> {
+        public IMessage onMessage(BiblioUpdateInv message, MessageContext ctx) 
+        {
+            ctx.getServerHandler().player.getServerWorld().addScheduledTask(() -> 
+            {
                 EntityPlayer player = ctx.getServerHandler().player;
                 ItemStack stackostuff = message.stackostuff;
-                if (stackostuff != ItemStack.EMPTY) {
+                if (stackostuff != ItemStack.EMPTY) 
+                {
                     boolean safe = true;
                     // Attempted fix for exploit based on what the GT:NH developers did
-                    try {
+                    // Fixed the fix so it works with bigbook, clipboard, reecipe book, redstone book, slotted book, and compass and accepts empty maps and compasses into the atlas.
+                    try 
+                    {
                         NBTTagList list = stackostuff.getTagCompound().getTagList("Inventory", 10);
-                        for (int i = 0; i <= list.tagCount(); i++) {
-                            if (!(new ItemStack(list.getCompoundTagAt(i)).getItem() instanceof ItemMap)) {
-                                safe = false;
-                                break;
+                        if (list.tagCount() > 0 && stackostuff.getItem() instanceof ItemAtlas)
+                        {
+                            for (int i = 0; i <= list.tagCount(); i++) 
+                            {
+                            	Item testItem =  new ItemStack(list.getCompoundTagAt(i)).getItem();
+                            	if (!(testItem instanceof ItemEmptyMap || testItem instanceof ItemMap || testItem instanceof ItemWaypointCompass))
+                            	{
+                            		safe = false;
+                            	}
+                            	
                             }
                         }
-                    } catch (NullPointerException e) {
+                        
+                    } 
+                    catch (NullPointerException e) 
+                    {
                         // lazy :D
                     }
-                    if (safe) {
+                    if (safe) 
+                    {
                         ItemStack currentPlayerSlot = player.getHeldItem(EnumHand.MAIN_HAND);
-                        if (currentPlayerSlot != ItemStack.EMPTY) {
-                            if (currentPlayerSlot.getUnlocalizedName().equals(stackostuff.getUnlocalizedName())
-                                    && Utils.checkIfValidPacketItem(currentPlayerSlot.getUnlocalizedName())) {
+                        if (currentPlayerSlot != ItemStack.EMPTY) 
+                        {
+                            if (currentPlayerSlot.getUnlocalizedName().equals(stackostuff.getUnlocalizedName()) && Utils.checkIfValidPacketItem(currentPlayerSlot.getUnlocalizedName())) 
+                            {
                                 NBTTagCompound currentTags = currentPlayerSlot.getTagCompound();
                                 NBTTagCompound newTags = stackostuff.getTagCompound();
-                                if (!currentPlayerSlot.getUnlocalizedName().contains("item.AtlasBook")) {
-                                    if (currentTags != null && currentTags.hasKey("Inventory") && newTags != null) {
+                                if (!currentPlayerSlot.getUnlocalizedName().contains("item.AtlasBook")) 
+                                {
+                                    if (currentTags != null && currentTags.hasKey("Inventory") && newTags != null) 
+                                    {
                                         NBTTagList tagList = currentTags.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
                                         newTags.setTag("Inventory", tagList);
                                         stackostuff.setTagCompound(newTags);
                                     }
-                                } else if (currentTags.hasKey("atlasID") && newTags.hasKey("atlasID")
-                                        && currentTags.getInteger("atlasID") != newTags.getInteger("atlasID")) {
+                                }
+                                else if (currentTags.hasKey("atlasID") && newTags.hasKey("atlasID") && currentTags.getInteger("atlasID") != newTags.getInteger("atlasID")) 
+                                {
                                     return;
                                 }
                                 player.inventory.setInventorySlotContents(player.inventory.currentItem, stackostuff);
@@ -79,10 +103,10 @@ public class BiblioUpdateInv implements IMessage {
                         }
                     }
                 }
-                if (message.isSWP) {
+                if (message.isSWP) 
+                {
                     player.closeScreen();
-                    player.openGui(BiblioCraft.instance, 100, player.world, (int) player.posX, (int) player.posY,
-                            (int) player.posZ);
+                    player.openGui(BiblioCraft.instance, 100, player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
                 }
             });
             return null;
