@@ -9,6 +9,7 @@ import jds.bibliocraft.network.packet.client.BiblioDrillText;
 import jds.bibliocraft.network.packet.client.BiblioOpenBook;
 import jds.bibliocraft.network.packet.client.BiblioPanelerClient;
 import jds.bibliocraft.network.packet.client.BiblioRecipeText;
+import jds.bibliocraft.network.packet.client.BiblioSoundPlayer;
 import jds.bibliocraft.network.packet.client.BiblioStockLog;
 import jds.bibliocraft.network.packet.server.BiblioAtlas;
 import jds.bibliocraft.network.packet.server.BiblioAtlasWPT;
@@ -81,6 +82,8 @@ public class BiblioNetworking
         INSTANCE.registerMessage(BiblioDeskOpenGui.Handler.class, BiblioDeskOpenGui.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioAtlasSWPClient.Handler.class, BiblioAtlasSWPClient.class, packetId++, Side.CLIENT);
         INSTANCE.registerMessage(BiblioAtlasTGUI.Handler.class, BiblioAtlasTGUI.class, packetId++, Side.CLIENT);
+        
+        INSTANCE.registerMessage(BiblioSoundPlayer.Handler.class, BiblioSoundPlayer.class, packetId++, Side.CLIENT);
     }
 
 }

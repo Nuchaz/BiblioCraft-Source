@@ -177,7 +177,8 @@ public class CommonProxy
 	public static final ResourceLocation PAINTINGSHEET = new ResourceLocation("textures/painting/paintings_kristoffer_zetterstrand.png");
 	
 	
-	public static final SoundEvent SOUND_DING = new SoundEvent(new ResourceLocation("bibliocraft:ding"));
+	public static final String SOUND_BELL_DING_TEXT = "bibliocraft:ding";
+	public static final SoundEvent SOUND_DING = new SoundEvent(new ResourceLocation(SOUND_BELL_DING_TEXT));
 	
 	public static final SoundEvent SOUND_TYPEWRITER_ADDPAPER = new SoundEvent(new ResourceLocation("bibliocraft:addpaper"));
 	public static final SoundEvent SOUND_TYPEWRITER_TYPEING = new SoundEvent(new ResourceLocation("bibliocraft:typing"));
@@ -193,8 +194,10 @@ public class CommonProxy
 	public static final SoundEvent SOUND_ITEM_HANDDRILL = new SoundEvent(new ResourceLocation("bibliocraft:drill"));
 	public static final SoundEvent SOUND_ITEM_SCREWGUN = new SoundEvent(new ResourceLocation("bibliocraft:screw"));
 	
-	public static final SoundEvent SOUND_CASE_OPEN = new SoundEvent(new ResourceLocation("bibliocraft:copen"));
-	public static final SoundEvent SOUND_CASE_CLOSE = new SoundEvent(new ResourceLocation("bibliocraft:cclose"));
+	public static final String SOUND_CASE_OPEN_TEXT = "bibliocraft:copen";
+	public static final String SOUND_CASE_CLOSE_TEXT = "bibliocraft:cclose";
+	public static final SoundEvent SOUND_CASE_OPEN = new SoundEvent(new ResourceLocation(SOUND_CASE_OPEN_TEXT));
+	public static final SoundEvent SOUND_CASE_CLOSE = new SoundEvent(new ResourceLocation(SOUND_CASE_CLOSE_TEXT));
 	
 	public static final SoundEvent SOUND_TAPE_OPEN = new SoundEvent(new ResourceLocation("bibliocraft:tapeopen"));
 	public static final SoundEvent SOUND_TAPE_CLOSE = new SoundEvent(new ResourceLocation("bibliocraft:tapeclose"));
