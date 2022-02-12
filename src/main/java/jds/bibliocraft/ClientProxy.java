@@ -175,6 +175,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends CommonProxy 
 {
 
+	@SuppressWarnings("unchecked")
 	public void registerRenderers()
 	{
 		MinecraftForge.EVENT_BUS.register(TextureStichHandler.instance);
