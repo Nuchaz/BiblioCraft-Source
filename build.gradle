@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '2.4.5'
+version = '2.4.6'
 group = 'jds' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'BiblioCraft'
 
@@ -87,9 +87,9 @@ jar {
         attributes([
             "Specification-Title": "bibliocraft",
             "Specification-Vendor": "Nuchaz",
-            "Specification-Version": "2.4.5",
+            "Specification-Version": "${version}",
             "Implementation-Title": "BiblioCraft",
-            "Implementation-Version": "2.4.5",
+            "Implementation-Version": "${version}",
             "Implementation-Vendor" : "Nuchaz",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
