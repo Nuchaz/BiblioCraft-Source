@@ -33,7 +33,7 @@ import jds.bibliocraft.items.ItemSeatBack4;
 import jds.bibliocraft.items.ItemSeatBack5;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class RegisterCustomFramedBlocks 

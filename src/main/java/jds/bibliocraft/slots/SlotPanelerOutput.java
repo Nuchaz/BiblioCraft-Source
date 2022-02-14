@@ -4,7 +4,7 @@ import jds.bibliocraft.containers.ContainerFurniturePaneler;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotPanelerOutput extends Slot
 {

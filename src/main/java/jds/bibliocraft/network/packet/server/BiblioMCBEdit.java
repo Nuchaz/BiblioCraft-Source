@@ -5,7 +5,7 @@ import jds.bibliocraft.Config;
 import jds.bibliocraft.network.packet.Utils;
 import jds.bibliocraft.tileentities.TileEntityDesk;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

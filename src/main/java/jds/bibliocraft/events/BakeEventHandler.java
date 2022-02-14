@@ -42,9 +42,9 @@ import jds.bibliocraft.models.ModelTable;
 import jds.bibliocraft.models.ModelToolRack;
 import jds.bibliocraft.models.ModelTypesettingTable;
 import jds.bibliocraft.models.ModelTypewriter;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+//import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class BakeEventHandler 
 {

@@ -3,7 +3,7 @@ package jds.bibliocraft.network.packet.server;
 import io.netty.buffer.ByteBuf;
 import jds.bibliocraft.items.ItemWaypointCompass;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

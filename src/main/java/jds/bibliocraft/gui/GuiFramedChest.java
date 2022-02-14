@@ -6,7 +6,7 @@ import jds.bibliocraft.containers.ContainerFramedChest;
 import jds.bibliocraft.tileentities.TileEntityFramedChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
 public class GuiFramedChest extends GuiContainer

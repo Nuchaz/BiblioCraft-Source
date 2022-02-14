@@ -3,7 +3,7 @@ package jds.bibliocraft.slots;
 import jds.bibliocraft.containers.ContainerTypeMachine;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotPlate extends Slot
 {

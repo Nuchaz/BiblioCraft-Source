@@ -5,7 +5,7 @@ import jds.bibliocraft.helpers.EnumVertPosition;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityDiscRack;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 public class TileEntityDiscRackRenderer extends TileEntityBiblioRenderer

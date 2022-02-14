@@ -9,7 +9,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemSkull;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 
 public class SlotArmorHelm extends Slot

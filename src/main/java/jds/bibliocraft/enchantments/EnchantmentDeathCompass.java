@@ -4,7 +4,7 @@ import jds.bibliocraft.items.ItemAtlas;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
 public class EnchantmentDeathCompass extends Enchantment

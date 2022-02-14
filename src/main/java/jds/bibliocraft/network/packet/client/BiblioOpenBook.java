@@ -6,7 +6,7 @@ import jds.bibliocraft.items.ItemRecipeBook;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 //import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.FMLCommonHandler;

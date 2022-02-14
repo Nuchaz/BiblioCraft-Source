@@ -7,7 +7,7 @@ import jds.bibliocraft.network.packet.server.BiblioPaneler;
 import jds.bibliocraft.tileentities.TileEntityFurniturePaneler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;

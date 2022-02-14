@@ -9,7 +9,7 @@ import jds.bibliocraft.storygen.BookGenUtil;
 import jds.bibliocraft.storygen.BookGenWordLists;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

@@ -4,9 +4,9 @@ import jds.bibliocraft.containers.ContainerAtlas;
 import jds.bibliocraft.containers.ContainerSlottedBook;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EventItemToss 
 {

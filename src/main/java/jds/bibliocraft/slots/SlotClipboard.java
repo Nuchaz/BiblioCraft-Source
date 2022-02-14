@@ -4,7 +4,7 @@ import jds.bibliocraft.containers.ContainerClipboard;
 import jds.bibliocraft.items.ItemClipboard;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotClipboard extends Slot
 {

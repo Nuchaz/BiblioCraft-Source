@@ -1,9 +1,9 @@
 package jds.bibliocraft.events;
 
 import jds.bibliocraft.helpers.PaintingUtil;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class TextureStichHandler 
 {

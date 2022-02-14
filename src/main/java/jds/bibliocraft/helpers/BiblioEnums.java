@@ -1,7 +1,7 @@
 package jds.bibliocraft.helpers;
 
 import jds.bibliocraft.CommonProxy;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class BiblioEnums
 {

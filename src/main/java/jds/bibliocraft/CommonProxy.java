@@ -66,7 +66,7 @@ import jds.bibliocraft.tileentities.TileEntityTable;
 import jds.bibliocraft.tileentities.TileEntityToolRack;
 import jds.bibliocraft.tileentities.TileEntityTypeMachine;
 import jds.bibliocraft.tileentities.TileEntityTypewriter;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

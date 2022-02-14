@@ -34,9 +34,9 @@ import jds.bibliocraft.items.ItemTapeMeasure;
 import jds.bibliocraft.items.ItemWaypointCompass;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.oredict.RecipeSorter;
 

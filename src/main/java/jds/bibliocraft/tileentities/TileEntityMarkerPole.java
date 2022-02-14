@@ -1,7 +1,7 @@
 package jds.bibliocraft.tileentities;
 
 import jds.bibliocraft.blocks.BlockMarkerPole;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;

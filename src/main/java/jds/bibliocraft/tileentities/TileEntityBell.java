@@ -2,7 +2,7 @@ package jds.bibliocraft.tileentities;
 
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.blocks.BlockBell;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;

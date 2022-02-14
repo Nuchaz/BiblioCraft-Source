@@ -1,7 +1,7 @@
 package jds.bibliocraft.rendering;
 
 import jds.bibliocraft.tileentities.BiblioTileEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class TileEntityLabelRenderer extends TileEntityBiblioRenderer
 {

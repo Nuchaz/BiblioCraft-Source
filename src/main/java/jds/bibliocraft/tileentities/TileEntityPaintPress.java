@@ -3,7 +3,7 @@ package jds.bibliocraft.tileentities;
 import jds.bibliocraft.blocks.BlockPaintingPress;
 import jds.bibliocraft.items.ItemPaintingCanvas;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;

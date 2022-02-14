@@ -5,7 +5,7 @@ import jds.bibliocraft.helpers.EnumShiftPosition;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityFancySign;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class TileEntityFancySignRenderer extends TileEntityBiblioRenderer
 {

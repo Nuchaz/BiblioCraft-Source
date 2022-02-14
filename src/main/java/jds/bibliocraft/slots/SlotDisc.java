@@ -5,7 +5,7 @@ import jds.bibliocraft.containers.ContainerDiscRack;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemRecord;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotDisc extends Slot
 {

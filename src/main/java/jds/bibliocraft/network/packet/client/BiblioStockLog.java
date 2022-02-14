@@ -7,7 +7,7 @@ import jds.bibliocraft.helpers.BiblioSortingHelper;
 import jds.bibliocraft.helpers.SortedListItem;
 import jds.bibliocraft.network.packet.Utils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;

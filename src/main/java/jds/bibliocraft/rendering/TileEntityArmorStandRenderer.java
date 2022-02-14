@@ -7,14 +7,22 @@ import jds.bibliocraft.entity.AbtractSteve;
 import jds.bibliocraft.entity.ModelDummy;
 import jds.bibliocraft.tileentities.TileEntityArmorStand;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+//import net.minecraft.client.entity.AbstractClientPlayer;
+//import net.minecraft.client.renderer.GlStateManager;
+//import net.minecraft.client.renderer.entity.RenderManager;
+//import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+//import net.minecraft.tileentity.TileEntity;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 
-public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer
+public class TileEntityArmorStandRenderer extends BlockEntityWithoutLevelRenderer // is this what replaces TileEntitySpecialRenderer? I have no idea
 {
+	public TileEntityArmorStandRenderer(BlockEntityRenderDispatcher p_172550_, EntityModelSet p_172551_) {
+		super(p_172550_, p_172551_);
+		// TODO Auto-generated constructor stub
+	}
+
 	private AbstractClientPlayer steve;
 	private RenderManager renderManager;
 	private ModelDummy modelDummy= new ModelDummy();

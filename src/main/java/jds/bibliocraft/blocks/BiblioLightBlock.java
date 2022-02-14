@@ -2,8 +2,8 @@ package jds.bibliocraft.blocks;
 
 import java.util.List;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
+//import javax.vecmath.Quat4f;
+//import javax.vecmath.Vector3f;
 
 import jds.bibliocraft.BlockLoader;
 import jds.bibliocraft.helpers.EnumColor;
@@ -13,27 +13,29 @@ import jds.bibliocraft.states.MetalTypeProperty;
 import jds.bibliocraft.states.MetalTypeState;
 import jds.bibliocraft.tileentities.BiblioLightTileEntity;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+//import net.minecraft.block.SoundType;
+//import net.minecraft.block.material.Material;
+//import net.minecraft.block.properties.IProperty;
+//import net.minecraft.block.properties.PropertyEnum;
+//import net.minecraft.block.state.BlockStateContainer;
+//import net.minecraft.block.state.IBlockState;
+//import net.minecraft.creativetab.CreativeTabs;
+//import net.minecraft.entity.EntityLivingBase;
+//import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+//import net.minecraft.tileentity.TileEntity;
+//import net.minecraft.util.EnumFacing;
+//import net.minecraft.core.NonNullList;
+//import net.minecraft.util.math.BlockPos;
+//import net.minecraft.util.math.MathHelper;
+//import net.minecraft.world.World;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.property.ExtendedBlockState;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
+//import net.minecraftforge.common.model.TRSRTransformation;
+//import net.minecraftforge.common.property.ExtendedBlockState;
+//import net.minecraftforge.common.property.IExtendedBlockState;
+//import net.minecraftforge.common.property.IUnlistedProperty;
 
 public abstract class BiblioLightBlock extends BiblioBlock
 {
@@ -59,7 +61,7 @@ public abstract class BiblioLightBlock extends BiblioBlock
 	}
 	
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> subItems)
+	public void getSubBlocks(CreativeModeTab tab, NonNullList<ItemStack> subItems)
 	{
 		for (int x = 0; x < 16; x++) /// 16 for 16 colors
 		{

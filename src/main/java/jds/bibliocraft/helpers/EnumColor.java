@@ -1,6 +1,6 @@
 package jds.bibliocraft.helpers;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumColor implements IStringSerializable

@@ -3,7 +3,7 @@ package jds.bibliocraft.tileentities;
 import jds.bibliocraft.blocks.BlockLampGold;
 import jds.bibliocraft.helpers.EnumMetalType;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;

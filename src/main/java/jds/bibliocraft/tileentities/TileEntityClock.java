@@ -3,7 +3,7 @@ package jds.bibliocraft.tileentities;
 import jds.bibliocraft.CommonProxy;
 import jds.bibliocraft.blocks.BlockClock;
 import jds.bibliocraft.helpers.EnumVertPosition;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;

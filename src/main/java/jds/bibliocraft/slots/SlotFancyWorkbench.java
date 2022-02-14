@@ -5,7 +5,7 @@ import jds.bibliocraft.items.ItemRecipeBook;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemBook;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class SlotFancyWorkbench extends Slot
 {

@@ -3,7 +3,7 @@ package jds.bibliocraft.rendering;
 import jds.bibliocraft.tileentities.BiblioTileEntity;
 import jds.bibliocraft.tileentities.TileEntityTable;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class TileEntityTableRenderer extends TileEntityBiblioRenderer
 {

@@ -3,7 +3,7 @@ package jds.bibliocraft.items;
 
 import jds.bibliocraft.BlockLoader;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ItemChase extends Item
 {

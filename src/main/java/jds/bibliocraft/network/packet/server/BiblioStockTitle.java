@@ -3,7 +3,7 @@ package jds.bibliocraft.network.packet.server;
 import io.netty.buffer.ByteBuf;
 import jds.bibliocraft.items.ItemStockroomCatalog;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;

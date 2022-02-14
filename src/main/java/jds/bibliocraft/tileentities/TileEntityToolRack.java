@@ -9,7 +9,7 @@ import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemShears;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;

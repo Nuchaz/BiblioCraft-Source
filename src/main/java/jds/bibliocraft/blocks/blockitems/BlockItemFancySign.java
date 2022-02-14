@@ -4,7 +4,7 @@ import java.util.List;
 
 import jds.bibliocraft.blocks.BlockFancySign;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 

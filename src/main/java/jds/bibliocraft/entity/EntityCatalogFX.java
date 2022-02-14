@@ -1,11 +1,18 @@
 package jds.bibliocraft.entity;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.client.particle.ParticleRenderType;
+//import net.minecraft.client.renderer.BufferBuilder;
+//import net.minecraft.entity.Entity;
+//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 public class EntityCatalogFX extends Particle
 {
@@ -92,5 +99,17 @@ public class EntityCatalogFX extends Particle
     {
         return 2;
     }
+
+	@Override
+	public void render(VertexConsumer p_107261_, Camera p_107262_, float p_107263_) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ParticleRenderType getRenderType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
