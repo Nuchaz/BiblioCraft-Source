@@ -1,26 +1,25 @@
-/.gradle
-/build
-/run
-/.vscode
-/bin
+# eclipse
+bin
+*.launch
+.settings
+.metadata
 .classpath
-
 .project
 
-changelog.txt
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
 
-CREDITS.txt
+# gradle
+build
+.gradle
 
-LICENSE-Paulscode IBXM Library.txt
+# other
+eclipse
+run
 
-LICENSE-Paulscode SoundSystem CodecIBXM.txt
-
-LICENSE.txt
-
-README.txt
-
-runClient.launch
-
-runServer.launch
-
-.settings/
+# Files from Forge MDK
+forge*changelog.txt
