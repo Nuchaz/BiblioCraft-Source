@@ -34,9 +34,10 @@ import jds.bibliocraft.network.packet.server.BiblioTypeDelete;
 import jds.bibliocraft.network.packet.server.BiblioTypeFlag;
 import jds.bibliocraft.network.packet.server.BiblioTypeUpdate;
 import jds.bibliocraft.network.packet.server.BiblioUpdateInv;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.common.network.NetworkRegistry;
+//import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+//import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.network.NetworkRegistry;
 
 /**
  * Networking manager class

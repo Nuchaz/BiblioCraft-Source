@@ -42,8 +42,9 @@ import jds.bibliocraft.models.ModelTable;
 import jds.bibliocraft.models.ModelToolRack;
 import jds.bibliocraft.models.ModelTypesettingTable;
 import jds.bibliocraft.models.ModelTypewriter;
-//import net.minecraft.client.renderer.block.model.IBakedModel;
+//import net.minecraft.client.renderer.block.model.IForgeBakedModel;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.extensions.IForgeBakedModel;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class BakeEventHandler 
@@ -92,33 +93,33 @@ public class BakeEventHandler
     	{
     		event.getModelRegistry().putObject(ModelSeat.modelResourceLocation, new ModelSeat());
     		Object object =  event.getModelRegistry().getObject(ModelSeatBack1.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelSeatBack1 seatback = new ModelSeatBack1((IBakedModel)object);
+	        	ModelSeatBack1 seatback = new ModelSeatBack1((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelSeatBack1.modelResourceLocation, seatback);
 	        }
 	        object =  event.getModelRegistry().getObject(ModelSeatBack2.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelSeatBack2 seatback = new ModelSeatBack2((IBakedModel)object);
+	        	ModelSeatBack2 seatback = new ModelSeatBack2((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelSeatBack2.modelResourceLocation, seatback);
 	        }
 	        object =  event.getModelRegistry().getObject(ModelSeatBack3.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelSeatBack3 seatback = new ModelSeatBack3((IBakedModel)object);
+	        	ModelSeatBack3 seatback = new ModelSeatBack3((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelSeatBack3.modelResourceLocation, seatback);
 	        }
 	        object =  event.getModelRegistry().getObject(ModelSeatBack4.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelSeatBack4 seatback = new ModelSeatBack4((IBakedModel)object);
+	        	ModelSeatBack4 seatback = new ModelSeatBack4((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelSeatBack4.modelResourceLocation, seatback);
 	        }
 	        object =  event.getModelRegistry().getObject(ModelSeatBack5.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelSeatBack5 seatback = new ModelSeatBack5((IBakedModel)object);
+	        	ModelSeatBack5 seatback = new ModelSeatBack5((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelSeatBack5.modelResourceLocation, seatback);
 	        }
     	}
@@ -134,9 +135,9 @@ public class BakeEventHandler
     	{
     		event.getModelRegistry().putObject(ModelMapFrame.modelResourceLocation, new ModelMapFrame());
     		Object object =  event.getModelRegistry().getObject(ModelMapTool.modelResourceLocation);
-            if (object instanceof IBakedModel)
+            if (object instanceof IForgeBakedModel)
             {
-            	ModelMapTool maptool = new ModelMapTool((IBakedModel)object);
+            	ModelMapTool maptool = new ModelMapTool((IForgeBakedModel)object);
             	event.getModelRegistry().putObject(ModelMapTool.modelResourceLocation, maptool);
             }
     	}
@@ -151,9 +152,9 @@ public class BakeEventHandler
 	    	event.getModelRegistry().putObject(ModelPainting.modelResourceLocationSimple, new ModelPainting(EnumPaintingFrame.SIMPLE));
 	    	event.getModelRegistry().putObject(ModelPaintingPress.modelResourceLocation, new ModelPaintingPress());
 	    	Object object =  event.getModelRegistry().getObject(ModelCanvas.modelResourceLocation);
-	        //if (object instanceof IBakedModel)
+	        //if (object instanceof IForgeBakedModel)
 	        //{
-	        	ModelCanvas canvas = new ModelCanvas((IBakedModel)object);
+	        	ModelCanvas canvas = new ModelCanvas((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelCanvas.modelResourceLocation,  canvas);
 	        //}
     	}
@@ -180,28 +181,28 @@ public class BakeEventHandler
     	{
 			event.getModelRegistry().putObject(ModelMarkerPole.modelResourceLocation, new ModelMarkerPole());
 	    	Object object = event.getModelRegistry().getObject(ModelCompass.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelCompass waypointCompass = new ModelCompass((IBakedModel)object);
+	        	ModelCompass waypointCompass = new ModelCompass((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelCompass.modelResourceLocation, waypointCompass);
 	        }
     	}
     	if (Config.enableDeathCompass)
     	{
 	    	Object object = event.getModelRegistry().getObject(ModelDeathCompass.modelResourceLocation);
-	        if (object instanceof IBakedModel)
+	        if (object instanceof IForgeBakedModel)
 	        {
-	        	ModelDeathCompass deathCompass = new ModelDeathCompass((IBakedModel)object);
+	        	ModelDeathCompass deathCompass = new ModelDeathCompass((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelDeathCompass.modelResourceLocation, deathCompass);
 	        }
     	}
         if (Config.enableAtlas)
         {
 	        Object object = event.getModelRegistry().getObject(ModelAtlas.modelResourceLocation);
-	        //if (object instanceof IBakedModel)
+	        //if (object instanceof IForgeBakedModel)
 	        //{
 	        	// The map in first person veiw is uneffected
-	        	ModelAtlas atlas = new ModelAtlas((IBakedModel)object);
+	        	ModelAtlas atlas = new ModelAtlas((IForgeBakedModel)object);
 	        	event.getModelRegistry().putObject(ModelAtlas.modelResourceLocation, atlas);
 	        //}
         }

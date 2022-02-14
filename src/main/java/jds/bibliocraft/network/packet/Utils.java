@@ -17,24 +17,24 @@ import jds.bibliocraft.network.BiblioNetworking;
 import jds.bibliocraft.network.packet.client.BiblioRecipeText;
 import jds.bibliocraft.tileentities.TileEntityMapFrame;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryBasic;
+//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entity.player.EntityPlayerMP;
+//import net.minecraft.init.Items;
+//import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.server.management.PlayerChunkMap;
-import net.minecraft.util.EnumFacing;
+//import net.minecraft.nbt.NBTTagCompound;
+//import net.minecraft.nbt.NBTTagFloat;
+//import net.minecraft.nbt.NBTTagList;
+//import net.minecraft.nbt.NBTTagString;
+//import net.minecraft.server.management.PlayerChunkMap;
+//import net.minecraft.util.EnumFacing;
 import net.minecraft.core.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraft.util.math.BlockPos;
+//import net.minecraft.world.World;
+//import net.minecraft.world.WorldServer;
+//import net.minecraftforge.common.util.Constants;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Utils {
     @SideOnly(Side.CLIENT)
@@ -59,7 +59,8 @@ public class Utils {
 
     @SideOnly(Side.CLIENT)
     public static void openMapGUI(EntityPlayer player, ItemStack stack) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiAtlasMap(Minecraft.getMinecraft().world, player, stack));
+        Minecraft.getInstance().displayGuiScreen(new GuiAtlasMap(Minecraft.getMinecraft().world, player, stack));
+        Minecraft.getInstance().pushGuiLayer(new GuiAtlasMap(Minecraft.getInstance().level, player, stack)); // did 'world' get replaced by 'level'? That would be super dumb, 'world' is better nomenclature
     }
 
     @SideOnly(Side.CLIENT)

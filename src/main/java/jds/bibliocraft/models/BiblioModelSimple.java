@@ -80,7 +80,7 @@ public abstract class BiblioModelSimple implements IForgeBakedModel//IDynamicBak
 	             }
 	         }
 		}
-		
+
 		OBJModel.OBJState modelState = new OBJModel.OBJState(getDefaultVisiableModelParts(), true); 
 		if (state != null && state instanceof IExtendedBlockState)
 		{
