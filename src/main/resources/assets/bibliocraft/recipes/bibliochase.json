@@ -9,28 +9,8 @@
     "key": {
         "S": [
         {
-        "item": "minecraft:wooden_slab",
-        "data": 0
-        },
-        {
-        "item": "minecraft:wooden_slab",
-        "data": 1
-        },
-        {
-        "item": "minecraft:wooden_slab",
-        "data": 2
-        },
-        {
-        "item": "minecraft:wooden_slab",
-        "data": 3
-        },
-        {
-        "item": "minecraft:wooden_slab",
-        "data": 4
-        },
-        {
-        "item": "minecraft:wooden_slab",
-        "data": 5
+        "type": "forge:ore_dict",
+        "ore": "slabWood"
         },
         {
         "item": "bibliocraft:framingboard",
