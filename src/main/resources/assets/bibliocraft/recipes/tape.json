@@ -11,8 +11,8 @@
             "item": "minecraft:string"
         },
         "D": {
-            "item": "minecraft:dye",
-            "data": 11
+            "type": "forge:ore_dict",
+            "ore": "dyeYellow"
         }
     },
     "result": {
