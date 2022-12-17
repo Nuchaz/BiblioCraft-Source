@@ -3,8 +3,8 @@
     "group": "bibliocraft",
     "ingredients": [
         {
-            "item": "minecraft:dye",
-            "data": 11
+            "type": "forge:ore_dict",
+            "ore": "dyeYellow"
         },
       [
         {
@@ -58,6 +58,10 @@
         {
         "item": "bibliocraft:lanterngold",
         "data": 12
+        },
+        {
+        "item": "bibliocraft:lanterngold",
+        "data": 13
         },
         {
         "item": "bibliocraft:lanterngold",

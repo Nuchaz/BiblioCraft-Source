@@ -3,8 +3,8 @@
     "group": "bibliocraft",
     "ingredients": [
         {
-            "item": "minecraft:dye",
-            "data": 3
+            "type": "forge:ore_dict",
+            "ore": "dyeBlack"
         },
       [
         {
@@ -61,6 +61,10 @@
         },
         {
         "item": "bibliocraft:swordpedestal",
+        "data": 13
+        },
+        {
+        "item": "bibliocraft:swordpedestal",
         "data": 14
         },
         {
@@ -71,6 +75,6 @@
     ],
     "result": {
         "item": "bibliocraft:swordpedestal",
-        "data": 15
+        "data": 3
     }
 }

@@ -12,11 +12,11 @@
         },
         "W": {
             "item": "minecraft:wool",
-            "data": 3
+            "data": 10
         }
     },
     "result": {
         "item": "bibliocraft:swordpedestal",
-        "data": 10
+        "data": 12
     }
 }

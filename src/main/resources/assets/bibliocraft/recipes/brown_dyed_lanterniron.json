@@ -3,8 +3,8 @@
     "group": "bibliocraft",
     "ingredients": [
         {
-            "item": "minecraft:dye",
-            "data": 3
+            "type": "forge:ore_dict",
+            "ore": "dyeBrown"
         },
       [
         {
@@ -58,6 +58,10 @@
         {
         "item": "bibliocraft:lanterniron",
         "data": 12
+        },
+        {
+        "item": "bibliocraft:lanterniron",
+        "data": 13
         },
         {
         "item": "bibliocraft:lanterniron",

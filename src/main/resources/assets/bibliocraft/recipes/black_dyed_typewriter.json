@@ -3,8 +3,8 @@
     "group": "bibliocraft",
     "ingredients": [
         {
-            "item": "minecraft:dye",
-            "data": 3
+            "type": "forge:ore_dict",
+            "ore": "dyeBlack"
         },
       [
         {
@@ -61,6 +61,10 @@
         },
         {
         "item": "bibliocraft:typewriter",
+        "data": 13
+        },
+        {
+        "item": "bibliocraft:typewriter",
         "data": 14
         },
         {
@@ -71,6 +75,6 @@
     ],
     "result": {
         "item": "bibliocraft:typewriter",
-        "data": 15
+        "data": 3
     }
 }

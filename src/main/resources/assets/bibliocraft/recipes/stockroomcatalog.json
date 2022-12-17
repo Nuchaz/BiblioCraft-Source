@@ -11,8 +11,8 @@
             "item": "minecraft:paper"
         },
         "D": {
-            "item": "minecraft:dye",
-            "data": 2
+            "type": "forge:ore_dict",
+            "ore": "dyeGreen"
         },
         "B": {
             "item": "minecraft:writable_book"
