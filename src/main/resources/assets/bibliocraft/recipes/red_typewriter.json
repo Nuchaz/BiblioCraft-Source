@@ -22,11 +22,11 @@
         },
         "W": {
             "item": "minecraft:stained_hardened_clay",
-            "data": 6
+            "data": 14
         }
     },
     "result": {
         "item": "bibliocraft:typewriter",
-        "data": 14
+        "data": 4
     }
 }
